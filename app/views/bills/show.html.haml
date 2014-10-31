@@ -22,13 +22,15 @@
   %tbody
     - @recurrences.each do |recurrence|
       %tr
-        %td= recurrence.frequency
+        %td= recurrence.static_amount
+        %td= recurrence.amount
+        %td= recurrence.active_at
         - if recurrence.expires_at
-          %td= recurrence.expires_at
+          %td= recurrence.expires_at.to_date
         %td= recurrence.interval
 
 .panel
-  = render 'recurrences/form', :bill_id => @bill.id
+  = render 'recurrences/form', :bill => @bill
 
 
 = link_to 'Edit', edit_bill_path(@bill)

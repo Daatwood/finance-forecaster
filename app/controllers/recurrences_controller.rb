@@ -41,6 +41,6 @@ class RecurrencesController < ApplicationController
     end
 
     def recurrence_params
-      params.require(:recurrence).permit(:bill_id,:frequency,:interval)
+      params.require(:recurrence).permit(:bill_id,:frequency,:interval,:active_at,:expires_at,:static_amount,:amount)
     end
 end

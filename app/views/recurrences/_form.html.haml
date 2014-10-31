@@ -8,10 +8,18 @@
         - @recurrence.errors.full_messages.each do |message|
           %li= message
 
+  = f.label :active_at
+  = f.text_field :active_at, value: DateTime.now.to_date
+  = f.label :expires_at
+  = f.text_field :expires_at, value: DateTime.now.to_date
   = f.label :frequency
   = f.select :frequency, options_for_select([['Daily', 'DAILY'],['Weekly', 'WEEKLY'],['Monthly', 'MONTHLY'],['Yearly', 'YEARLY']])
   = f.label :interval
-  = f.text_field :interval
-  = f.hidden_field :bill_id, value: bill_id
+  = f.text_field :interval, value: 1
+  = f.label :static_amount
+  = f.check_box :static_amount
+  = f.label :amount
+  = f.text_field :amount, value: bill.amount
+  = f.hidden_field :bill_id, value: bill.id
   .actions
     = f.submit

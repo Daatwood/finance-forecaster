@@ -9,7 +9,7 @@ class BillsController < ApplicationController
 
   def show
     @recurrences = @bill.recurrences
-    @recurrence = @bill.recurrences.new
+    @recurrence = Recurrence.new
     respond_with(@bill)
   end
 
@@ -32,6 +32,7 @@ class BillsController < ApplicationController
 
   def update
     @bill.update(bill_params)
+    @bill.recurrences.where(static_amount: false).update_all(amount: @bill.amount)
     respond_with(@bill)
   end
 
