@@ -11,4 +11,7 @@ class Bill < ActiveRecord::Base
   # Creates logical payments(an in-memory model) that is used for forecasting.
   # These logical payments can be marked 'paid' which creates payment.
   # Payments are exceptions to the recurrence rule
+
+  # Bills are templates that hold data for recurrences of themselves.
+  # Recurrences define the actual dates and repeating and even a variable amount
 end
