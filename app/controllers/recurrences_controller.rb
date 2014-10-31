@@ -1,4 +1,5 @@
 class RecurrencesController < ApplicationController
+  respond_to :html, :js, :json
   before_action :set_recurrence, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -40,6 +41,6 @@ class RecurrencesController < ApplicationController
     end
 
     def recurrence_params
-      params[:recurrence]
+      params.require(:recurrence).permit(:bill_id,:frequency,:interval)
     end
 end

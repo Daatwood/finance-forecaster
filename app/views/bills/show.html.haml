@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%h1= @bill.summary
+%table
+  %thead
+    %tr
+      %th{:colspan => "3"}
+  %tbody
+    %tr
+      %td= @bill.account.name
+      %td= @bill.bill_type
+      %td= @bill.amount
+      - if @bill.bank
+        %td= @bill.bank.name
+      - else
+        %td
+
+%table
+  %thead
+    %tr
+      %th{:colspan => "3"}
+  %tbody
+    - @recurrences.each do |recurrence|
+      %tr
+        %td= recurrence.frequency
+        - if recurrence.expires_at
+          %td= recurrence.expires_at
+        %td= recurrence.interval
+
+.panel
+  = render 'recurrences/form', :bill_id => @bill.id
+
+
+= link_to 'Edit', edit_bill_path(@bill)
+|
+\#{link_to 'Back', bills_path}

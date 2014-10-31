@@ -8,16 +8,20 @@ class BillsController < ApplicationController
   end
 
   def show
+    @recurrences = @bill.recurrences
+    @recurrence = @bill.recurrences.new
     respond_with(@bill)
   end
 
   def new
     @bill = Bill.new
     @accounts = current_user.accounts
+    @banks = current_user.banks
     respond_with(@bill)
   end
 
   def edit
+    @banks = current_user.banks
   end
 
   def create
@@ -42,6 +46,6 @@ class BillsController < ApplicationController
     end
 
     def bill_params
-      params.require(:bill).permit(:summary,:amount,:bill_type,:account_id)
+      params.require(:bill).permit(:summary,:amount,:bill_type,:account_id, :bank_id)
     end
 end

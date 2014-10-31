@@ -1,0 +1,17 @@
+= form_for(@recurrence, remote: true) do |f|
+  - if @recurrence.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@recurrence.errors.count, "error")
+        prohibited this recurrence from being saved:
+      %ul
+        - @recurrence.errors.full_messages.each do |message|
+          %li= message
+
+  = f.label :frequency
+  = f.select :frequency, options_for_select([['Daily', 'DAILY'],['Weekly', 'WEEKLY'],['Monthly', 'MONTHLY'],['Yearly', 'YEARLY']])
+  = f.label :interval
+  = f.text_field :interval
+  = f.hidden_field :bill_id, value: bill_id
+  .actions
+    = f.submit

@@ -13,7 +13,10 @@
   = f.text_field :amount
   = f.label :bill_type
   = f.select :bill_type, options_for_select([['Credit', 'CREDIT'],['Debit', 'DEBIT']])
-  = f.label :account_id
-  = f.select :account_id, options_from_collection_for_select(@accounts, 'id', 'name')
+  = f.label :bank_id
+  = f.select :bank_id, options_from_collection_for_select(@banks, 'id', 'name')
+  - if @accounts
+    = f.label :account_id
+    = f.select :account_id, options_from_collection_for_select(@accounts, 'id', 'name')
   .actions
     = f.submit

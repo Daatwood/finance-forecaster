@@ -10,8 +10,13 @@
         %td= bill.account.name
         %td= bill.bill_type
         %td= bill.amount
+        - if bill.bank
+          %td= bill.bank.name
+        - else
+          %td
         %td= link_to 'Show', bill
         %td= link_to 'Edit', edit_bill_path(bill)
         %td= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' }
 %br/
 = link_to 'New Bill', new_bill_path
+= link_to 'Back', root_url

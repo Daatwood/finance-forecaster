@@ -5,5 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :accounts
+  has_many :banks
   has_many :bills, :through => :accounts
 end
