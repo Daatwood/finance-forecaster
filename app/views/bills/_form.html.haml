@@ -1,0 +1,19 @@
+= form_for(@bill) do |f|
+  - if @bill.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@bill.errors.count, "error")
+        prohibited this bill from being saved:
+      %ul
+        - @bill.errors.full_messages.each do |message|
+          %li= message
+  = f.label :summary
+  = f.text_field :summary
+  = f.label :amount
+  = f.text_field :amount
+  = f.label :bill_type
+  = f.select :bill_type, options_for_select([['Credit', 'CREDIT'],['Debit', 'DEBIT']])
+  = f.label :account_id
+  = f.select :account_id, options_from_collection_for_select(@accounts, 'id', 'name')
+  .actions
+    = f.submit
