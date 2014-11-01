@@ -13,13 +13,13 @@ class Recurrence < ActiveRecord::Base
     current_increment = interval
     current_date = active_at.to_date
     # Create 10 instances of recurrence
-    (1..10).each do |i|
+    until current_date > Time.now.to_date + 3.months do
       if current_increment % interval == 0
         # Do additional check to make sure the current_date isnt an exception date.
 
         # create logical payment
         #puts "Logical::Payment, #{current_date} $#{amount}"
-        logical_payments << Logical::Payment.new(self,amount,current_date)
+        logical_payments << Logical::Payment.new(bill,amount,current_date)
       end
       current_increment += 1
       current_date += advance_frequency(frequency)

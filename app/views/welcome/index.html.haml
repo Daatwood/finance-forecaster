@@ -1,3 +1,17 @@
 = link_to 'Banks', banks_path
 = link_to 'Accounts', accounts_path
 = link_to 'Bills', bills_path
+
+%table
+  %thead
+    %tr
+      %th{:colspan => "3"}
+  %tbody
+    - @logicals.each do |logical|
+      %tr
+        %td= logical.date
+        - if logical.bill.bill_type == "DEBIT"
+          %td="-#{logical.amount}"
+        - else
+          %td=logical.amount
+        %td="#{logical.bill.summary} - #{logical.bill.account.name}"
