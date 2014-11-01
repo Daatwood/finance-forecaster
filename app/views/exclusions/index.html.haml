@@ -1,0 +1,17 @@
+%h1 Listing exclusions
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @exclusions.each do |exclusion|
+    %tr
+      %td= link_to 'Show', exclusion
+      %td= link_to 'Edit', edit_exclusion_path(exclusion)
+      %td= link_to 'Destroy', exclusion, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Exclusion', new_exclusion_path
