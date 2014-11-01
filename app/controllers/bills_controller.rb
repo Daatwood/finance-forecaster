@@ -10,6 +10,7 @@ class BillsController < ApplicationController
   def show
     @recurrences = @bill.recurrences
     @recurrence = Recurrence.new
+    @logicals = @bill.create_logical_payments
     respond_with(@bill)
   end
 

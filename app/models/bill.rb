@@ -14,4 +14,14 @@ class Bill < ActiveRecord::Base
 
   # Bills are templates that hold data for recurrences of themselves.
   # Recurrences define the actual dates and repeating and even a variable amount
+
+  def create_logical_payments
+    # Loop each recurrence
+    logical_payments = []
+    recurrences.each do |recur|
+      logical_payments += recur.create_logical_payments
+    end
+    logical_payments.sort! { |a,b| a.date <=> b.date }
+  end
+
 end
