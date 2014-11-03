@@ -1,3 +1,73 @@
+.container
+  .mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2{:style => "margin-top:50px"}
+    .panel.panel-primary
+      .panel-heading
+        .panel-title Info
+        %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
+          -#%a{:href => "#"} Delete?
+          = link_to 'Delete', @bill, :method => :delete, :data => { :confirm => "Delete #{@bill.summary}, Are you sure?" }, :class => "btn btn-danger btn-xs"
+      .panel-body
+        = form_for @bill, html: {role: 'form', class: 'form-horizontal'} do |f|
+          - if @bill.errors.any?
+            #error_explanation
+              %h2
+                = pluralize(@bill.errors.count, "error")
+                prohibited this bill from being saved:
+              %ul
+                - @bill.errors.full_messages.each do |message|
+                  %li= message
+          .form-group
+            %label.col-md-3.control-label{:for => "bill_summary"} Summary
+            .col-md-9
+              = f.text_field :summary, class: 'form-control'
+          .form-group
+            %label.col-md-3.control-label{:for => "bill_account_id"} Account
+            .col-md-9
+              = f.select :account_id, options_from_collection_for_select(current_user.accounts, 'id', 'name', @bill.account.id), {prompt: 'Account'}, {required: 'true', class: 'form-control'}
+          .form-group
+            %label.col-md-3.control-label{:for => "bill_bill_type"} Type
+            .col-md-9
+              = f.select :bill_type, options_for_select([['Credit', 'CREDIT'],['Debit', 'DEBIT']], @bill.bill_type), {prompt: 'Type'}, {required: 'true', class: 'form-control'}
+          .form-group
+            %label.col-md-3.control-label{:for => "bill_amount"} Amount
+            .col-md-9
+              = f.text_field :amount, class: 'form-control'
+          .form-group
+            %label.col-md-3.control-label{:for => "bill_bank_id"} Bank
+            .col-md-9
+              = f.select :bank_id, options_from_collection_for_select(current_user.banks, 'id', 'name', @bill.bank.id), {prompt: 'Bank'}, {required: 'true', class: 'form-control'}
+          .form-group
+            .col-md-offset-3.col-md-9
+              %button.btn.btn-success.btn-md.btn-group{:type => "submit"} Update
+        / %form.form-horizontal{:role => "form"}
+        /   .alert.alert-danger{:style => "display:none"}
+        /     %p Error:
+        /     %span
+        /   .form-group
+        /     %label.col-md-3.control-label{:for => "email"} Summary
+        /     .col-md-9
+        /       %input.form-control{:name => "email", :placeholder => "Email Address", :type => "text"}/
+        /   .form-group
+        /     %label.col-md-3.control-label{:for => "firstname"} Account
+        /     .col-md-9
+        /       %input.form-control{:name => "firstname", :placeholder => "First Name", :type => "text"}/
+        /   .form-group
+        /     %label.col-md-3.control-label{:for => "lastname"} Type
+        /     .col-md-9
+        /       %input.form-control{:name => "lastname", :placeholder => "Last Name", :type => "text"}/
+        /   .form-group
+        /     %label.col-md-3.control-label{:for => "password"} Amount
+        /     .col-md-9
+        /       %input.form-control{:name => "passwd", :placeholder => "Password", :type => "password"}/
+        /   .form-group
+        /     %label.col-md-3.control-label{:for => "icode"} Bank
+        /     .col-md-9
+        /       %input.form-control{:name => "icode", :placeholder => "", :type => "text"}/
+        /   .form-group
+        /     / Button
+        /     .col-md-offset-3.col-md-9
+        /       %button#btn-signup.btn.btn-success{:type => "button"} Update
+
 .row
   .col-md-10.col-md-offset-1
     %h1=@bill.summary
