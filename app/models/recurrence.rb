@@ -18,12 +18,12 @@ class Recurrence < ActiveRecord::Base
       if current_increment % interval == 0
         # create logical payment
         #puts "Logical::Payment, #{current_date} $#{amount}"
-        logical_payments << Logical::Payment.new(bill,amount,current_date)
+        amt = bill.expense? ? -amount : amount
+        logical_payments << Logical::Payment.new(current_date,bill.bank,bill.bank.balance,amt,"#{bill.summary} - #{bill.bank.name}",bill)
       end
       current_increment += 1
       current_date += advance_frequency
       unless forever?
-        "puts ending early"
         return logical_payments if current_date > expires_at.to_date
       end
     end

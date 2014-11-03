@@ -1,9 +1,13 @@
 class BillsController < ApplicationController
-  respond_to :html
+  respond_to :html, :js
+  before_action :authenticate_user!
   before_action :set_bill, only: [:show, :edit, :update, :destroy]
 
   def index
-    @bills = current_user.bills
+    @bills = current_user.bills.order(:summary)
+    @accounts = current_user.accounts
+    @bill = Bill.new
+    @banks = current_user.banks
     respond_with(@bills)
   end
 
@@ -33,9 +37,17 @@ class BillsController < ApplicationController
   end
 
   def update
-    @bill.update(bill_params)
-    @bill.recurrences.where(static_amount: false).update_all(amount: @bill.amount)
-    respond_with(@bill)
+    updated = @bill.update(bill_params)
+    @bill.recurrences.where(static_amount: false).update_all(amount: @bill.amount) if updated
+    respond_to do |format|
+      if updated
+        format.html { redirect_to(@bill, notice: 'Bill update.') }
+        format.json { respond_with_bip(@bill) }
+      else
+        format.html { render action: "edit" }
+        format.json { respond_with_bip(@bill) }
+      end
+    end
   end
 
   def destroy

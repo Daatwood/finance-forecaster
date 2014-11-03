@@ -4,7 +4,6 @@ class Bill < ActiveRecord::Base
   belongs_to :bank
   has_many :recurrences
   has_many :exclusions
-  has_many :payments
 
   validates_presence_of :summary
   validates_presence_of :amount
@@ -22,13 +21,34 @@ class Bill < ActiveRecord::Base
     # Loop each recurrence
     logical_payments = []
     recurrences.each do |recur|
-      logical_payments += recur.create_logical_payments.delete_if{|pay| valid_date?(pay.date) }
+      logical_payments += recur.create_logical_payments.delete_if{|pay| invalid_date?(pay.date) }
     end
+    #transactions.each do |payment|
+    #  logical_payments << Logical::Payment.new(self,payment.amount,payment.date, true) unless payment.date.nil?
+    #end
     logical_payments.uniq.sort! { |a,b| a.date <=> b.date }
   end
 
-  def valid_date?(date)
-    exclusions.map(&:date).include? date
+  def invalid_date?(date)
+    invalid = exclusions.map(&:date).include? date
+    invalid = transactions.map(&:date).include? date if invalid
+    invalid
+  end
+
+  def transactions
+    bank.transactions.where(bill_id: self.id)
+  end
+
+  def expense?
+    bill_type == "DEBIT"
+  end
+
+  def income?
+    bill_type == "CREDIT"
+  end
+
+  def account_name
+    account.name
   end
 
 end

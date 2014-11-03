@@ -1,5 +1,6 @@
 class ExclusionsController < ApplicationController
   respond_to :html, :js, :json
+  before_action :authenticate_user!
   before_action :set_exclusion, only: [:show, :edit, :update, :destroy]
 
   def index

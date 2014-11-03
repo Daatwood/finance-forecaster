@@ -1,0 +1,91 @@
+/ %h3 Recent Transactions
+/ %table.table.table-bordered.table-hover
+/   %thead
+/     %tr
+/       %th Date
+/       %th Balance
+/       %th Amount
+/       %th Bill
+/       %th
+/   %tbody
+/     - date = 0
+/     - balance = @balance
+/     - @transactions.each_with_index do |transaction, i|
+/       - balance += logical.amount if logical.source.is_a? Bill
+/       %tr{class: (balance < 0 ? "danger" : (balance < 500 ? "warning" : ''))}
+/         %td=logical.date.to_date
+/         - if logical.expense?
+/           %td
+/             %span.label.label-warning=logical.amount
+/         - else
+/           %td
+/             %span.label.label-success=logical.amount
+/         - if logical.source.is_a? Bill
+/           %td=balance
+/         - else
+/           %td=balance
+/         %td=logical.label
+/         %td
+/           - if logical.source.is_a? Bill
+/             -# Create payment
+/             = form_for(Transaction.new, remote: true) do |f|
+/               = f.hidden_field :summary, value: logical.label
+/               = f.hidden_field :amount, value: logical.amount
+/               = f.hidden_field :bill_id, value: logical.source.id
+/               = f.hidden_field :bank_id, value: logical.source.bank.id
+/               = f.hidden_field :date, value: logical.date
+/               = f.submit 'Mark as Paid', class: 'btn btn-primary btn-xs btn-block'
+/             -# Add Exception to bill for date.
+/             %button.btn.btn-danger.btn-xs.btn-block{:type => "button"} Cancel
+/           - else
+/             -# Is Paid.
+/             %button.btn.btn-default.btn-xs.btn-block{:disabled => "disabled",:type => "button"}  Paid
+/             -# Is a payment, cancelling will undo the payment
+/             -#%a.btn.btn-danger.btn-xs{:href => link_to('Destroy', logical.source, :method => :delete, :data => { :confirm => 'Are you sure?' }), :role => "button"} Primary link
+/             = link_to 'Destroy', logical.source, :method => :delete, :data => { :confirm => 'Are you sure?' }, :remote => true, :class => "btn btn-danger btn-xs btn-block"
+
+%h3 Forecasted Transactions
+%table.table.table-bordered.table-hover
+  %thead
+    %tr
+      %th Date
+      %th Amount
+      %th Balance
+      %th Bill
+      %th
+  %tbody
+    - date = 0
+    - balance = @balance
+    - @logicals.each_with_index do |logical, i|
+      - balance += logical.amount if logical.source.is_a? Bill
+      %tr{class: (balance < 0 ? "danger" : (balance < 500 ? "warning" : ''))}
+        %td=logical.date.to_date
+        - if logical.expense?
+          %td
+            %span.label.label-warning=logical.amount
+        - else
+          %td
+            %span.label.label-success=logical.amount
+        - if logical.source.is_a? Bill
+          %td=balance
+        - else
+          %td=balance
+        %td=logical.label
+        %td
+          - if logical.source.is_a? Bill
+            -# Create payment
+            = form_for(Transaction.new, remote: true) do |f|
+              = f.hidden_field :summary, value: logical.label
+              = f.hidden_field :amount, value: logical.amount
+              = f.hidden_field :bill_id, value: logical.source.id
+              = f.hidden_field :bank_id, value: logical.source.bank.id
+              = f.hidden_field :date, value: logical.date
+              = f.submit 'Mark as Paid', class: 'btn btn-primary btn-xs btn-block'
+            -# Add Exception to bill for date.
+            %button.btn.btn-danger.btn-xs.btn-block{:type => "button"} Cancel
+          - else
+            -# Is Paid.
+            %button.btn.btn-primary.btn-xs.btn-block{:disabled => "disabled",:type => "button"}  Paid
+            -# Is a payment, cancelling will undo the payment
+            -#%a.btn.btn-danger.btn-xs{:href => link_to('Destroy', logical.source, :method => :delete, :data => { :confirm => 'Are you sure?' }), :role => "button"} Primary link
+            = link_to 'Destroy', logical.source, :method => :delete, :data => { :confirm => 'Are you sure?' }, :remote => true, :class => "btn btn-danger btn-xs btn-block"

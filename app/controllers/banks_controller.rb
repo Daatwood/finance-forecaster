@@ -1,5 +1,6 @@
 class BanksController < ApplicationController
   respond_to :html
+  before_action :authenticate_user!
   before_action :set_bank, only: [:show, :edit, :update, :destroy]
 
   def index

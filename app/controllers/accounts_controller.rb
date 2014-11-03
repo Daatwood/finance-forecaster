@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   respond_to :html
+  before_action :authenticate_user!
   before_action :set_account, only: [:show, :edit, :update, :destroy]
 
   def index

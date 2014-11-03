@@ -1,5 +1,6 @@
 class RecurrencesController < ApplicationController
   respond_to :html, :js, :json
+  before_action :authenticate_user!
   before_action :set_recurrence, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -26,8 +27,15 @@ class RecurrencesController < ApplicationController
   end
 
   def update
-    @recurrence.update(recurrence_params)
-    respond_with(@recurrence)
+    respond_to do |format|
+      if @recurrence.update(recurrence_params)
+        format.html { redirect_to(@recurrence, notice: 'Recurrence update.') }
+        format.json { respond_with_bip(@recurrence) }
+      else
+        format.html { render action: "edit" }
+        format.json { respond_with_bip(@recurrence) }
+      end
+    end
   end
 
   def destroy

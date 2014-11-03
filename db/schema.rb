@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141101171008) do
+ActiveRecord::Schema.define(version: 20141102181906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,13 +54,6 @@ ActiveRecord::Schema.define(version: 20141101171008) do
     t.integer  "bill_id"
   end
 
-  create_table "payments", force: true do |t|
-    t.integer  "amount"
-    t.integer  "bill_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "recurrences", force: true do |t|
     t.string   "frequency",                 null: false
     t.datetime "expires_at"
@@ -69,6 +62,14 @@ ActiveRecord::Schema.define(version: 20141101171008) do
     t.datetime "active_at"
     t.integer  "amount",        default: 0
     t.boolean  "static_amount"
+  end
+
+  create_table "transactions", force: true do |t|
+    t.integer  "amount"
+    t.datetime "date"
+    t.string   "summary"
+    t.integer  "bill_id"
+    t.integer  "bank_id"
   end
 
   create_table "users", force: true do |t|

@@ -1,0 +1,54 @@
+%nav.navbar.navbar-inverse.navbar-fixed-top
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to 'Finance Forecaster', root_url, class: 'navbar-brand'
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav= render 'layouts/navigation_links'
+      %ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
+          %li
+            = link_to 'Sign Out', destroy_user_session_path, :method => :delete
+        - else
+          %li
+            = link_to 'Sign Up', new_user_registration_path
+          %li.dropdown
+            = link_to 'Sign In', new_user_session_path, class: 'dropdown-toggle', data: {"toggle" => "dropdown"}
+            %ul.dropdown-menu{style: "padding: 15px;min-width: 250px;"}
+              %li
+                =form_tag session_path(:user), id: 'login-nav', role: 'form' do
+                  .form-group
+                    %label.sr-only{:for => 'user_email' }  Email address
+                    = text_field_tag 'user[email]', nil, placeholder: 'Email Address', class: 'form-control'
+                  .form-group
+                    %label.sr-only{:for => 'user_password' } Password
+                    = password_field_tag 'user[password]', nil, placeholder: 'Password', class: 'form-control'
+                  .checkbox
+                    = check_box_tag 'user[remember_me]', "1", nil, style: "margin-left:0px;"
+                    %label{:for => 'user_remember_me' } Remember me
+                    -#= label_tag 'user[remember_me]', 'Remember me'
+                  .form-group
+                    %button.btn.btn-primary.btn-block{:type => "submit"} Sign in
+                  .form-group
+                    = link_to "Forgot your password?", new_password_path(:user), :class => "btn btn-warning btn-xs btn-block"
+                / %form#login-nav.form{"accept-charset" => "UTF-8", :action => "login", :method => "post", :role => "form"}
+                /   .form-group
+                /     %label.sr-only{:for => "exampleInputEmail2"} Email address
+                /     %input#exampleInputEmail2.form-control{:placeholder => "Email address", :required => "", :type => "email"}/
+                /   .form-group
+                /     %label.sr-only{:for => "exampleInputPassword2"} Password
+                /     %input#exampleInputPassword2.form-control{:placeholder => "Password", :required => "", :type => "password"}/
+                /   .form-group
+                /     %button.btn.btn-success.btn-block{:type => "submit"} Sign in
+
+:javascript
+  $(document).ready(function(){
+      //Handles menu drop down
+      $('.dropdown-menu').find('form').click(function (e) {
+          e.stopPropagation();
+      });
+  });
