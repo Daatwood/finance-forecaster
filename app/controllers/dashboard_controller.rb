@@ -15,24 +15,36 @@ class DashboardController < ApplicationController
     @banks.all.map{|x| @balance += x.get_balance}
     @logicals.sort! { |a,b| a.date <=> b.date }
 
-    # @logicals.sort! do |a, b|
-    #
-    #   if a.date != a.date
-    #     a.date <=> b.date
-    #   elsif !a.expense?
-    #     1
-    #   else
-    #     -1
-    #   end
-    #
-    #   # if !a.expense? == !b.expense?
-    #   #   a.date <=> b.date
-    #   # elsif !a.expense?
-    #   #   1
-    #   # else
-    #   #   -1
-    #   # end
-    # end
+    # Group Payments by date.
+    group_by_date
+    # Set summary, change and balance
+    setup_balance
 
   end
+
+  private
+
+  def group_by_date
+    @dates = {}
+    @logicals.each do |payment|
+      date = payment.date.strftime("%F")
+      if @dates[date].nil?
+        @dates[date] = {}
+      end
+      if @dates[date][:payments].nil?
+        @dates[date][:payments] = []
+      end
+      @dates[date][:payments] << payment
+    end
+  end
+
+  def setup_balance
+    balance = @balance
+    @dates.each_value do |row|
+      row[:summary] = row[:payments].map{|p| p.label}.join(", ")
+      row[:change] = row[:payments].inject(0){|cng, pay| cng + pay.amount}
+      row[:balance] = balance += row[:change]
+    end
+  end
+
 end

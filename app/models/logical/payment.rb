@@ -35,7 +35,7 @@ module Logical
       if @source.is_a? Transaction
         @label = @source.summary
       elsif @source.is_a? Bill
-        @label = "#{@source.summary} - #{@source.account.name}"
+        @label = @source.summary #"#{@source.summary} - #{@source.account.name}"
       else
         @label = "Unknown"
       end
