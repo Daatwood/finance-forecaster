@@ -1,8 +1,8 @@
-.container
-  .mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2{:style => "margin-top:50px"}
+.row
+  .mainbox.col-md-6.col-md-offset-3{:style => "margin-top:50px"}
     .panel.panel-primary
       .panel-heading
-        .panel-title Info
+        %h3.panel-title Info
         %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
           -#%a{:href => "#"} Delete?
           = link_to 'Delete', @bill, :method => :delete, :data => { :confirm => "Delete #{@bill.summary}, Are you sure?" }, :class => "btn btn-danger btn-xs"
@@ -39,89 +39,75 @@
           .form-group
             .col-md-offset-3.col-md-9
               %button.btn.btn-success.btn-md.btn-group{:type => "submit"} Update
-        / %form.form-horizontal{:role => "form"}
-        /   .alert.alert-danger{:style => "display:none"}
-        /     %p Error:
-        /     %span
-        /   .form-group
-        /     %label.col-md-3.control-label{:for => "email"} Summary
-        /     .col-md-9
-        /       %input.form-control{:name => "email", :placeholder => "Email Address", :type => "text"}/
-        /   .form-group
-        /     %label.col-md-3.control-label{:for => "firstname"} Account
-        /     .col-md-9
-        /       %input.form-control{:name => "firstname", :placeholder => "First Name", :type => "text"}/
-        /   .form-group
-        /     %label.col-md-3.control-label{:for => "lastname"} Type
-        /     .col-md-9
-        /       %input.form-control{:name => "lastname", :placeholder => "Last Name", :type => "text"}/
-        /   .form-group
-        /     %label.col-md-3.control-label{:for => "password"} Amount
-        /     .col-md-9
-        /       %input.form-control{:name => "passwd", :placeholder => "Password", :type => "password"}/
-        /   .form-group
-        /     %label.col-md-3.control-label{:for => "icode"} Bank
-        /     .col-md-9
-        /       %input.form-control{:name => "icode", :placeholder => "", :type => "text"}/
-        /   .form-group
-        /     / Button
-        /     .col-md-offset-3.col-md-9
-        /       %button#btn-signup.btn.btn-success{:type => "button"} Update
-
 .row
-  .col-md-10.col-md-offset-1
-    %h1=@bill.summary
-  .col-md-10.col-md-offset-1
-    %table
-      %thead
-        %tr
-          %th{:colspan => "3"}
-      %tbody
-        %tr
-          %td= @bill.account.name
-          %td= @bill.bill_type
-          %td= @bill.amount
-          - if @bill.bank
-            %td= @bill.bank.name
-          - else
-            %td
-
-    %table
-      %thead
-        %tr
-          %th{:colspan => "3"}
-      %tbody
-        - @logicals.each do |logical|
-          %tr
-            %td= logical.date
-            %td= logical.amount
-
-    %table
-      %thead
-        %tr
-          %th Recurrences
-          %th
-          %th Active At
-          %th Expires On
-          %th Interval
-      %tbody
-        - @recurrences.each do |recurrence|
-          %tr
-            %td= recurrence.static_amount
-            %td= recurrence.amount
-            %td= recurrence.active_at.to_date
-            %td= recurrence.expires_at.to_date
-            %td= recurrence.interval
-
-    %table
-      %thead
-        %tr
-          %th Exclusions
-      %tbody
-        - @bill.exclusions.each do |exclude|
-          %tr
-            %td= exclude.date
-
-    .panel
-      = render 'exclusions/form', :bill => @bill
-      = render 'recurrences/form', :bill => @bill
+  .col-md-8
+    .panel.panel-primary
+      .panel-heading
+        .panel-title Recurrences
+        %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
+          %button.btn.btn-info.btn-xs#new-recurrence-button{:type => "button"} Add Recurrence
+      #new-recurrence-form{style:'display:none;'}
+        = render 'recurrences/form', bill: @bill
+      .panel-body
+        %table.table.table-hover
+          %thead
+            %tr
+              %th Frozen Amount
+              %th Amount
+              %th Active At
+              %th Expires On
+              %th Interval
+          %tbody
+            - @recurrences.each do |recurrence|
+              %tr
+                %td= best_in_place recurrence, :static_amount, as: :checkbox
+                %td= best_in_place recurrence, :amount, as: :input
+                %td= best_in_place recurrence, :active_at, as: :input, :display_with => lambda { |v| v.to_date }
+                %td= best_in_place recurrence, :expires_at, as: :input, :display_with => lambda { |v| v.to_date }
+                %td= best_in_place recurrence, :frequency, as: :select, collection: {'DAILY'=>'Daily','WEEKLY'=>'Weekly','MONTHLY'=>'Monthly','YEARLY'=>'Yearly'}
+                %td= best_in_place recurrence, :interval, as: :input
+                %td
+                  =link_to 'Destroy', recurrence, :method => :delete, data: { confirm: "Deleting recurrence, Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
+  .col-md-4
+    .panel.panel-primary
+      .panel-heading
+        .panel-title Exceptions
+        %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
+          %button.btn.btn-info.btn-xs#new-exception-button{:type => "button"} Add Exception
+      #new-exception-form{style:'display:none;'}
+        = render 'exclusions/form', bill: @bill
+      .panel-body
+        %table.table.table-hover
+          %thead
+            %tr
+              %th Date
+              %th
+          %tbody
+            - @bill.exclusions.each do |exclusion|
+              %tr
+                %td= exclusion.date.to_date
+                %td
+                  =link_to 'Destroy', exclusion, :method => :delete, data: { confirm: "Deleting exclusion '#{exclusion.date.to_date}', Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
+:javascript
+  $(document).ready(function(){
+    $('#new-exception-button').click(function(){
+      $button = $('#new-exception-button')
+      $form = $('#new-exception-form')
+      $form.toggle();
+      if ($form.is(":visible") ){
+        $button.html("Cancel")
+      } else {
+        $button.html("Add Exception")
+      }
+    });
+    $('#new-recurrence-button').click(function(){
+      $button = $('#new-recurrence-button')
+      $form = $('#new-recurrence-form')
+      $form.toggle();
+      if ($form.is(":visible") ){
+        $button.html("Cancel")
+      } else {
+        $button.html("Add Recurrence")
+      }
+    });
+  });

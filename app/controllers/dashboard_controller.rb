@@ -14,5 +14,25 @@ class DashboardController < ApplicationController
     @balance = 0
     @banks.all.map{|x| @balance += x.get_balance}
     @logicals.sort! { |a,b| a.date <=> b.date }
+
+    # @logicals.sort! do |a, b|
+    #
+    #   if a.date != a.date
+    #     a.date <=> b.date
+    #   elsif !a.expense?
+    #     1
+    #   else
+    #     -1
+    #   end
+    #
+    #   # if !a.expense? == !b.expense?
+    #   #   a.date <=> b.date
+    #   # elsif !a.expense?
+    #   #   1
+    #   # else
+    #   #   -1
+    #   # end
+    # end
+
   end
 end
