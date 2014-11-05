@@ -12,7 +12,7 @@ class DashboardController < ApplicationController
     #   @logicals << Logical::Payment.new(transaction,transaction.amount,transaction.date)
     # end
     @balance = 0
-    @banks.all.map{|x| @balance += x.get_balance}
+    @banks.all.map{|x| @balance += x.balance}
     @logicals.sort! { |a,b| a.date <=> b.date }
 
     # Group Payments by date.

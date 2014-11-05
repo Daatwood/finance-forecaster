@@ -4,13 +4,16 @@ class Bank < ActiveRecord::Base
   has_many :transactions
 
   validates_presence_of :name
-  validates_presence_of :balance
 
-  def get_balance
-    if @total_balance.nil?
-      @total_balance = balance
-      transactions.order(:date).map{|trans| @total_balance += trans.amount}
-    end
-    @total_balance
+  def balance
+    @balance ||= transactions.inject(0){|bal, transaction| bal + transaction.amount}
   end
+
+  # def get_balance
+  #   if @total_balance.nil?
+  #     @total_balance = balance
+  #     transactions.order(:date).map{|trans| @total_balance += trans.amount}
+  #   end
+  #   @total_balance
+  # end
 end

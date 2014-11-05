@@ -25,13 +25,19 @@ class BanksController < ApplicationController
   end
 
   def create
-    @bank = current_user.banks.new(bank_params)
-    @bank.save
+    params = new_bank_params
+    start_balance = params.delete(:balance)
+    @bank = current_user.banks.new(params)
+    if @bank.save
+      transaction = Transaction.new(amount: start_balance, date: @bank.created_at, summary: "Initial Balance", bill_id: nil, bank_id: @bank.id)
+      p transaction.inspect
+      transaction.save
+    end
     respond_with(@bank)
   end
 
   def update
-    @bank.update(bank_params)
+    @bank.update(bank_params.delete(:balance))
     respond_with(@bank)
   end
 
@@ -45,7 +51,11 @@ class BanksController < ApplicationController
       @bank = Bank.find(params[:id])
     end
 
-    def bank_params
+    def new_bank_params
       params.require(:bank).permit(:name,:balance,:color)
+    end
+
+    def bank_params
+      params.require(:bank).permit(:name,:color)
     end
 end

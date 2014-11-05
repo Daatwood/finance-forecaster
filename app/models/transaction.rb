@@ -5,6 +5,14 @@ class Transaction < ActiveRecord::Base
   validates_presence_of :amount
   validates_presence_of :summary
 
+  def debit?
+    amount < 0
+  end
+
+  def credit?
+    amount > 0
+  end
+
   def bill_summary
     return "" if bill_id.blank?
 

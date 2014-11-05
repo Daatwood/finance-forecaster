@@ -12,8 +12,6 @@
           %ul
             - @transaction.errors.full_messages.each do |message|
               %li= message
-
-
       -if bill.nil?
         = f.hidden_field :bank_id, value: bank.id
         .form-group

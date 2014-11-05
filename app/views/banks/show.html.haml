@@ -38,8 +38,11 @@
         .panel-title Transactions
         %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
           %button.btn.btn-info.btn-xs#new-exception-button{:type => "button"} Add Transaction
+          %button.btn.btn-info.btn-xs#readjustment-button{:type => "button"} Change Balance
       #new-exception-form{style:'display:none;'}
         = render 'transactions/form', bank: @bank, bill: nil
+      #readjustment-form{style:'display:none;'}
+        = render 'transactions/readjustment', bank: @bank, bill: nil
       .panel-body
         %div.table-responsive
           %table.table.table-condensed.table-hover
@@ -65,10 +68,22 @@
       $button = $('#new-exception-button')
       $form = $('#new-exception-form')
       $form.toggle();
+      $('#readjustment-button').toggle();
       if ($form.is(":visible") ){
         $button.html("Cancel")
       } else {
         $button.html("Add Transaction")
+      }
+    });
+    $('#readjustment-button').click(function(){
+      $button = $('#readjustment-button')
+      $form = $('#readjustment-form')
+      $form.toggle();
+      $('#new-exception-button').toggle();
+      if ($form.is(":visible") ){
+        $button.html("Cancel")
+      } else {
+        $button.html("Change Balance")
       }
     });
   });

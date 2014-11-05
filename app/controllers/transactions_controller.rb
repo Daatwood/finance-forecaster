@@ -21,13 +21,20 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = Transaction.new(transaction_params)
+    params = transaction_params
+    if params[:summary] == "Readjustment"
+      bank = Bank.find(params[:bank_id])
+      new_balance = params.delete(:amount).to_i
+      params[:amount] = new_balance - bank.balance
+    end
+
+    @transaction = Transaction.new(params)
     @transaction.save
     respond_with(@transaction)
   end
 
   def update
-    @transaction.update(transaction_params)
+    @transaction.update(params)
     respond_with(@transaction)
   end
 

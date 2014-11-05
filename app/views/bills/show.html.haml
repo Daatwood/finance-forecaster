@@ -52,19 +52,21 @@
       #new-exception-form{style:'display:none;'}
         = render 'transactions/form', bill: @bill
       .panel-body
-        %table.table.table-hover
-          %thead
-            %tr
-              %th Date
-              %th
-          %tbody
-            - @transactions.each do |transaction|
+        %div.table-responsive
+          %table.table.table-condensed.table-hover
+            %thead
               %tr
-                %td= best_in_place transaction, :date, as: :input, :display_with => lambda { |v| v.to_date }
-                %td= best_in_place transaction, :summary, as: :input
-                %td= best_in_place transaction, :amount, as: :input
-                %td
-                  =link_to 'Destroy', transaction, :method => :delete, data: { confirm: "Deleting transaction '#{transaction.summary}', Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
+                %th Date
+                %th Summary
+                %th Amount
+            %tbody
+              - @transactions.each do |transaction|
+                %tr
+                  %td= best_in_place transaction, :date, as: :input, :display_with => lambda { |v| v.to_date }
+                  %td= best_in_place transaction, :summary, as: :input
+                  %td= best_in_place transaction, :amount, as: :input
+                  %td
+                    =link_to 'Destroy', transaction, :method => :delete, data: { confirm: "Deleting transaction '#{transaction.summary}', Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
 
 .row
   .col-md-10.col-md-offset-1
@@ -76,46 +78,27 @@
       #new-recurrence-form{style:'display:none;'}
         = render 'recurrences/form', bill: @bill
       .panel-body
-        %table.table.table-hover
-          %thead
-            %tr
-              %th Frozen
-              %th Amount
-              %th Active At
-              %th Expires On
-              %th Frequency
-              %th Interval
-          %tbody
-            - @recurrences.each do |recurrence|
+        %div.table-responsive
+          %table.table.table-condensed.table-hover
+            %thead
               %tr
-                %td= best_in_place recurrence, :static_amount, as: :checkbox
-                %td= best_in_place recurrence, :amount, as: :input
-                %td= best_in_place recurrence, :active_at, as: :input, :display_with => lambda { |v| v.to_date }
-                %td= best_in_place recurrence, :expires_at, as: :input, :display_with => lambda { |v| v.to_date }
-                %td= best_in_place recurrence, :frequency, as: :select, collection: {'DAILY'=>'Daily','WEEKLY'=>'Weekly','MONTHLY'=>'Monthly','YEARLY'=>'Yearly'}
-                %td= best_in_place recurrence, :interval, as: :input
-                %td
-                  =link_to 'Destroy', recurrence, :method => :delete, data: { confirm: "Deleting recurrence, Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
-  / .col-md-4
-  /   .panel.panel-primary
-  /     .panel-heading
-  /       .panel-title Exceptions
-  /       %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
-  /         %button.btn.btn-info.btn-xs#new-exception-button{:type => "button"} Add Exception
-  /     #new-exception-form{style:'display:none;'}
-  /       = render 'transactions/form', bill: @bill
-  /     .panel-body
-  /       %table.table.table-hover
-  /         %thead
-  /           %tr
-  /             %th Date
-  /             %th
-  /         %tbody
-  /           - @bill.exclusions.each do |exclusion|
-  /             %tr
-  /               %td= exclusion.date.to_date
-  /               %td
-  /                 =link_to 'Destroy', exclusion, :method => :delete, data: { confirm: "Deleting exclusion '#{exclusion.date.to_date}', Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
+                %th Frozen
+                %th Amount
+                %th Active At
+                %th Expires On
+                %th Frequency
+                %th Interval
+            %tbody
+              - @recurrences.each do |recurrence|
+                %tr
+                  %td= best_in_place recurrence, :static_amount, as: :checkbox
+                  %td= best_in_place recurrence, :amount, as: :input
+                  %td= best_in_place recurrence, :active_at, as: :input, :display_with => lambda { |v| v.to_date }
+                  %td= best_in_place recurrence, :expires_at, as: :input, :display_with => lambda { |v| v.to_date }
+                  %td= best_in_place recurrence, :frequency, as: :select, collection: {'DAILY'=>'Daily','WEEKLY'=>'Weekly','MONTHLY'=>'Monthly','YEARLY'=>'Yearly'}
+                  %td= best_in_place recurrence, :interval, as: :input
+                  %td
+                    =link_to 'Destroy', recurrence, :method => :delete, data: { confirm: "Deleting recurrence, Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
 
 :javascript
   $(document).ready(function(){

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141105074411) do
+ActiveRecord::Schema.define(version: 20141105215956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,8 +31,7 @@ ActiveRecord::Schema.define(version: 20141105074411) do
   end
 
   create_table "banks", force: true do |t|
-    t.integer  "balance",    default: 0
-    t.string   "name",                   null: false
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
