@@ -12,10 +12,12 @@ class BillsController < ApplicationController
   end
 
   def show
+    @transaction = Transaction.new
     @recurrences = @bill.recurrences
     @recurrence = Recurrence.new
     @exclusion = Exclusion.new
-    @logicals = @bill.create_logical_payments
+    @banks = current_user.banks
+    @transactions = current_user.transactions.where(bill_id: @bill.id)
     respond_with(@bill)
   end
 
