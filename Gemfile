@@ -19,6 +19,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # Authentication
 gem 'devise'
 gem 'devise_invitable', '~> 1.3.4'
+gem 'postmark-rails'
 # Edit in place
 gem "best_in_place"
 # Bootstrap 3 Colorpicker
@@ -40,6 +41,11 @@ gem 'spring',        group: :development
 gem 'rails_12factor', group: :production
 
 gem 'bootstrap-addons-rails', group: :assets
+
+# Open email instantly in browser
+group :development, :local, :staging do
+  gem "letter_opener"
+end
 
 # Send pushover notifications
 #gem 'rushover'
