@@ -18,6 +18,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 # Authentication
 gem 'devise'
+gem 'devise_invitable', '~> 1.3.4'
 # Edit in place
 gem "best_in_place"
 # Bootstrap 3 Colorpicker
