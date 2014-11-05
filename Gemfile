@@ -20,6 +20,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'devise'
 # Edit in place
 gem "best_in_place"
+# Bootstrap 3 Colorpicker
+gem 'jquery-minicolors-rails'
 # Use haml as the templating engine
 gem 'haml-rails'
 # Use jquery as the JavaScript library

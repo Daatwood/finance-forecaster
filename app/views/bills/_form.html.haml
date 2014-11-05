@@ -9,6 +9,7 @@
           %ul
             - @bill.errors.full_messages.each do |message|
               %li= message
+      = f.hidden_field :color, value: "##{"%06x" % (rand * 0xffffff)}"
       .form-group
         = f.label :summary, class: 'sr-only'
         = f.text_field :summary, placeholder: 'Summary', class: 'form-control'
