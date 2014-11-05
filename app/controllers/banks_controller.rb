@@ -1,10 +1,11 @@
 class BanksController < ApplicationController
-  respond_to :html
+  respond_to :html, :js
   before_action :authenticate_user!
   before_action :set_bank, only: [:show, :edit, :update, :destroy]
 
   def index
     @banks = current_user.banks
+    @bank = Bank.new
     respond_with(@banks)
   end
 
@@ -42,6 +43,6 @@ class BanksController < ApplicationController
     end
 
     def bank_params
-      params.require(:bank).permit(:name,:balance)
+      params.require(:bank).permit(:name,:balance,:color)
     end
 end

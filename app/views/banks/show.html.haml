@@ -1,6 +1,32 @@
-%p#notice= notice
-
-
-= link_to 'Edit', edit_bank_path(@bank)
-\|
-= link_to 'Back', banks_path
+.row
+  .mainbox.col-md-6.col-md-offset-3{:style => "margin-top:50px"}
+    .panel.panel-primary
+      .panel-heading
+        %h3.panel-title Info
+        %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
+          = link_to 'Delete', @bank, :method => :delete, :data => { :confirm => "Delete #{@bank.name}, Are you sure?" }, :class => "btn btn-danger btn-xs"
+      .panel-body
+        = form_for @bank, html: {role: 'form', class: 'form-horizontal'} do |f|
+          - if @bank.errors.any?
+            #error_explanation
+              %h2
+                = pluralize(@bank.errors.count, "error")
+                prohibited this bank from being saved:
+              %ul
+                - @bank.errors.full_messages.each do |message|
+                  %li= message
+          .form-group
+            %label.col-md-3.control-label{:for => "bank_name"} Bame
+            .col-md-9
+              = f.text_field :name, class: 'form-control'
+          .form-group
+            %label.col-md-3.control-label{:for => "bank_balance"} Balance
+            .col-md-9
+              = f.text_field :balance, class: 'form-control'
+          .form-group
+            %label.col-md-3.control-label{:for => "account_color"} Color
+            .col-md-9
+              = f.text_field :color, class: 'minicolors form-control', :style => "height:34px;"
+          .form-group
+            .col-md-offset-3.col-md-9
+              %button.btn.btn-success.btn-md.btn-group{:type => "submit"} Update

@@ -16,7 +16,7 @@
                 - @account.errors.full_messages.each do |message|
                   %li= message
           .form-group
-            %label.col-md-3.control-label{:for => "account_name"} Summary
+            %label.col-md-3.control-label{:for => "account_name"} Name
             .col-md-9
               = f.text_field :name, class: 'form-control'
           .form-group
