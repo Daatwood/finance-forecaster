@@ -11,19 +11,22 @@
         %table.table.table-condensed.table-hover
           %thead
             %tr
-              %th Bank
-              %th Balance
-              %th{colspan:"2"} Actions
+              %th Name
+              %th
+                .pull-right Balance
+              %th
           %tbody
             - @banks.each do |bank|
               %tr
                 - color = bank.color
                 %td= link_to bank.name, bank, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%"
-                %td= bank.balance
                 %td
-                  =link_to 'More Info', bank, :class => "btn btn-success btn-xs btn-block"
+                  .pull-right
+                    = bank.balance
                 %td
-                  =link_to 'Destroy', bank, :method => :delete, data: { confirm: "Deleting banks '#{bank.name}', Are you sure?" }, :class => "btn btn-danger btn-xs btn-block"
+                  .pull-right
+                    =link_to 'More Info', bank, :class => "btn btn-success btn-xs"
+                    =link_to 'Destroy', bank, :method => :delete, data: { confirm: "Deleting banks '#{bank.name}', Are you sure?" }, :class => "btn btn-danger btn-xs"
 :javascript
   $(document).ready(function(){
     $('#new-bank-button').click(function(){

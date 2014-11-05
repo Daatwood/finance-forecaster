@@ -11,9 +11,9 @@
         %table.table.table-condensed.table-hover
           %thead
             %tr
-              %th Account
+              %th Name
               %th Website
-              %th{colspan:"2"} Actions
+              %th
           %tbody
             - @accounts.each do |account|
               %tr
@@ -21,9 +21,9 @@
                 %td= link_to account.name, account, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%"
                 %td= account.website
                 %td
-                  =link_to 'More Info', account, :class => "btn btn-success btn-xs btn-block"
-                %td
-                  =link_to 'Destroy', account, :method => :delete, data: { confirm: "Deleting account '#{account.name}', Are you sure?" }, :class => "btn btn-danger btn-xs btn-block"
+                  .pull-right
+                    =link_to 'More Info', account, :class => "btn btn-success btn-xs"
+                    =link_to 'Destroy', account, :method => :delete, data: { confirm: "Deleting account '#{account.name}', Are you sure?" }, :class => "btn btn-danger btn-xs"
 :javascript
   $(document).ready(function(){
     $('#new-account-button').click(function(){

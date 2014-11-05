@@ -11,30 +11,26 @@
         %table.table.table-condensed.table-hover
           %thead
             %tr
-              %th
-              %th Bill
+              %th Name
               %th Account
-              %th Type
               %th Amount
               %th Bank
-              %th Actions
+              %th
           %tbody
             - @bills.each do |bill|
               %tr
-                %td.info{style: "background-color:#{lighten_color bill.color, 0.1}"}
-                //  .row.show-grid
-                //    .col-md-1{style: "background-color:#{bill.color};width:0.1em;"}
-                %td= best_in_place bill, :summary, as: :input
+                - color = bill.color
+                %td= link_to bill.summary, bill, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%;"
                 - color = bill.account.color
-                %td= link_to bill.account.name, bill.account, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
-                -#= best_in_place bill, :account, :type => :select, nil: "Uhoh", display_as: :account_name, collection: accounts_bip_collection(@accounts)
-                %td= best_in_place bill, :bill_type, as: :select, collection: {"CREDIT"=>"Credit","DEBIT"=>"Debit"}, class: "label label-#{bill.bill_type.downcase}" #class: %span.label.label-info Info #bill.bill_type
-                %td= best_in_place bill, :amount, as: :input
+                %td= link_to bill.account.name, bill.account, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%;"
+                %td
+                  %span.label{class: "label-#{bill.bill_type.downcase}"}= bill.amount
                 - color = bill.bank.color
                 %td= link_to bill.bank.name, bill.bank, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
                 %td
-                  =link_to 'More Info', bill, :class => "btn btn-success btn-xs btn-block"
-                  =link_to 'Destroy', bill, :method => :delete, data: { confirm: "Deleting bill '#{bill.summary}', Are you sure?" }, :class => "btn btn-danger btn-xs btn-block"
+                  .pull-right
+                    =link_to 'More Info', bill, :class => "btn btn-success btn-xs"
+                    =link_to 'Destroy', bill, :method => :delete, data: { confirm: "Deleting bill '#{bill.summary}', Are you sure?" }, :class => "btn btn-danger btn-xs"
 :javascript
   $(document).ready(function(){
     $('#new-bill-button').click(function(){
