@@ -1,21 +1,25 @@
-= form_for(@account) do |f|
-  - if @account.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@account.errors.count, "error")
-        prohibited this account from being saved:
-      %ul
-        - @account.errors.full_messages.each do |message|
-          %li= message
-  = f.label :name
-  = f.text_field :name
-  = f.label :phone
-  = f.text_field :phone
-  = f.label :address
-  = f.text_field :address
-  = f.label :account_number
-  = f.text_field :account_number
-  = f.label :website
-  = f.text_field :website
-  .actions
-    = f.submit
+.row
+  .col-md-12.well
+    = form_for @account, html: {role: 'form', class: 'form-inline', remote: true} do |f|
+      - if @account.errors.any?
+        #error_explanation
+          %h2
+            = pluralize(@account.errors.count, "error")
+            prohibited this account from being saved:
+          %ul
+            - @account.errors.full_messages.each do |message|
+              %li= message
+      = f.hidden_field :color, value: "##{"%06x" % (rand * 0xffffff)}"
+      - color = "##{"%06x" % (rand * 0xffffff)}"
+      .form-group
+        = f.label :name, class: 'sr-only'
+        = f.text_field :name, placeholder: 'Name', class: 'form-control'
+      .form-group
+        = f.label :website, class: 'sr-only'
+        = f.text_field :website, placeholder: 'Website', class: 'form-control'
+      .form-group
+        = f.label :color, class: 'sr-only'
+        = f.text_field :color, value: color, class: 'minicolors form-control', :style => "height:34px;"
+        -#= f.text_field :account_number, placeholder: 'Account Number', class: 'form-control'
+      .form-group
+        %button.btn.btn-primary.btn-md.btn-group{:type => "submit"} Create
