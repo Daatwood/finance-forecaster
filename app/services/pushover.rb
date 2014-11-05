@@ -16,7 +16,7 @@ module Pushover
       new(*args).call
     end
 
-    def initialize(user, message, title)
+    def initialize(user, title, message)
       @user = user
       @message = message
       @title = title
