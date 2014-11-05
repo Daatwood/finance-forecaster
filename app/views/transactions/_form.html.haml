@@ -12,20 +12,29 @@
           %ul
             - @transaction.errors.full_messages.each do |message|
               %li= message
-      = f.hidden_field :bill_id, value: bill.id
-      = f.hidden_field :bank_id, value: bill.bank_id
+
+
+      -if bill.nil?
+        = f.hidden_field :bank_id, value: bank.id
+        .form-group
+          %label.col-md-3.control-label{:for => "transaction_bill_id"} Bill Reference
+          .col-md-9
+            = f.select :bill_id, options_from_collection_for_select(@bills, 'id', 'summary'), {include_blank: true}, { class: 'form-control'}
+      -else
+        = f.hidden_field :bill_id, value: bill.id
+        = f.hidden_field :bank_id, value: bill.bank_id
       .form-group
-        %label.col-md-3.control-label{:for => "transaction_aate"} Date
+        %label.col-md-3.control-label{:for => "transaction_date"} Date
         .col-md-9
           = f.text_field :date, value: Time.now.strftime("%F"), placeholder: '(YYYY-MM-DD)', class: 'form-control'
       .form-group
         %label.col-md-3.control-label{:for => "transaction_summary"} Summary
         .col-md-9
-          = f.text_field :summary, value: "#{bill.summary} (#{bill.account.name})",class: 'form-control'
+          = f.text_field :summary, value: default_summary(bill) ,class: 'form-control'
       .form-group
         %label.col-md-3.control-label{:for => "transaction_amount"} Amount
         .col-md-9
-          = f.text_field :amount, value: bill.amount, class: 'form-control'
+          = f.text_field :amount, value: default_amount(bill), class: 'form-control'
       .form-group
         .col-md-offset-3.col-md-9
           %button.btn.btn-success.btn-md.btn-group{:type => "submit"} Create

@@ -10,6 +10,9 @@ class BanksController < ApplicationController
   end
 
   def show
+    @transaction = Transaction.new
+    @transactions = @bank.transactions
+    @bills = current_user.bills
     respond_with(@bank)
   end
 
