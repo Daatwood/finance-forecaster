@@ -129,6 +129,11 @@
   display: inline-block;
 }
 
+.col-sm-12 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 @media (max-width:767px) {
     #wrapper {
     padding-left: 0px;

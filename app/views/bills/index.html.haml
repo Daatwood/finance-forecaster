@@ -1,36 +1,34 @@
-.row
-  .col-md-12
-    .panel.panel-primary.filterable
-      .panel-heading
-        %h3.panel-title Bills
-        .pull-right
-          %button.btn.btn-info.btn-xs#new-bill-button{:type => "button"} New Bill
-      #new-bill-form{style:'display:none;'}
-        = render 'bills/form'
-      %div.table-responsive
-        %table.table.table-condensed.table-hover
-          %thead
-            %tr
-              %th Name
-              %th Account
-              %th Amount
-              %th Bank
-              %th
-          %tbody
-            - @bills.each do |bill|
-              %tr
-                - color = bill.color
-                %td= link_to bill.summary, bill, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%;"
-                - color = bill.account.color
-                %td= link_to bill.account.name, bill.account, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%;"
-                %td
-                  %span.label{class: "label-#{bill.bill_type.downcase}"}= bill.amount
-                - color = bill.bank.color
-                %td= link_to bill.bank.name, bill.bank, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
-                %td
-                  .pull-right.btn-group
-                    =link_to 'More Info', bill, :class => "btn btn-success btn-xs"
-                    =link_to 'Destroy', bill, :method => :delete, data: { confirm: "Deleting bill '#{bill.summary}', Are you sure?" }, :class => "btn btn-danger btn-xs"
+.panel.panel-primary.filterable
+  .panel-heading
+    %h3.panel-title Bills
+    .pull-right
+      %button.btn.btn-info.btn-xs#new-bill-button{:type => "button"} New Bill
+  #new-bill-form{style:'display:none;'}
+    = render 'bills/form'
+  %div.table-responsive
+    %table.table.table-condensed.table-hover
+      %thead
+        %tr
+          %th Name
+          %th Account
+          %th Amount
+          %th Bank
+          %th
+      %tbody
+        - @bills.each do |bill|
+          %tr
+            - color = bill.color
+            %td= link_to bill.summary, bill, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%;"
+            - color = bill.account.color
+            %td= link_to bill.account.name, bill.account, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%;"
+            %td
+              %span.label{class: "label-#{bill.bill_type.downcase}"}= bill.amount
+            - color = bill.bank.color
+            %td= link_to bill.bank.name, bill.bank, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
+            %td
+              .pull-right.btn-group
+                =link_to 'More Info', bill, :class => "btn btn-success btn-xs"
+                =link_to 'Destroy', bill, :method => :delete, data: { confirm: "Deleting bill '#{bill.summary}', Are you sure?" }, :class => "btn btn-danger btn-xs"
 :javascript
   $(document).ready(function(){
     $('#new-bill-button').click(function(){

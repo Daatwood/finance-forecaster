@@ -6,12 +6,12 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to 'Finance Forecaster', root_url, class: 'navbar-brand'
+      .navbar-brand
+        = link_to 'Finance Forecaster', root_url
     .collapse.navbar-collapse
       - if user_signed_in?
         .visible-xs-block
-          %ul.nav.navbar-nav
-            = render 'layouts/navigation_links'
+          = render 'layouts/navigation_links'
         .hidden-xs
           %ul.nav.navbar-nav.navbar-right
             %li.dropdown
