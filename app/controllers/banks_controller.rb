@@ -37,7 +37,7 @@ class BanksController < ApplicationController
   end
 
   def update
-    @bank.update(bank_params.delete(:balance))
+    @bank.update(bank_params)
     respond_with(@bank)
   end
 
