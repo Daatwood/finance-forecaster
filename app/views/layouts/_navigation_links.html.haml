@@ -1,0 +1,5 @@
+%li= link_to 'Accounts', accounts_path, class: 'navbar-btn btn', role: 'button'
+%li= link_to 'Banks', banks_path, class: 'navbar-btn btn', role: 'button'
+%li= link_to 'Bills', bills_path, class: 'navbar-btn btn', role: 'button'
+%li= link_to current_user.email, edit_user_registration_path, class: 'navbar-btn btn', role: 'button'
+%li= link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'navbar-btn btn', role: 'button'

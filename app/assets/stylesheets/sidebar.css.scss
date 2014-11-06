@@ -131,14 +131,14 @@
 
 @media (max-width:767px) {
     #wrapper {
-    padding-left: 70px;
+    padding-left: 0px;
     transition: all .4s ease 0s;
   }
   #sidebar-wrapper {
     left: 70px;
   }
   #wrapper.active {
-    padding-left: 150px;
+    padding-left: 0px;
   }
   #wrapper.active #sidebar-wrapper {
     left: 150px;
