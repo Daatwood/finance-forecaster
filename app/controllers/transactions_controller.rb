@@ -34,8 +34,16 @@ class TransactionsController < ApplicationController
   end
 
   def update
-    @transaction.update(params)
-    respond_with(@transaction)
+    updated = @transaction.update(transaction_params)
+    respond_to do |format|
+      if updated
+        format.html { redirect_to(@transaction, notice: 'Transaction update.') }
+        format.json { respond_with_bip(@transaction) }
+      else
+        format.html { render action: "edit" }
+        format.json { respond_with_bip(@transaction) }
+      end
+    end
   end
 
   def destroy

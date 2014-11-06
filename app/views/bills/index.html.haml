@@ -28,7 +28,7 @@
                 - color = bill.bank.color
                 %td= link_to bill.bank.name, bill.bank, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
                 %td
-                  .pull-right
+                  .pull-right.btn-group
                     =link_to 'More Info', bill, :class => "btn btn-success btn-xs"
                     =link_to 'Destroy', bill, :method => :delete, data: { confirm: "Deleting bill '#{bill.summary}', Are you sure?" }, :class => "btn btn-danger btn-xs"
 :javascript
