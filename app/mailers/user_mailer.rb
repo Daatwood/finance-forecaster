@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
   include Devise::Mailers::Helpers
 
-  default from: "noreply@ryknzu.com"
+  default from: "contact@ryknzu.com"
 
   def confirmation_instructions(record)
     devise_mail(record, :confirmation_instructions)

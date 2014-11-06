@@ -43,7 +43,7 @@ gem 'rails_12factor', group: :production
 gem 'bootstrap-addons-rails', group: :assets
 
 # Open email instantly in browser
-group :development, :local, :staging do
+group :development, :local do
   gem "letter_opener"
 end
 
