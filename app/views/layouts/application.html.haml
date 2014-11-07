@@ -1,25 +1,42 @@
 !!!
-%html
+%html{style: "height:100%"}
   %head
-    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %title= content_for?(:title) ? yield(:title) : "Finance Forecaster"
     %meta{:content => content_for?(:description) ? yield(:description) : "Finance Forecaster", :name => "description"}/
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
-  %body
-    %header= render 'layouts/navigation'
-    %main{:role => "main"}
-      #wrapper.active
-        - if user_signed_in?
-          #sidebar-wrapper.hidden-xs
-            %ul#sidebar_menu.sidebar-nav
-              %li.sidebar-brand= link_to 'Dashboard', dashboard_path
-            %ul#sidebar.sidebar-nav= render 'layouts/side_navigation_links'
-        #page-content-wrapper
-          .page-content-wrapper
-            .page-content.inset
-              .row
-                .col-md-12.col-sm-12
-                  = render 'layouts/messages'
-                  = yield
+    - unless user_signed_in?
+      %body{style: "height:100%"}
+        .welcome-body
+          .site-wrapper
+            .site-wrapper-inner
+              .cover-container
+                .masthead.clearfix
+                  .inner
+                    %header= render 'layouts/navigation'
+                .inner.cover
+                  %h1.cover-heading Make your Plan.
+                  %p.lead Take charge of your expenses. Finance Forecaster will assists you in devising a plan to divide, conquer and predict your finances. Be prepared, get your invite now.
+                  %p.lead
+                    %a.btn.btn-lg.btn-welcome{:href => "mailto:invite@ryknzu.com?subject=Invite please."} Get invite
+                .mastfoot
+                  .inner
+                    %p © Dustin Atwood 2014
+    - else
+      %body
+        %header= render 'layouts/navigation'
+        %main{:role => "main"}
+          #wrapper.active
+            #sidebar-wrapper.hidden-xs
+              %ul#sidebar_menu.sidebar-nav
+                %li.sidebar-brand= link_to 'Dashboard', dashboard_path
+              %ul#sidebar.sidebar-nav= render 'layouts/side_navigation_links'
+            #page-content-wrapper
+              .page-content-wrapper
+                .page-content.inset
+                  .row
+                    .col-md-12.col-sm-12
+                      = render 'layouts/messages'
+                      = yield

@@ -1,4 +1,4 @@
-%nav.navbar.navbar-inverse.navbar-fixed-top
+%nav.navbar.navbar-fixed-top.navbar-inverse{role: 'navigation'}
   .container
     .navbar-header
       %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
@@ -24,8 +24,10 @@
               = link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'navbar-link'
       - else
         %ul.nav.navbar-nav.navbar-right
+          %li
+            %a{:href => "mailto:contact@ryknzu.com?subject=Contact"} Contact
           %li.dropdown
-            = link_to 'Sign In', new_user_session_path, class: 'dropdown-toggle', data: {"toggle" => "dropdown"}
+            = link_to 'Sign In', new_user_session_path, class: 'dropdown-toggle navbar-link', data: {"toggle" => "dropdown"}
             %ul.dropdown-menu{style: "padding: 15px;min-width: 250px;"}
               %li
                 =form_tag session_path(:user), id: 'login-nav', role: 'form' do

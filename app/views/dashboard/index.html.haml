@@ -1,5 +1,9 @@
-%h3 Forecasted Transactions
-%div.table-responsive
+.panel.panel-primary.filterable
+  .panel-heading
+    %h3.panel-title Forecasted Transactions
+    .pull-right
+      ="Starting Balance: #{@balance}"
+  %div.table-responsive
   %table.table.table-condensed.table-hover
     %thead
       %tr
