@@ -39,11 +39,19 @@ class DashboardController < ApplicationController
   end
 
   def setup_balance
+    @alerts = {}
     balance = @balance
-    @dates.each_value do |row|
+    @dates.each do |date, row|
       row[:summary] = row[:payments].map{|p| p.label}.join(", ")
       row[:change] = row[:payments].inject(0){|cng, pay| cng + pay.amount}
       row[:balance] = balance += row[:change]
+      if balance < 0
+        row[:alert] = 'danger'
+        @alerts[date] = {alert: 'Account below Zero', balance: balance}
+      elsif balance < 350
+        row[:alert] = 'warning'
+        @alerts[date] = {alert: 'Account below Warning', balance: balance}
+      end
     end
   end
 
