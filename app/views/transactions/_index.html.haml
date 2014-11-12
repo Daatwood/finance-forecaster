@@ -1,0 +1,17 @@
+%div.table-responsive
+  %table.table.table-condensed.table-hover
+    %thead
+      %tr
+        %th Date
+        %th Description
+        %th Amount
+        %th Belongs to
+    %tbody
+      - transactions.each do |transaction|
+        %tr
+          %td= best_in_place transaction, :date, as: :input, :display_with => lambda { |v| v.to_date }
+          %td= best_in_place transaction, :summary, as: :input
+          %td= best_in_place transaction, :amount, as: :input
+          %td= transaction.bill_summary
+          %td
+            =link_to 'Destroy', transaction, :method => :delete, data: { confirm: "Deleting transaction '#{transaction.summary}', Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"

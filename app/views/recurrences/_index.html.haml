@@ -1,0 +1,21 @@
+%div.table-responsive
+  %table.table.table-condensed.table-hover
+    %thead
+      %tr
+        %th Frozen
+        %th Amount
+        %th Active At
+        %th Expires On
+        %th Frequency
+        %th Interval
+    %tbody
+      - recurrences.each do |recurrence|
+        %tr
+          %td= best_in_place recurrence, :static_amount, as: :checkbox
+          %td= best_in_place recurrence, :amount, as: :input
+          %td= best_in_place recurrence, :active_at, as: :input, :display_with => lambda { |v| v.to_date }
+          %td= best_in_place recurrence, :expires_at, as: :input, :display_with => lambda { |v| v.to_date }
+          %td= best_in_place recurrence, :frequency, as: :select, collection: {'DAILY'=>'Daily','WEEKLY'=>'Weekly','MONTHLY'=>'Monthly','YEARLY'=>'Yearly'}
+          %td= best_in_place recurrence, :interval, as: :input
+          %td
+            =link_to 'Destroy', recurrence, :method => :delete, data: { confirm: "Deleting recurrence, Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
