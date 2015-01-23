@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20141105215956) do
   end
 
   create_table "recurrences", force: true do |t|
-    t.string   "frequency",                 null: false
+    t.string   "frequency"
     t.datetime "expires_at"
     t.integer  "interval"
     t.integer  "bill_id"

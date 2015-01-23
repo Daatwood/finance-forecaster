@@ -14,8 +14,10 @@
           %td= best_in_place recurrence, :static_amount, as: :checkbox
           %td= best_in_place recurrence, :amount, as: :input
           %td= best_in_place recurrence, :active_at, as: :input, :display_with => lambda { |v| v.to_date }
-          %td= best_in_place recurrence, :expires_at, as: :input, :display_with => lambda { |v| v.to_date }
-          %td= best_in_place recurrence, :frequency, as: :select, collection: {'DAILY'=>'Daily','WEEKLY'=>'Weekly','MONTHLY'=>'Monthly','YEARLY'=>'Yearly'}
+          %td= best_in_place recurrence, :expires_at, as: :input, :display_with => lambda { |v| v.to_date unless v.blank? }
+          %td= best_in_place recurrence, :frequency, as: :select, collection: {'ONCE' => 'Once','DAILY'=>'Daily','WEEKLY'=>'Weekly','MONTHLY'=>'Monthly','YEARLY'=>'Yearly'}
           %td= best_in_place recurrence, :interval, as: :input
+          %td
+            =link_to 'Advance', recurrence_advance_path(recurrence), remote: false, :class => "btn btn-info btn-xs pull-right"
           %td
             =link_to 'Destroy', recurrence, :method => :delete, data: { confirm: "Deleting recurrence, Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"

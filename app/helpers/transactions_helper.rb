@@ -5,6 +5,6 @@ module TransactionsHelper
   end
 
   def default_amount(bill)
-    (bill.nil? ? 0 : bill.amount)
+    (bill.nil? ? 0 : (bill.income? ? bill.amount : -bill.amount))
   end
 end

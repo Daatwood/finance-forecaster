@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :banks
 
+  get 'recurrences/:id/advance' => 'recurrences#advance', as: 'recurrence_advance'
   resources :recurrences
 
   resources :bills
