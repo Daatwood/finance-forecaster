@@ -1,4 +1,5 @@
 class Transaction < ActiveRecord::Base
+  default_scope {order('date DESC')}
   belongs_to :bank
 
   validates_presence_of :date
