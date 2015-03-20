@@ -31,7 +31,7 @@ class Bill < ActiveRecord::Base
 
   def invalid_date?(date)
     invalid = exclusions.map(&:date).include? date
-    invalid = transactions.map(&:date).include? date if invalid
+    invalid = transactions.map(&:date).include? date unless invalid
     invalid
   end
 

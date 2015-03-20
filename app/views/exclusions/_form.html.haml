@@ -1,13 +1,36 @@
-= form_for(@exclusion, remote: true) do |f|
-  - if @exclusion.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@exclusion.errors.count, "error")} prohibited this exclusion from being saved:"
-      %ul
-        - @exclusion.errors.full_messages.each do |msg|
-          %li= msg
+/ = form_for(@exclusion, remote: true) do |f|
+/   - if @exclusion.errors.any?
+/     #error_explanation
+/       %h2= "#{pluralize(@exclusion.errors.count, "error")} prohibited this exclusion from being saved:"
+/       %ul
+/         - @exclusion.errors.full_messages.each do |msg|
+/           %li= msg
+/
+/   = f.label :date
+/   = f.text_field :date, value: Time.now.to_date
+/   = f.hidden_field :bill_id, value: bill.id
+/   .actions
+/     = f.submit 'Save'
 
-  = f.label :date
-  = f.text_field :date, value: Time.now.to_date
-  = f.hidden_field :bill_id, value: bill.id
-  .actions
-    = f.submit 'Save'
+.row
+  .col-md-12.well{style:"margin-top:-12px;"}
+    = form_for @exclusion, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
+      .form-group
+        .col-sm-offset-3.col-md-9
+          %h3 New Exclusion
+      - if @exclusion.errors.any?
+        #error_explanation
+          %h2
+            = pluralize(@exclusion.errors.count, "error")
+            prohibited this bill from being saved:
+          %ul
+            - @exclusion.errors.full_messages.each do |message|
+              %li= messag
+      = f.hidden_field :bill_id, value: bill.id
+      .form-group
+        %label.col-md-3.control-label{:for => "transaction_date"} Date
+        .col-md-9
+          = f.text_field :date, value: Time.now.strftime("%F"), placeholder: '(YYYY-MM-DD)', class: 'form-control'
+      .form-group
+        .col-md-offset-3.col-md-9
+          %button.btn.btn-success.btn-md.btn-group{:type => "submit"} Create

@@ -1,5 +1,5 @@
 .row
-  .mainbox.col-md-6{:style => "margin-top:50px"}
+  .mainbox.col-md-3{:style => "margin-top:50px"}
     .panel.panel-primary
       .panel-heading
         %h3.panel-title Info
@@ -27,7 +27,7 @@
           .form-group
             %label.col-md-3.control-label{:for => "bill_bill_type"} Type
             .col-md-9
-              = f.select :bill_type, options_for_select([['Credit', 'CREDIT'],['Debit', 'DEBIT']], @bill.bill_type), {prompt: 'Type'}, {required: 'true', class: 'form-control'}
+              = f.select :bill_type, options_for_select([['Credit', 'CREDIT'],['Debit', 'DEBIT'],['Adjustable', 'ADJUSTMENT']], @bill.bill_type), {prompt: 'Type'}, {required: 'true', class: 'form-control'}
           .form-group
             %label.col-md-3.control-label{:for => "bill_amount"} Amount
             .col-md-9
@@ -43,33 +43,8 @@
           .form-group
             .col-md-offset-3.col-md-9
               %button.btn.btn-success.btn-md.btn-group{:type => "submit"} Update
-  .col-md-6{:style => "margin-top:50px"}
-    .panel.panel-primary
-      .panel-heading
-        .panel-title Transactions
-        %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
-          %button.btn.btn-info.btn-xs#new-exception-button{:type => "button"} Add Transaction
-      #new-exception-form{style:'display:none;'}
-        = render 'transactions/form', bill: @bill
-      .panel-body
-        %div.table-responsive
-          %table.table.table-condensed.table-hover
-            %thead
-              %tr
-                %th Date
-                %th Summary
-                %th Amount
-            %tbody
-              - @transactions.each do |transaction|
-                %tr
-                  %td= best_in_place transaction, :date, as: :input, :display_with => lambda { |v| v.to_date }
-                  %td= best_in_place transaction, :summary, as: :input
-                  %td= best_in_place transaction, :amount, as: :input
-                  %td
-                    =link_to 'Destroy', transaction, :method => :delete, data: { confirm: "Deleting transaction '#{transaction.summary}', Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
 
-.row
-  .col-md-10.col-md-offset-1
+  .col-md-9{:style => "margin-top:50px"}
     .panel.panel-primary
       .panel-heading
         .panel-title Recurrences
@@ -79,11 +54,52 @@
         = render 'recurrences/form', bill: @bill
       .panel-body
         = render 'recurrences/index', recurrences: @recurrences
+
+
+
+.row
+  .col-md-3
+    .panel.panel-primary
+      .panel-heading
+        .panel-title Exceptions
+        %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
+          %button.btn.btn-info.btn-xs#new-exception-button{:type => "button"} Add Exception
+      #new-exception-form{style:'display:none;'}
+        = render 'exclusions/form', bill: @bill
+      .panel-body
+        = render 'exclusions/index', exclusions: @exclusions
+
+  .col-md-9
+    .panel.panel-primary
+      .panel-heading
+        .panel-title Transactions
+        %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
+          %button.btn.btn-info.btn-xs#new-transaction-button{:type => "button"} Add Transaction
+      #new-transaction-form{style:'display:none;'}
+        = render 'transactions/form', bill: @bill
+      .panel-body
+        %div.table-responsive
+          %table.table.table-condensed.table-hover
+            %thead
+              %tr
+                %th Date
+                %th{:colspan => 5} Summary
+                %th Amount
+            %tbody
+              - @transactions.each do |transaction|
+                %tr
+                  %td= best_in_place transaction, :date, as: :input, :display_with => lambda { |v| v.to_date }
+                  %td{:colspan => 5}
+                    = best_in_place transaction, :summary, as: :input
+                  %td
+                    = best_in_place transaction, :amount, as: :input
+                    =link_to 'Destroy', transaction, :method => :delete, data: { confirm: "Deleting transaction '#{transaction.summary}', Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
+
 :javascript
   $(document).ready(function(){
-    $('#new-exception-button').click(function(){
-      $button = $('#new-exception-button')
-      $form = $('#new-exception-form')
+    $('#new-transaction-button').click(function(){
+      $button = $('#new-transaction-button')
+      $form = $('#new-transaction-form')
       $form.toggle();
       if ($form.is(":visible") ){
         $button.html("Cancel")
@@ -99,6 +115,16 @@
         $button.html("Cancel")
       } else {
         $button.html("Add Recurrence")
+      }
+    });
+    $('#new-exception-button').click(function(){
+      $button = $('#new-exception-button')
+      $form = $('#new-exception-form')
+      $form.toggle();
+      if ($form.is(":visible") ){
+        $button.html("Cancel")
+      } else {
+        $button.html("Add Exception")
       }
     });
   });

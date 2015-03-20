@@ -15,6 +15,7 @@ class BillsController < ApplicationController
     @transaction = Transaction.new
     @recurrences = @bill.recurrences
     @recurrence = Recurrence.new
+    @exclusions = @bill.exclusions
     @exclusion = Exclusion.new
     @banks = current_user.banks
     @transactions = current_user.transactions.where(bill_id: @bill.id)

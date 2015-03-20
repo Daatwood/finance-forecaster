@@ -16,8 +16,25 @@
           %td= best_in_place recurrence, :active_at, as: :input, :display_with => lambda { |v| v.to_date }
           %td= best_in_place recurrence, :expires_at, as: :input, :display_with => lambda { |v| v.to_date unless v.blank? }
           %td= best_in_place recurrence, :frequency, as: :select, collection: {'ONCE' => 'Once','DAILY'=>'Daily','WEEKLY'=>'Weekly','MONTHLY'=>'Monthly','YEARLY'=>'Yearly'}
-          %td= best_in_place recurrence, :interval, as: :input
           %td
-            =link_to 'Advance', recurrence_advance_path(recurrence), remote: false, :class => "btn btn-info btn-xs pull-right"
-          %td
-            =link_to 'Destroy', recurrence, :method => :delete, data: { confirm: "Deleting recurrence, Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
+            = best_in_place recurrence, :interval, as: :input
+            = form_for @recurrence, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
+              - if @recurrence.errors.any?
+                #error_explanation
+                  %h2
+                    = pluralize(@recurrence.errors.count, "error")
+                    prohibited this bill from being saved:
+                  %ul
+                    - @recurrence.errors.full_messages.each do |message|
+                      %li= message
+              = f.hidden_field :bill_id, value: recurrence.bill.id
+              = f.hidden_field :active_at, value: Time.now
+              = f.hidden_field :expires_at, value: ""
+              = f.hidden_field :frequency, value: "ONCE"
+              = f.hidden_field :interval, value: 1
+              = f.hidden_field :static_amount, value: true
+              = f.hidden_field :amount, value: recurrence.bill.amount/2
+              .pull-right.btn-group
+                %button.btn.btn-success.btn-xs{:type => "submit"} Split
+                =link_to 'Advance', recurrence_advance_path(recurrence), remote: false, :class => "btn btn-info btn-xs"
+                =link_to 'Destroy', recurrence, :method => :delete, data: { confirm: "Deleting recurrence, Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs"

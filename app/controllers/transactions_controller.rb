@@ -57,6 +57,6 @@ class TransactionsController < ApplicationController
     end
 
     def transaction_params
-      params.require(:transaction).permit(:bill_id, :date, :summary, :amount, :bank_id)
+      params.require(:transaction).permit(:bill_id, :date, :summary, :amount, :bank_id, {:exclusion => []} )
     end
 end
