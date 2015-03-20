@@ -12,7 +12,7 @@ class DashboardController < ApplicationController
     # end
     #@balance = 0
     #@banks.all.map{|x| @balance += x.balance}
-    #@logicals.sort! { |a,b| a.date <=> b.date }
+    #
 
     @results = {}
     @banks.each do |bank|
@@ -21,6 +21,7 @@ class DashboardController < ApplicationController
       bank.bills.each do |bill|
         logicals += bill.create_logical_payments
       end
+      logicals.sort! { |a,b| a.date <=> b.date }
       @results[bank.name]["dates"] = group_by_date(logicals)
       @results[bank.name]["alerts"] = setup_balance(bank.balance, @results[bank.name]["dates"])
     end
