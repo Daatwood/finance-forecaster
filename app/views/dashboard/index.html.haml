@@ -66,8 +66,8 @@
                   = f.hidden_field :bank_id, value: bill.bank.id
                   = f.hidden_field :date, value: date
                   = f.hidden_field :summary, value: default_summary(bill)
+                  = f.hidden_field :amount, value: payment.amount, class: 'btn btn-xs'
                   .btn-group
-                    = f.text_field :amount, value: payment.amount/2+1, class: 'btn btn-xs', data: { bid: bill.id }
                     %button.btn.btn-success.btn-xs{:type => "submit"} Mark Paid
                     / = form_for @exclusion, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
                     /   = f.hidden_field :date, value: date
