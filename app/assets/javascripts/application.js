@@ -17,10 +17,3 @@
 //= require best_in_place
 //= require jquery.minicolors
 //= require_tree .
-
-$(document).ready(function() {
-  /* Activating Best In Place */
-  jQuery(".best_in_place").best_in_place();
-
-  jQuery('.minicolors').minicolors();
-});

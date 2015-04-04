@@ -7,6 +7,7 @@
   %li.dropdown
     %a.navbar-btn.btn{:href => new_user_invitation_path, role: 'button'}
       Invite
+      -# TODO DO NOT HARD CODE 3
       %span.badge 3
 
   %li= link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'navbar-btn btn', role: 'button'
