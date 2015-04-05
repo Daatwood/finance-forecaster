@@ -17,7 +17,8 @@
           %tr
             - color = account.color
             %td= link_to account.name, account, :class => "btn btn-info btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%"
-            %td= account.website
+            %td
+              = best_in_place account, :website, as: :input
             %td
               .pull-right.btn-group
                 =link_to 'More Info', account, :class => "btn btn-success btn-xs"
