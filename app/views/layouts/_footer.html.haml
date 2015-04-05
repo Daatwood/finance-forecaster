@@ -1,0 +1,44 @@
+-# -##footerwrap
+-# %nav.navbar.navbar-fixed-top.navbar-inverse{role: 'navigation'}
+.container
+  .row
+    .col-md-8.text-left
+      %span.copyright
+        Copyright &copy; 2015 Ryknzu
+    .col-md-4
+      .collapse.navbar-collapse
+        %ul.nav.navbar-nav.navbar-right
+          - if user_signed_in?
+            %li
+              %a{:href => new_user_invitation_path}
+                Invite
+                %span.badge
+                  = current_user.invitation_limit
+            %li
+              = link_to 'Settings', edit_user_registration_path
+            %li
+              = link_to 'Sign out', destroy_user_session_path, :method => :delete
+          - else
+            %li
+              = link_to 'Sign in', new_user_session_path
+
+-##footerwrap
+-# .container
+-#   .row
+-#   %span.copyright
+-#     Copyright &copy; 2015 Ryknzu
+-#   .collapse.navbar-collapse
+-#     %ul.nav.navbar-nav.navbar-right
+-#       - if user_signed_in?
+-#         %li
+-#           %a{:href => new_user_invitation_path}
+-#             Invite
+-#             %span.badge
+-#               = current_user.invitation_limit
+-#         %li
+-#           = link_to 'Settings', edit_user_registration_path
+-#         %li
+-#           = link_to 'Sign out', destroy_user_session_path, :method => :delete
+-#       - else
+-#         %li
+-#           = link_to 'Sign in', new_user_session_path

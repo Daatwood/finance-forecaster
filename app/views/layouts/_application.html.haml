@@ -1,0 +1,45 @@
+!!!
+%html{style: "height:100%"}
+  %head
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    %title= content_for?(:title) ? yield(:title) : "Finance Forecaster"
+    %meta{:content => content_for?(:description) ? yield(:description) : "Finance Forecaster", :name => "description"}/
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+    - unless user_signed_in?
+      %body{style: "height:100%"}
+        .welcome-body
+          .site-wrapper
+            .site-wrapper-inner
+              .cover-container
+                .masthead.clearfix
+                  .inner
+                    %header= render 'layouts/navigation'
+                .inner.cover
+                  %h1.cover-heading Make your Plan.
+                  %br
+                  %p.lead Devise a plan to divide, conquer and predict your finances through Intelligent bill forecasting. Keep track of purchases and recieved funds.
+                  %br
+                  %p.lead Take charge of your expenses!
+                  %p.lead
+                    %a.btn.btn-lg.btn-welcome{:href => "mailto:invite@ryknzu.com?subject=Invite please."} Be prepared, get invited!
+                .mastfoot
+                  .inner
+                    %p Copyright &copy; 2015 Ryknzu
+    - else
+      %body
+        %header= render 'layouts/navigation'
+        %main{:role => "main"}
+          #wrapper.active
+            #sidebar-wrapper.hidden-xs
+              %ul#sidebar_menu.sidebar-nav
+                %li.sidebar-brand= link_to 'Dashboard', dashboard_path
+              %ul#sidebar.sidebar-nav= render 'layouts/side_navigation_links'
+            #page-content-wrapper
+              .page-content-wrapper
+                .page-content.inset
+                  .row
+                    .col-md-12.col-sm-12
+                      = render 'layouts/messages'
+                      = yield

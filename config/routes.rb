@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
   resources :accounts
 
+  get 'help' => 'help#index'
+  put 'help/:id' => 'help#show', as: 'view_user'
+
   devise_for :users, :skip => [:registrations]
   as :user do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
@@ -23,6 +26,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
   get 'dashboard' => 'dashboard#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

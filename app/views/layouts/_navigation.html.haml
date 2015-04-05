@@ -8,47 +8,5 @@
         %span.icon-bar
       = link_to 'Finance Forecaster', root_url, class: 'navbar-brand'
     .collapse.navbar-collapse
-      - if user_signed_in?
-        .visible-xs-block
-          = render 'layouts/navigation_links'
-        .hidden-xs
-          %ul.nav.navbar-nav.navbar-right
-            %li.dropdown
-              = link_to current_user.email, edit_user_registration_path, class: 'navbar-link'
-            %li.dropdown
-              %a{:href => new_user_invitation_path}
-                Invite
-                %span.badge
-                  = current_user.invitation_limit
-            %li.dropdown.navbar-right
-              = link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'navbar-link'
-      - else
-        %ul.nav.navbar-nav.navbar-right
-          %li.dropdown
-            = link_to 'Sign In', new_user_session_path, class: 'dropdown-toggle navbar-link', data: {"toggle" => "dropdown"}
-            %ul.dropdown-menu{style: "padding: 15px;min-width: 250px;"}
-              %li
-                =form_tag session_path(:user), id: 'login-nav', role: 'form' do
-                  .form-group
-                    %label.sr-only{:for => 'user_email' }  Email address
-                    = text_field_tag 'user[email]', nil, placeholder: 'Email Address', class: 'form-control'
-                  .form-group
-                    %label.sr-only{:for => 'user_password' } Password
-                    = password_field_tag 'user[password]', nil, placeholder: 'Password', class: 'form-control'
-                  .checkbox
-                    = check_box_tag 'user[remember_me]', "1", nil, style: "margin-left:0px;"
-                    %label{:for => 'user_remember_me' } Remember me
-                    -#= label_tag 'user[remember_me]', 'Remember me'
-                  .form-group
-                    %button.btn.btn-primary.btn-block{:type => "submit"} Sign in
-                  .form-group
-                    = link_to "Forgot your password?", new_password_path(:user), :class => "btn btn-warning btn-xs btn-block"
-          %li
-            %a{:href => "mailto:contact@ryknzu.com?subject=Contact"} Contact
-:javascript
-  $(document).ready(function(){
-      //Handles menu drop down
-      $('.dropdown-menu').find('form').click(function (e) {
-          e.stopPropagation();
-      });
-  });
+      %ul.nav.navbar-nav.navbar-right
+        = render "layouts/navigation_links_#{user_signed_in? ? 'auth' : 'visitor'}"

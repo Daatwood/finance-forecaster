@@ -1,8 +1,8 @@
 #login-nav input { margin-bottom: 15px; }
 
 .row{
-    margin-left:0px;
-    margin-right:0px;
+    margin-left:0px !important;
+    margin-right:0px !important;
 }
 
 #wrapper {
@@ -12,14 +12,16 @@
 }
 
 #sidebar-wrapper {
-    margin-left: -150px;
-    left: 70px;
-    width: 150px;
+    //margin-left: -150px;
+    @extend .col-md-1;
+    left: 0px;
+    width: 155px;
     background: #222;
     position: fixed;
     height: 100%;
     z-index: 10000;
     transition: all .4s ease 0s;
+    border-right: 0.4em solid #5cb85c;
 }
 
 .sidebar-nav {

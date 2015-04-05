@@ -1,0 +1,199 @@
+// import the CSS framework
+$black_50: rgba(0,0,0,.5);
+$primary: #5CB85C;
+$secondary: #f6f6f6;
+$tertiary: #e8e8e8;
+$nav-color: #222;
+$nav-text: #9d9d9d;
+$nav-text-hover: #fff;
+$well-color: #F8F8FF;
+
+html,
+body {
+  height: 100%;
+}
+
+// apply styles to HTML elements
+// to make views framework-neutral
+main {
+  @extend .container;
+  background-color: #eee;
+  width: 100%;
+  padding-bottom: 0px !important;
+	margin-top: 0px !important;
+	min-height: 91%;
+  }
+section {
+  @extend .row;
+  margin-top: 20px;
+  padding: 100px 0;
+}
+.img-centered {
+  margin: 0 auto;
+}
+.content-row {
+  margin-top: 30px;
+}
+visitor-section {
+	min-height:355px;
+}
+@media (max-width: 767px) {
+  section {
+    padding: 75px 0;
+  }
+}
+
+body {
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+a {
+  color: $primary;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+a:hover,
+a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+p {
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+}
+h1,
+h2 {
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-weight: 900;
+  //text-transform: uppercase;
+}
+@media (min-width: 481px) {
+  h1 {
+    font-size: 3em !important;
+  }
+  h2 {
+    font-size: 2.75em !important;
+  }
+}
+
+h1 small {
+	font-size: 50% !important;
+	font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+hr {
+  max-width: 100px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  height: 2px;
+  margin: 15px auto;
+}
+hr.left {
+  margin: 15px auto 15px 0;
+}
+hr.right {
+  margin: 15px 0 15px auto;
+}
+hr.colored {
+  border-color: $primary;
+	border-width: medium;
+}
+@media (min-width: 768px) {
+  hr {
+    max-width: 320px;
+    margin: 20px auto;
+  }
+  hr.left {
+    margin: 20px auto 20px 0;
+  }
+  hr.right {
+    margin: 20px 0 20px auto;
+  }
+}
+.text-primary {
+  color: $primary;
+}
+
+// make all images responsive by default
+img {
+  @extend .img-responsive;
+  margin: 0 auto;
+}
+// override for the 'Home' navigation link
+.navbar-brand {
+  font-size: inherit;
+}
+
+#updates,
+#mods {
+	background: $secondary;
+	margin-top: 0;
+	padding: 100px 0;
+}
+#apps,
+#contacts {
+	background: $tertiary;
+	margin-top: 0;
+	padding: 100px 0;
+}
+
+div.well {
+	background-color: $well-color;
+}
+
+//.navbar-nav>li:hover {
+//  color:#555;
+//  background-color:#e7e7e7;
+//};
+
+// make all images responsive by default
+img {
+@extend .img-responsive;
+margin: 0 auto;
+}
+// override for the 'Home' navigation link
+
+// THESE ARE EXAMPLES YOU CAN MODIFY
+// create your own classes
+// to make views framework-neutral
+.column {
+@extend .col-md-6;
+@extend .text-center;
+}
+.form {
+@extend .col-md-6;
+}
+.form-centered {
+@extend .col-md-6;
+@extend .text-center;
+}
+.submit {
+@extend .btn;
+@extend .btn-primary;
+@extend .btn-lg;
+}
+// apply styles to HTML elements
+// to make views framework-neutral
+main {
+@extend .container;
+background-color: #eee;
+padding-bottom: 80px;
+width: 100%;
+margin-top: 51px; // accommodate the navbar
+}
+section {
+@extend .row;
+margin-top: 20px;
+}
+
+.site-wrapper {
+display: table;
+width: 100%;
+height: 100%;
+min-height: 100%;
+//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+box-shadow: inset 0 0 100px $black_50;
+}

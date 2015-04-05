@@ -36,13 +36,21 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
+group :development, :test do
+  gem 'byebug'
+  gem 'web-console', '~> 2.0'
+  gem 'spring'
+end
 
 gem 'bootstrap-addons-rails', group: :assets
 
 # Open email instantly in browser
-group :development, :local do
-  gem "letter_opener"
+group :development do
+  gem 'better_errors'
+  gem 'html2haml'
+  gem 'quiet_assets'
+  gem 'rails_layout'
+  gem 'letter_opener'
 end
 
 # Send pushover notifications

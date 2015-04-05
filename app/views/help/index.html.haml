@@ -1,0 +1,16 @@
+.panel.panel-primary.filterable
+  .panel-heading
+    %h3.panel-title Examples
+  %div.table-responsive
+    %table.table.table-condensed.table-hover
+      %thead
+        %tr
+          %th Email
+          %th
+      %tbody
+        - @public_users.each do |user|
+          %tr
+            %td= user.email
+            %td
+              .pull-right.btn-group
+                =link_to 'View As', view_user_path(user.id), :class => "btn btn-success btn-xs"
