@@ -12,9 +12,10 @@
       = render 'layouts/navigation'
     %main#wrap{:role => "main"}
       .row{style: "margin-top:6em;"}
-        .col-md-12{style: "background-color:#f6f6f6;"}
+        .col-md-12
           .container
             = render 'layouts/messages'
-          = yield
-    #footer{style: "background-color:#000;"}
+          .container
+            = yield
+    #footer
       = render 'layouts/footer'

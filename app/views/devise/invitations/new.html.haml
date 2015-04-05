@@ -1,0 +1,15 @@
+%section
+  .container.visitor-section
+    .row.text-center
+      %h1= t "devise.invitations.new.header"
+      %hr.colored
+    .row
+      .col-md-offset-4.col-md-4
+        = form_for(resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :role => 'form',:method => :post}) do |f|
+          .form-group.float-label-control
+            = f.label :email
+            = f.email_field :email, autofocus: true, class:'form-control', placeholder: 'Email Address'
+          %button.btn.btn-primary.btn-block{:type => "submit"}
+            = t("devise.invitations.new.submit_button")
+            %span.badge
+              = current_user.invitation_limit

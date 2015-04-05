@@ -26,4 +26,10 @@ module ApplicationHelper
   def shadow_color(color)
     darken_color(color,0.6)
   end
+
+  def nav_link_helper(nav_text, nav_path)
+    content_tag(:li, nil, :class => ("active" if controller_name == nav_text.downcase)){
+      link_to nav_text, nav_path
+    }.html_safe
+  end
 end

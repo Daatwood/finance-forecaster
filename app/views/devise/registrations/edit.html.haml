@@ -1,11 +1,12 @@
-.row
-  .mainbox.col-md-6.col-md-offset-3.col-sm-12{:style => "margin-top:50px"}
-    .panel.panel-primary
-      .panel-heading
-        %h3.panel-title Account Settings
-        %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
-          = link_to 'Delete Account', registration_path(resource_name), method: :delete, :data => { :confirm => "Deleting account, Are you sure?" }, :class => "btn btn-danger btn-xs"
-      .panel-body
+%section
+  .container.visitor-section
+    .row.text-center
+      %h1 Account Settings
+      %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
+        = link_to 'Delete Account', registration_path(resource_name), method: :delete, :data => { :confirm => "Deleting account, Are you sure?" }, :class => "btn btn-danger btn-xs"
+      %hr.colored
+    .row
+      .col-md-offset-4.col-md-4
         = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {role: 'form', class: 'form-horizontal', method: :put})do |f|
           - if resource.errors.any?
             .panel.panel-danger
@@ -22,66 +23,28 @@
             - if devise_mapping.confirmable? && resource.pending_reconfirmation?
               .alert.alert-warning{:role => "alert"}
                 Currently waiting confirmation for: #{resource.unconfirmed_email}
-            %label.col-md-3.control-label{:for => "user_email"} Email Address
-            .col-md-9
-              = f.email_field :email, class: 'form-control'
+            %label.control-label{:for => "user_email"} Email Address
+            = f.email_field :email, class: 'form-control'
+          -# .form-group
+          -#   .col-md-offset-3.col-md-9
+          -#     .checkbox
+          -#       %label
+          -#         %input{:type => "checkbox"}
+          -#         Enable Pushover
+          -# .form-group
+          -#   %label.control-label{:for => "user_email"} Pushover Token
+          -#   = f.text_field :pushover_token, class: 'form-control'
           .form-group
-            .col-md-offset-3.col-md-9
-              .checkbox
-                %label
-                  %input{:type => "checkbox"}
-                  Enable Pushover
+            %label.control-label{:for => "user_password"} Password
+            = f.password_field :password, autocomplete: "off", class: 'form-control'
+            %p.help-block (leave blank if you don't want to change it)
           .form-group
-            %label.col-md-3.control-label{:for => "user_email"} Pushover Token
-            .col-md-9
-              = f.text_field :pushover_token, class: 'form-control'
+            %label.control-label{:for => "user_password_confirmation"} Password Confirmation
+            = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'
           .form-group
-            %label.col-md-3.control-label{:for => "user_password"} Password
-            .col-md-9
-              = f.password_field :password, autocomplete: "off", class: 'form-control'
-              %p.help-block (leave blank if you don't want to change it)
-          .form-group
-            %label.col-md-3.control-label{:for => "user_password_confirmation"} Password Confirmation
-            .col-md-9
-              = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'
-          .form-group
-            %label.col-md-3.control-label{:for => "user_password_confirmation"} Current Password
-            .col-md-9
-              = f.password_field :current_password, autocomplete: "off", class: 'form-control'
-              %p.help-block (we need your current password to confirm your changes)
+            %label.control-label{:for => "user_password_confirmation"} Current Password
+            = f.password_field :current_password, autocomplete: "off", class: 'form-control'
+            %p.help-block (we need your current password to confirm your changes)
           .form-group
             .col-md-offset-3.col-md-9
               %button.btn.btn-success.btn-md.btn-group{:type => "submit"} Update
-
-
-/ %h2
-/   Edit #{resource_name.to_s.humanize}
-/ = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-/   = devise_error_messages!
-/   .field
-/     = f.label :email
-/     %br/
-/     = f.email_field :email, autofocus: true
-/   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-/     %div
-/       Currently waiting confirmation for: #{resource.unconfirmed_email}
-/   .field
-/     = f.label :password
-/     %i (leave blank if you don't want to change it)
-/     %br/
-/     = f.password_field :password, autocomplete: "off"
-/   .field
-/     = f.label :password_confirmation
-/     %br/
-/     = f.password_field :password_confirmation, autocomplete: "off"
-/   .field
-/     = f.label :current_password
-/     %i (we need your current password to confirm your changes)
-/     %br/
-/     = f.password_field :current_password, autocomplete: "off"
-/   .actions
-/     = f.submit "Update"
-/ %h3 Cancel my account
-/ %p
-/   Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-/ = link_to "Back", :back

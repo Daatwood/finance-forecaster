@@ -1,0 +1,15 @@
+%section
+  .container.visitor-section
+    .row.text-center
+      %h1= t "devise.invitations.edit.header"
+      %hr.colored
+    .row
+      .col-md-offset-4.col-md-4
+        = form_for(resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :role => 'form',:method => :put}) do |f|
+          .form-group.float-label-control
+            = f.label :password
+            = f.password_field :password, class:'form-control'
+            = f.label :password_confirmation
+            = f.password_field :password_confirmation, class:'form-control'
+          %button.btn.btn-primary.btn-block{:type => "submit"}
+            = t("devise.invitations.edit.submit_button")

@@ -1,12 +1,6 @@
-%li
-  = link_to 'Dashboard', dashboard_path
-%li
-  = link_to 'Bills', bills_path
-%li
-  = link_to 'Accounts', accounts_path
-%li
-  = link_to 'Banks', banks_path
-%li
-  = link_to 'Help', help_path
-%li
-  = link_to 'Contact', root_url
+= nav_link_helper('Dashboard', dashboard_path)
+= nav_link_helper('Bills', bills_path)
+= nav_link_helper('Accounts', accounts_path)
+= nav_link_helper('Banks', banks_path)
+= nav_link_helper('Help', help_path)
+= nav_link_helper('Contact', root_url)
