@@ -1,3 +1,7 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import url(http://fonts.googleapis.com/css?family=Roboto:200,400);
+@import url(http://fonts.googleapis.com/css?family=Raleway:900);
 // import the CSS framework
 $black_50: rgba(0,0,0,.5);
 $primary: #5CB85C;
