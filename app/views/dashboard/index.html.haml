@@ -58,6 +58,9 @@
                 - bill = payment.source
                 - color = bill.color
                 = link_to bill.summary, bill, :class => "btn btn-info btn-xs", style: "width:40%;background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
+                - unless bill.account.website.blank?
+                  %a{:class => "btn btn-default btn-xs",:href => bill.account.website, "target" => "_blank"}
+                    %span.glyphicon{class: 'glyphicon-link', "aria-hidden" => "true"}
               %td
                 = payment.amount
               %td{colspan:"2"}
