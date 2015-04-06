@@ -2,6 +2,7 @@
   %table.table.table-condensed.table-hover
     %thead
       %tr
+        %th Note
         %th Frozen
         %th Amount
         %th Active At
@@ -11,6 +12,7 @@
     %tbody
       - recurrences.each do |recurrence|
         %tr
+          %td= best_in_place recurrence, :note, as: :input, :display_with => lambda { |v| v.blank? ? 'Recurrence' : v }
           %td= best_in_place recurrence, :static_amount, as: :checkbox
           %td= best_in_place recurrence, :amount, as: :input
           %td= best_in_place recurrence, :active_at, as: :input, :display_with => lambda { |v| v.to_date }

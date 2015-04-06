@@ -13,7 +13,7 @@ class BillsController < ApplicationController
 
   def show
     @transaction = Transaction.new
-    @recurrences = @bill.recurrences
+    @recurrences = @bill.recurrences.order(:active_at)
     @recurrence = Recurrence.new
     @exclusions = @bill.exclusions
     @exclusion = Exclusion.new

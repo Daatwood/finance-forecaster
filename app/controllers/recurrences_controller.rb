@@ -37,7 +37,7 @@ class RecurrencesController < ApplicationController
       end
     end
   end
-  
+
   def advance
     respond_to do |format|
       if @recurrence.update(active_at: @recurrence.next_date)
@@ -61,6 +61,6 @@ class RecurrencesController < ApplicationController
     end
 
     def recurrence_params
-      params.require(:recurrence).permit(:bill_id,:frequency,:interval,:active_at,:expires_at,:static_amount,:amount)
+      params.require(:recurrence).permit(:bill_id,:frequency,:interval,:active_at,:expires_at,:static_amount,:amount,:note)
     end
 end
