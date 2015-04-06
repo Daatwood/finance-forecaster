@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
   respond_to :html, :js
   before_action :authenticate_user!
+  before_action :no_visitors!
   before_action :set_message, only: [:show, :destroy]
 
   def index
@@ -41,6 +42,15 @@ class MessagesController < ApplicationController
       end
     end
   end
+
+  protected
+    def no_visitors!
+      if @example_user
+        flash[:error] = 'Unable to view Messages while viewing an example.'
+        redirect_to(root_path)
+        return
+      end
+    end
 
   private
     def set_message

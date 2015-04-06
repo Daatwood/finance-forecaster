@@ -80,6 +80,7 @@ a.navbar-brand {
   .navbar-default .navbar-nav > .active > a,
   .navbar-default .navbar-nav > .active > a:hover,
   .navbar-default .navbar-nav > .active > a:focus,
+  .navbar-inverse .navbar-nav > .stop-view > a,
   .navbar-inverse .navbar-nav > .active > a,
   .navbar-inverse .navbar-nav > .active > a:hover,
   .navbar-inverse .navbar-nav > .active > a:focus {
@@ -313,6 +314,13 @@ header.video .scroll-down {
   background-color: #3A7C3A !important;
   border-color: #3A7C3A !important;
 }
+
+.stop-view a{
+  color: #ffffff !important;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
