@@ -19,7 +19,9 @@ gem 'coffee-rails', '~> 4.0.0'
 # Authentication
 gem 'devise'
 gem 'devise_invitable', '~> 1.3.4'
+gem 'griddler'
 gem 'postmark-rails'
+gem 'griddler-postmark'
 # Edit in place
 gem "best_in_place"
 # Bootstrap 3 Colorpicker
