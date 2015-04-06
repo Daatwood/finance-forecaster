@@ -50,8 +50,6 @@
             /- %td=row[:balance]
           - row[:payments].each do |payment|
             %tr.collapse{class: "row-#{date}", style: "background-color: whitesmoke;"}
-              %td
-                = payment.summary
               %td{colspan:"4"}
                 - account = payment.source.account
                 - color = account.color
@@ -62,6 +60,8 @@
                 - unless bill.account.website.blank?
                   %a{:class => "btn btn-default btn-xs",:href => bill.account.website, "target" => "_blank"}
                     %span.glyphicon{class: 'glyphicon-link', "aria-hidden" => "true"}
+              %td{style: 'text-decoration:underline;'}
+                = payment.summary
               %td
                 = payment.amount
               %td{colspan:"2"}
