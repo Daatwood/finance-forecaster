@@ -1,0 +1,42 @@
+%section
+  .container.visitor-section
+    .row.text-center
+      %h1 Messages
+      %hr.colored
+    .row
+      .col-md-12
+        %div
+          %button.btn.btn-success.btn-md#new-message-button{:type => "button"} New Message
+          #new-message-form{style:'display:none;'}
+            = render 'messages/form'
+        %div.table-responsive
+          %table.table.table-condensed.table-hover
+            %thead
+              %tr
+                %th From
+                %th Message
+                %th
+            %tbody
+              - @messages.each do |message|
+                %tr
+                  %td= message.from
+                  %td= message.subject
+                  %td
+                    .pull-right.btn-group
+                      =link_to 'Destroy', message, :method => :delete, data: { confirm: "Are you sure?" }, :class => "btn btn-danger btn-xs"
+
+:javascript
+  $(document).ready(function(){
+    $('#new-message-button').click(function(){
+      $button = $('#new-message-button')
+      $form = $('#new-message-form')
+      $form.toggle();
+      if ($form.is(":visible") ){
+        $button.html("Cancel")
+        $button.toggleClass("btn-danger");
+      } else {
+        $button.html("New Message")
+        $button.toggleClass("btn-danger");
+      }
+    });
+  });

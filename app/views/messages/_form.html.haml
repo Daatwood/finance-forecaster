@@ -1,0 +1,18 @@
+= form_for @message, html: {role: 'form', class: 'form-inline'} do |f|
+  - if @message.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@message.errors.count, "error")
+        prohibited this message from being saved:
+      %ul
+        - @message.errors.full_messages.each do |message|
+          %li= message
+  = f.hidden_field :from, value: current_user.email
+  .form-group
+    = f.label :to, class: 'sr-only'
+    = f.text_field :to, placeholder: 'To: (email address)', class: 'form-control', required: 'true'
+  .form-group
+    = f.label :subject, class: 'sr-only'
+    = f.text_field :subject, placeholder: 'Message', class: 'form-control', required: 'true'
+  .form-group
+    %button.btn.btn-primary.btn-md.btn-group{:type => "submit"} Send

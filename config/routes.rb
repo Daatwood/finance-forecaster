@@ -12,8 +12,13 @@ Rails.application.routes.draw do
 
   resources :accounts
 
+  resources :messages, skip: [:new, :edit, :update]
+
+  #get 'contact' => 'message#new', as: 'contact'
+
   get 'help' => 'help#index'
-  put 'help/:id' => 'help#show', as: 'view_user'
+  post 'help/:id' => 'help#show', as: 'view_user'
+  delete "help/:id" => "help#revert_show", as: 'revert_view_user'
 
   devise_for :users, :skip => [:registrations]
   as :user do

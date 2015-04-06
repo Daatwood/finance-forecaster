@@ -13,4 +13,4 @@
             %td= user.email
             %td
               .pull-right.btn-group
-                =link_to 'View As', view_user_path(user.id), :class => "btn btn-success btn-xs"
+                =link_to 'View As', view_user_path(user.id), :method=> :post, :class => "btn btn-success btn-xs"

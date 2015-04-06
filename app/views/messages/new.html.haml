@@ -1,0 +1,23 @@
+-# %section
+-#   .container.visitor-section
+-#     .row.text-center
+-#       %h1 Contact
+-#       %hr.colored
+-#     .row
+-#       .col-md-offset-4.col-md-4
+-#         = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f|
+-#           = f.hidden_field :to, value: 'ryknzu@gmail.com'
+-#           .form-group.float-label-control
+-#             = f.label :from
+-#             = f.email_field :email, autofocus: true, class:'form-control', placeholder: 'Email Address'
+-#           .form-group.float-label-control
+-#             = f.label :password
+-#             = f.password_field :password, autocomplete: "off", class:'form-control', placeholder: 'Password'
+-#           - if devise_mapping.rememberable?
+-#             .form-group.float-label-control
+-#               = f.check_box :remember_me
+-#               = f.label :remember_me
+-#           %button.btn.btn-primary.btn-block{:type => "submit"} Log in
+-#           = link_to "Cannot find invitation?", resend_user_invitation_path
+-#           .right
+-#             = link_to "Forgot your password?", new_password_path(:user)

@@ -1,0 +1,4 @@
+%div{:class => "alert alert-danger"}
+  .pull-right=link_to 'Stop Viewing', view_user_path(@example_user.id), :method=> :delete, :class => "btn btn-danger btn-xs"
+  = content_tag :div, "Viewing Example (#{@example_user.email})", :id => "flash_danger"
+  -#= link_to "Stop Viewing", view_user_path(current_user.id), :method => :delete, :class => 'btn btn-danger btn-xs'
