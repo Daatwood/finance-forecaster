@@ -49,7 +49,7 @@
             %td=row[:balance]
             /- %td=row[:balance]
           - row[:payments].each do |payment|
-            %tr.collapse{class: "row-#{date}"}
+            %tr.collapse{class: "row-#{date}", style: "background-color: whitesmoke;"}
               %td
                 = payment.summary
               %td{colspan:"4"}
