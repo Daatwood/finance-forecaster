@@ -3,7 +3,7 @@
 # Allow the table to just be a plug and play of Transactions
 module Logical
   class Payment
-    attr_accessor :amount, :date, :source
+    attr_accessor :amount, :date, :source, :summary
 
     def initialize(date, bank, balance, amount, summary, src)
       @amount = amount

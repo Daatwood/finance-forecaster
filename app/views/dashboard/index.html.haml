@@ -51,6 +51,7 @@
           - row[:payments].each do |payment|
             %tr.collapse{class: "row-#{date}"}
               %td
+                = payment.summary
               %td{colspan:"4"}
                 - account = payment.source.account
                 - color = account.color

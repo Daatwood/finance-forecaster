@@ -18,9 +18,9 @@ class Recurrence < ActiveRecord::Base
         # create logical payment
         #puts "Logical::Payment, #{current_date} $#{amount}"
         amt = bill.expense? ? -amount : amount
-        logical_payments << Logical::Payment.new(current_date,bill.bank,bill.bank.balance,amt,"#{bill.summary} - #{bill.bank.name}",bill)
+        logical_payments << Logical::Payment.new(current_date,bill.bank,bill.bank.balance,amt,note,bill)
       end
-      
+
       advancement = basic_frequency
       if advancement == 0
         return logical_payments
@@ -33,7 +33,7 @@ class Recurrence < ActiveRecord::Base
     end
     logical_payments
   end
-  
+
   def next_date
     active_at.to_date + advance_frequency
   end
@@ -41,7 +41,7 @@ class Recurrence < ActiveRecord::Base
   def forever?
     expires_at.blank? || active_at.to_date == expires_at.to_date
   end
-  
+
   def basic_frequency
     case frequency
     when "DAILY"
