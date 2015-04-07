@@ -1,29 +1,28 @@
-.row
-  .col-md-12.well
-    = form_for @bill, html: {role: 'form', class: 'form-inline', remote: true} do |f|
-      - if @bill.errors.any?
-        #error_explanation
-          %h2
-            = pluralize(@bill.errors.count, "error")
-            prohibited this bill from being saved:
-          %ul
-            - @bill.errors.full_messages.each do |message|
-              %li= message
-      = f.hidden_field :color, value: "##{"%06x" % (rand * 0xffffff)}"
-      .form-group
-        = f.label :summary, class: 'sr-only'
-        = f.text_field :summary, placeholder: 'Summary', class: 'form-control'
-      .form-group
-        = f.label :account_id, class: 'sr-only'
-        = f.select :account_id, options_from_collection_for_select(@accounts, 'id', 'name'), {prompt: 'Account'}, {required: 'true', class: 'form-control'}
-      .form-group
-        = f.label :bill_type, class: 'sr-only'
-        = f.select :bill_type, options_for_select([['Credit', 'CREDIT'],['Debit', 'DEBIT']]), {prompt: 'Type'}, {required: 'true', class: 'form-control'}
-      .form-group
-        = f.label :amount, class: 'sr-only'
-        = f.text_field :amount, placeholder: 'Amount', class: 'form-control'
-      .form-group
-        = f.label :bank_id, class: 'sr-only'
-        = f.select :bank_id, options_from_collection_for_select(@banks, 'id', 'name'), {prompt: 'Bank'}, {required: 'true', class: 'form-control'}
-      .form-group
-        %button.btn.btn-primary.btn-md.btn-group{:type => "submit"} Create
+.form-btn
+  = form_for @bill, html: {role: 'form', class: 'form-inline', remote: true} do |f|
+    - if @bill.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@bill.errors.count, "error")
+          prohibited this bill from being saved:
+        %ul
+          - @bill.errors.full_messages.each do |message|
+            %li= message
+    = f.hidden_field :color, value: "##{"%06x" % (rand * 0xffffff)}"
+    .form-group
+      = f.label :summary, class: 'sr-only'
+      = f.text_field :summary, placeholder: 'Summary', class: 'form-control'
+    .form-group
+      = f.label :account_id, class: 'sr-only'
+      = f.select :account_id, options_from_collection_for_select(@accounts, 'id', 'name'), {prompt: 'Account'}, {required: 'true', class: 'form-control'}
+    .form-group
+      = f.label :bill_type, class: 'sr-only'
+      = f.select :bill_type, options_for_select([['Credit', 'CREDIT'],['Debit', 'DEBIT']]), {prompt: 'Type'}, {required: 'true', class: 'form-control'}
+    .form-group
+      = f.label :amount, class: 'sr-only'
+      = f.text_field :amount, placeholder: 'Amount', class: 'form-control'
+    .form-group
+      = f.label :bank_id, class: 'sr-only'
+      = f.select :bank_id, options_from_collection_for_select(@banks, 'id', 'name'), {prompt: 'Bank'}, {required: 'true', class: 'form-control'}
+    .form-group
+      %button.btn.btn-primary.btn-md.btn-group{:type => "submit"} Create

@@ -1,0 +1,15 @@
+%div.table-responsive
+  %table.table-focus.table.table-condensed.table-hover
+    %thead
+      %tr
+        %th From
+        %th Message
+        %th
+    %tbody
+      - @messages.each do |message|
+        %tr
+          %td= message.from
+          %td= message.subject
+          %td
+            .pull-right.btn-group
+              =link_to 'Destroy', message, :method => :delete, data: { confirm: "Are you sure?" }, :class => "btn btn-danger btn-xs"

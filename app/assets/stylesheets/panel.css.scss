@@ -1,3 +1,11 @@
+$primary: #5CB85C;
+$secondary: #f6f6f6;
+$tertiary: #e8e8e8;
+$nav-color: #222;
+$nav-text: #9d9d9d;
+$nav-text-hover: #fff;
+$well-color: #F8F8FF;
+
 .filterable {
     margin-top: 15px;
 }
@@ -20,4 +28,31 @@
 }
 .filterable .filters input[disabled]:-ms-input-placeholder {
     color: #333;
+}
+
+.panel-focus {
+  border-color: $primary;
+}
+.bordered {
+  border: 0.4em solid #000 !important;
+}
+
+.panel-focus > .panel-heading {
+  color: white;
+  background-color: #000;
+  border-bottom: 0.4em solid $primary;
+
+  padding: 10px 15px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+.panel-focus > .panel-heading + .panel-collapse > .panel-body {
+  border-bottom-color: $primary;
+}
+.table-focus {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border: .3em solid black;
+  border-top: 0;
 }

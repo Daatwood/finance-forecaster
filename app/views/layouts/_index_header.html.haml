@@ -1,0 +1,14 @@
+%section
+  .container.visitor-section
+    .row.text-center
+      %h1= prefix.capitalize.pluralize
+      %hr.colored
+    .row
+      .col-md-12
+        .panel.panel-focus.filterable
+          .panel-heading
+            %h3.panel-title
+              %button.btn.btn-success.btn-form.btn-xs{:type => "button"}
+                = "New #{prefix.capitalize}"
+            = render "#{prefix.pluralize}/form"
+          = render "#{prefix.pluralize}/index"

@@ -1,23 +1,8 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
-// You can use CoffeeScript in this file: http://coffeescript.org/
-
-// $(document).ready(function(){
-//   $('#new-bill-button').click(function(){
-//     $button = $('#new-bill-button')
-//     $form = $('#new-bill-form')
-//     $form.toggle();
-//     if ($form.is(":visible") ){
-//       $button.html("Cancel")
-//     } else {
-//       $button.html("Add Bill")
-//     }
-//   });
-// });
-
-$(document).ready(function() {
-  /* Activating Best In Place */
+var ready;
+ready = function() {
   jQuery(".best_in_place").best_in_place();
-
   jQuery('.minicolors').minicolors();
-});
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

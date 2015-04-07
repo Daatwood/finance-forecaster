@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_viewing_as
-    example_user_id = cookies.signed[:example_id]
-    @example_user = User.where(public: true).find(example_user_id) unless example_user_id.blank?
+    @example_user_id = cookies.signed[:example_id]
+    @example_user = User.where(public: true).find(@example_user_id) unless @example_user_id.blank?
   end
 
 end

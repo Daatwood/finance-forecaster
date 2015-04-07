@@ -15,11 +15,11 @@ $brand-charge: #f4ad49;
   background-color: $brand-charge;
 }
 
-.btn-info {
+.btn-success {
 border-bottom:2px solid #098aa9;
 }
 
-.btn-info:hover,.btn-info.active:focus, .btn-info:focus, .open>.dropdown-toggle.btn-info {
+.btn-success:hover,.btn-success.active:focus, .btn-success:focus, .open>.dropdown-toggle.btn-success {
 border-bottom:2px solid #2192ad;
 outline: none;
 }
@@ -40,4 +40,8 @@ border-bottom:2px solid #af4451;
 .btn-danger:hover,.btn-danger.active:focus, .btn-danger:focus, .open>.dropdown-toggle.btn-danger {
 border-bottom:2px solid #b25560;
 outline: none;
+}
+
+.feather{
+  font-weight: 100;
 }

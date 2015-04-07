@@ -1,0 +1,24 @@
+%div.table-responsive
+  %table.table-focus.table.table-condensed.table-hover
+    %thead
+      %tr
+        %th Name
+        %th{width: "50px"}
+        %th Transactions
+        %th
+          .pull-right Balance
+        %th
+    %tbody
+      - @banks.each do |bank|
+        %tr
+          - color = bank.color
+          %td{colspan: "2"}= link_to bank.name, bank, :class => "btn btn-success btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%"
+          %td
+            = bank.transactions.count
+          %td
+            .pull-right
+              = bank.balance
+          %td
+            .pull-right.btn-group
+              =link_to 'More Info', bank, :class => "btn btn-success btn-xs"
+              =link_to 'Destroy', bank, :method => :delete, data: { confirm: "Deleting banks '#{bank.name}', Are you sure?" }, :class => "btn btn-danger btn-xs"

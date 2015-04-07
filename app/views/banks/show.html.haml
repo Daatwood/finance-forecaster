@@ -1,6 +1,6 @@
 .row
   .mainbox.col-md-6.col-md-offset-3{:style => "margin-top:50px"}
-    .panel.panel-primary
+    .panel.panel-focus.bordered
       .panel-heading
         %h3.panel-title Info
         %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
@@ -33,12 +33,12 @@
 
 .row
   .col-md-10.col-md-offset-1{:style => "margin-top:50px"}
-    .panel.panel-primary
+    .panel.panel-focus.bordered
       .panel-heading
         .panel-title Transactions
         %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
-          %button.btn.btn-info.btn-xs#new-exception-button{:type => "button"} Add Transaction
-          %button.btn.btn-info.btn-xs#readjustment-button{:type => "button"} Change Balance
+          %button.btn.btn-success.btn-xs#new-exception-button{:type => "button"} Add Transaction
+          %button.btn.btn-success.btn-xs#readjustment-button{:type => "button"} Change Balance
       #new-exception-form{style:'display:none;'}
         = render 'transactions/form', bank: @bank, bill: nil
       #readjustment-form{style:'display:none;'}

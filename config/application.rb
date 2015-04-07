@@ -19,5 +19,14 @@ module FinanceForecaster
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    if Rails.env.development?
+      # Update version file from latest git tag
+      File.open('config/version', 'w') do |file|
+        file.write `git describe --tags --always` # or equivalent
+      end
+    end
+
+    config.version = File.read('config/version')
   end
 end

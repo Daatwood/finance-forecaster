@@ -37,8 +37,14 @@ main {
 section {
   @extend .row;
   margin-top: 20px;
-  padding: 100px 0;
 }
+
+.form-btn {
+  @extend .container;
+  margin: 10px;
+  display:none;
+}
+
 .img-centered {
   margin: 0 auto;
 }

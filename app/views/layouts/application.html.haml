@@ -10,14 +10,17 @@
   %body
     %header#navbar-main{style: "background-color:#000;"}
       = render 'layouts/navigation'
+      - if @example_user
+        %nav.navbar.navbar-fixed-top{style: "top:70px;"}
+          = render 'layouts/viewing_as'
     %main#wrap{:role => "main"}
       .row{style: "margin-top:6em;"}
         .col-md-12
           .container
-            - if @example_user
-              = render 'layouts/viewing_as'
+
             = render 'layouts/messages'
-          .container
+        .col-md-offset-1.col-md-10
+          %section
             = yield
     #footer
       = render 'layouts/footer'

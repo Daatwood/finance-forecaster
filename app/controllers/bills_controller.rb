@@ -12,6 +12,7 @@ class BillsController < ApplicationController
   end
 
   def show
+    @bills = current_user.bills.order(:summary)
     @transaction = Transaction.new
     @recurrences = @bill.recurrences.order(:active_at)
     @recurrence = Recurrence.new
