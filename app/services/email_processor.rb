@@ -12,6 +12,6 @@ class EmailProcessor
     message.save
 
     puts "EMAIL :::: TO:#{@email.to}"
-    puts "EMAIL :::: TO:#{@email.to[:email]}"
+    puts "EMAIL :::: TO:#{@email.to.class}"
   end
 end
