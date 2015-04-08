@@ -9,6 +9,7 @@ class EmailProcessor
     message.from = @email.from[:email]
     message.subject = @email.subject
     message.body = @email.body
+    message.save
 
     puts "EMAIL :::: TO:#{@email.to}"
 
