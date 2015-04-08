@@ -5,16 +5,17 @@
         %th Recieved
         %th Message
         %th
+        %th
     %tbody
       - @messages.each do |message|
         %tr
           %td= message.from
           %td= message.subject
+          %td= message.body
           %td
             .pull-right.btn-group
               = link_to message, :method => :delete, :remote => true do
                 %span.glyphicon.glyphicon-remove.text-danger
-              -#=link_to 'Destroy', message, :method => :delete, data: { confirm: "Are you sure?" }, :class => "btn btn-danger btn-xs"
 
 %div.table-responsive
   %table.table-focus.table.table-condensed.table-hover
@@ -23,13 +24,14 @@
         %th Sent
         %th Message
         %th
+        %th
     %tbody
       - @sent_messages.each do |message|
         %tr
           %td= message.to
           %td= message.subject
+          %td= message.body
           %td.hide_on_click
             .pull-right.btn-group
               = link_to message, :method => :delete, :remote => true do
                 %span.glyphicon.glyphicon-remove.text-danger
-                -#=link_to 'Destroy', message, data: { confirm: "Are you sure?" }, :class => "btn btn-danger btn-xs"
