@@ -18,63 +18,69 @@
 /           %td= row[:alert]
 /           %td
 /             .pull-right= row[:balance]
-
-- @banks.each do |bank|
-  .col-lg-6
-    .panel.panel-focus.filterable
-      .panel-heading
-        %h3.panel-title= bank.name
-        .pull-right
-          ="Starting Balance: #{bank.balance}"
-      %div.table-responsive
-      %table.table-focus.table.table-condensed.table-hover
-        %thead
-          %tr
-            %th Date
-            %th{colspan:"4"} Bills
-            %th Change
-            %th Balance
-        %tbody
-          - date = 0
-          - balance = bank.balance
-          - @results[bank.name]["dates"].each do |date, row|
-            %tr.clickable.accordion-toggle{class: "#{row[:alert]}", data: {toggle: "collapse", target: ".row-#{date}"}, id: "row-#{date}" }
-              %td=date
-              %td{colspan:"4"}
-                %span.badge
-                  =row[:payments].count
-                =row[:summary]
-              %td
-                %span{class: (row[:change] < 0 ? "label label-debit" : "label label-credit")}
-                  =row[:change]
-              %td=row[:balance]
-              /- %td=row[:balance]
-            - row[:payments].each do |payment|
-              %tr.collapse{class: "row-#{date}", style: "background-color: whitesmoke;"}
-                %td{colspan:"4"}
-                  - account = payment.source.account
-                  - color = account.color
-                  = link_to account.name, account, :class => "btn btn-success btn-xs", style: "width:40%;background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
-                  - bill = payment.source
-                  - color = bill.color
-                  = link_to bill.summary, bill, :class => "btn btn-success btn-xs", style: "width:40%;background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
-                  - unless bill.account.website.blank?
-                    %a{:class => "btn btn-default btn-xs",:href => bill.account.website, "target" => "_blank"}
-                      %span.glyphicon{class: 'glyphicon-link', "aria-hidden" => "true"}
-                %td{style: 'text-decoration:underline;'}
-                  = payment.summary
-                %td
-                  = payment.amount
-                %td{colspan:"2"}
-                  = form_for @transaction, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
-                    = f.hidden_field :bill_id, value: bill.id
-                    = f.hidden_field :bank_id, value: bill.bank.id
-                    = f.hidden_field :date, value: date
-                    = f.hidden_field :summary, value: default_summary(bill)
-                    = f.hidden_field :amount, value: payment.amount, class: 'btn btn-xs'
-                    .btn-group
-                      %button.btn.btn-success.btn-xs{:type => "submit"} Mark Paid
-                      / = form_for @exclusion, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
-                      /   = f.hidden_field :date, value: date
-                      /   = f.hidden_field :bill_id, value: bill.id
-                      /   %button.btn.btn-danger.btn-xs{:type => "submit"} Exclude
+%section
+  .container.visitor-section
+    .row.text-center
+      %h1 Dashboard
+      %hr.colored
+    .row
+      .col-md-12
+        - @banks.each do |bank|
+          .col-lg-6
+            .panel.panel-focus.filterable
+              .panel-heading
+                %h3.panel-title= bank.name
+                .pull-right
+                  ="Starting Balance: #{bank.balance}"
+              %div.table-responsive
+              %table.table-focus.table.table-condensed.table-hover
+                %thead
+                  %tr
+                    %th Date
+                    %th{colspan:"4"} Bills
+                    %th Change
+                    %th Balance
+                %tbody
+                  - date = 0
+                  - balance = bank.balance
+                  - @results[bank.name]["dates"].each do |date, row|
+                    %tr.clickable.accordion-toggle{class: "#{row[:alert]}", data: {toggle: "collapse", target: ".row-#{date}"}, id: "row-#{date}" }
+                      %td=date
+                      %td{colspan:"4"}
+                        %span.badge
+                          =row[:payments].count
+                        =row[:summary]
+                      %td
+                        %span{class: (row[:change] < 0 ? "label label-debit" : "label label-credit")}
+                          =row[:change]
+                      %td=row[:balance]
+                      /- %td=row[:balance]
+                    - row[:payments].each do |payment|
+                      %tr.collapse{class: "row-#{date}", style: "background-color: whitesmoke;"}
+                        %td{colspan:"4"}
+                          - account = payment.source.account
+                          - color = account.color
+                          = link_to account.name, account, :class => "btn btn-success btn-xs", style: "width:40%;background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
+                          - bill = payment.source
+                          - color = bill.color
+                          = link_to bill.summary, bill, :class => "btn btn-success btn-xs", style: "width:40%;background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
+                          - unless bill.account.website.blank?
+                            %a{:class => "btn btn-default btn-xs",:href => bill.account.website, "target" => "_blank"}
+                              %span.glyphicon{class: 'glyphicon-link', "aria-hidden" => "true"}
+                        %td{style: 'text-decoration:underline;'}
+                          = payment.summary
+                        %td
+                          = payment.amount
+                        %td{colspan:"2"}
+                          = form_for @transaction, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
+                            = f.hidden_field :bill_id, value: bill.id
+                            = f.hidden_field :bank_id, value: bill.bank.id
+                            = f.hidden_field :date, value: date
+                            = f.hidden_field :summary, value: default_summary(bill)
+                            = f.hidden_field :amount, value: payment.amount, class: 'btn btn-xs'
+                            .btn-group
+                              %button.btn.btn-success.btn-xs{:type => "submit"} Mark Paid
+                              / = form_for @exclusion, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
+                              /   = f.hidden_field :date, value: date
+                              /   = f.hidden_field :bill_id, value: bill.id
+                              /   %button.btn.btn-danger.btn-xs{:type => "submit"} Exclude

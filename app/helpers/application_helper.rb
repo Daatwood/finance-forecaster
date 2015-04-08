@@ -32,4 +32,11 @@ module ApplicationHelper
       link_to nav_text, nav_path
     }.html_safe
   end
+
+  def link_to_delete(resource)
+    unless @example_user
+      link_to 'Destroy', resource, :method => :delete, data: { confirm: "Are you sure?" }, :class => "btn btn-danger btn-xs"
+    end
+  end
+
 end

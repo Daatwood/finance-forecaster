@@ -20,5 +20,5 @@
               = bank.balance
           %td
             .pull-right.btn-group
-              =link_to 'More Info', bank, :class => "btn btn-success btn-xs"
-              =link_to 'Destroy', bank, :method => :delete, data: { confirm: "Deleting banks '#{bank.name}', Are you sure?" }, :class => "btn btn-danger btn-xs"
+              = link_to 'More Info', bank, :class => "btn btn-success btn-xs"
+              = link_to_delete(bank)

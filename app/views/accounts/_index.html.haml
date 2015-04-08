@@ -14,5 +14,5 @@
             = best_in_place account, :website, as: :input
           %td
             .pull-right.btn-group
-              =link_to 'More Info', account, :class => "btn btn-success btn-xs"
-              =link_to 'Destroy', account, :method => :delete, data: { confirm: "Deleting account '#{account.name}', Are you sure?" }, :class => "btn btn-danger btn-xs"
+              = link_to 'More Info', account, :class => "btn btn-success btn-xs"
+              = link_to_delete(account)

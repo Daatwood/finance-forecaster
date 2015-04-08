@@ -12,6 +12,9 @@ ready = function() {
       $button.toggleClass("btn-danger");
     }
   });
+  $('td.hide_on_click').click( function(){
+    $(this).parent('tr').hide();
+  });
 };
 
 $(document).ready(ready);

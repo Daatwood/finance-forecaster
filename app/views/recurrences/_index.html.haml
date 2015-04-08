@@ -39,4 +39,4 @@
               .pull-right.btn-group
                 %button.btn.btn-success.btn-xs{:type => "submit"} Split
                 =link_to 'Advance', recurrence_advance_path(recurrence), remote: false, :class => "btn btn-success btn-xs"
-                =link_to 'Destroy', recurrence, :method => :delete, data: { confirm: "Deleting recurrence, Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs"
+                = link_to_delete(recurrence)

@@ -8,4 +8,4 @@
         %tr
           %td= best_in_place exclusion, :date, as: :input, :display_with => lambda { |v| v.to_date }
           %td
-            =link_to 'Destroy', exclusion, :method => :delete, data: { confirm: "Deleting exclusion '#{exclusion.date}', Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
+            = link_to_delete(exclusion)

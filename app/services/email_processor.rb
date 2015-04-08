@@ -9,7 +9,7 @@ class EmailProcessor
 
     # here's an example of model creation
     puts "EMAIL :::: TO:#{@email.from[:email]}, SUBJECT:#{@email.subject}, BODY:#{@email.body}"
-
+    
     puts "EMAIL :::: ALL: #{@email.inspect}"
     #@email.inspect
     #   user = User.find_by_email(@email.from[:email])

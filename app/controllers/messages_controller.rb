@@ -7,6 +7,7 @@ class MessagesController < ApplicationController
   def index
     @message = Message.new(from: current_user.email)
     @messages = Message.where(to: current_user.email).order(:updated_at)
+    @sent_messages = Message.where(from: current_user.email).order(:updated_at)
     respond_with(@messages)
   end
 
@@ -36,21 +37,13 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.destroy
         format.html { redirect_to(messages_path, notice: 'Message deleted.') }
+        format.js { }
       else
         flash[:error] = "Message could not be deleted."
         format.html { redirect_to(messages_path) }
       end
     end
   end
-
-  protected
-    def no_visitors!
-      if @example_user
-        flash[:error] = 'Unable to view Messages while viewing an example.'
-        redirect_to(root_path)
-        return
-      end
-    end
 
   private
     def set_message

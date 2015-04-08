@@ -14,6 +14,14 @@ class ApplicationController < ActionController::Base
   # end
 
   protected
+  
+  def no_visitors!
+    if @example_user
+      flash[:error] = 'Unable to view Messages while viewing an example.'
+      redirect_to(root_path)
+      return
+    end
+  end
 
   def set_viewing_as
     @example_user_id = cookies.signed[:example_id]

@@ -2,7 +2,7 @@
   %table.table-focus.table.table-condensed.table-hover
     %thead
       %tr
-        %th From
+        %th Recieved
         %th Message
         %th
     %tbody
@@ -12,4 +12,24 @@
           %td= message.subject
           %td
             .pull-right.btn-group
-              =link_to 'Destroy', message, :method => :delete, data: { confirm: "Are you sure?" }, :class => "btn btn-danger btn-xs"
+              = link_to message, :method => :delete, :remote => true do
+                %span.glyphicon.glyphicon-remove.text-danger
+              -#=link_to 'Destroy', message, :method => :delete, data: { confirm: "Are you sure?" }, :class => "btn btn-danger btn-xs"
+
+%div.table-responsive
+  %table.table-focus.table.table-condensed.table-hover
+    %thead
+      %tr
+        %th Sent
+        %th Message
+        %th
+    %tbody
+      - @sent_messages.each do |message|
+        %tr
+          %td= message.to
+          %td= message.subject
+          %td.hide_on_click
+            .pull-right.btn-group
+              = link_to message, :method => :delete, :remote => true do
+                %span.glyphicon.glyphicon-remove.text-danger
+                -#=link_to 'Destroy', message, data: { confirm: "Are you sure?" }, :class => "btn btn-danger btn-xs"
