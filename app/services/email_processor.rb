@@ -4,18 +4,13 @@ class EmailProcessor
   end
 
   def process
-    # all of your application-specific code here - creating models,
-    # processing reports, etc
+    message = Message.new
+    message.to = 'atwood.dustin@gmail.com'
+    message.from = @email.from[:email]
+    message.subject = @email.subject
+    message.body = @email.body
 
-    # here's an example of model creation
-    puts "EMAIL :::: TO:#{@email.from[:email]}, SUBJECT:#{@email.subject}, BODY:#{@email.body}"
-    
-    puts "EMAIL :::: ALL: #{@email.inspect}"
-    #@email.inspect
-    #   user = User.find_by_email(@email.from[:email])
-    #   user.posts.create!(
-    #     subject: @email.subject,
-    #     body: @email.body
-    #   )
+    puts "EMAIL :::: TO:#{@email.to}"
+
   end
 end
