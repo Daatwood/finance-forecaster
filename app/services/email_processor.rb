@@ -5,13 +5,13 @@ class EmailProcessor
 
   def process
     message = Message.new
-    message.to = @email.to[:email]
+    message.to = 'atwood.dustin@gmail.com'
     message.from = @email.from[:email]
     message.subject = @email.subject
     message.body = @email.body
     message.save
 
-    # puts "EMAIL :::: TO:#{@email.to}"
-
+    puts "EMAIL :::: TO:#{@email.to}"
+    puts "EMAIL :::: TO:#{@email.to[:email]}"
   end
 end
