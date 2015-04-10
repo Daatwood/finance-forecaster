@@ -24,12 +24,22 @@ class DashboardController < ApplicationController
       logicals.sort! { |a,b| a.date <=> b.date }
       @results[bank.name]["dates"] = group_by_date(logicals)
       @results[bank.name]["alerts"] = setup_balance(bank.balance, @results[bank.name]["dates"])
+
     end
+
+    # Generate Chart Data
+    @balances = {}
+    @labels = @results[@banks.first.name]['dates'].keys
+    @banks.each do |bank|
+      @balances[bank.name] = []
+      @results[bank.name]["dates"].each_value{|v| @balances[bank.name] << v[:balance]}
+    end
+
     # Group Payments by date.
     #group_by_date
     # Set summary, change and balance
     #setup_balance
-
+    p @balances.inspect
   end
 
   private
@@ -55,6 +65,7 @@ class DashboardController < ApplicationController
       row[:summary] = row[:payments].map{|p| p.label}.join(", ")
       row[:change] = row[:payments].inject(0){|cng, pay| cng + pay.amount}
       row[:balance] = balance += row[:change]
+      #@balances << row[:balance]
       if balance < 0
         row[:alert] = 'danger'
         alerts[date] = {alert: 'Account below Zero', balance: balance}

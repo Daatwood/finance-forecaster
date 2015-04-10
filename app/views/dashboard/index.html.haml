@@ -25,6 +25,8 @@
       %hr.colored
     .row
       .col-md-12
+        %canvas#canvas{:height => "450", :width => "1200"}
+        = hidden_field_tag :selected_date, value: @banks.first.name
         - @banks.each do |bank|
           .col-lg-6
             .panel.panel-focus.filterable
@@ -84,3 +86,10 @@
                               /   = f.hidden_field :date, value: date
                               /   = f.hidden_field :bill_id, value: bill.id
                               /   %button.btn.btn-danger.btn-xs{:type => "submit"} Exclude
+
+= javascript_tag do
+  // Date of the Forecast
+  window.chart_labels = #{(@labels.collect!{|x| x[5..9]}).to_s.gsub('"',"'")};
+  // A balance of each bank throughout the forecast. Double-Nested Array
+  window.chart_data = #{@balances[@banks.first.name].to_json}
+  //window.balances = #{@balances.to_json};
