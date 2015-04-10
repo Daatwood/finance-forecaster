@@ -7,13 +7,6 @@ class DashboardController < ApplicationController
     @transactions = current_user.transactions
     @transaction = current_user.transactions.new
 
-    # @transactions.each do |transaction|
-    #   @logicals << Logical::Payment.new(transaction,transaction.amount,transaction.date)
-    # end
-    #@balance = 0
-    #@banks.all.map{|x| @balance += x.balance}
-    #
-
     @results = {}
     @banks.each do |bank|
       @results[bank.name] = {}

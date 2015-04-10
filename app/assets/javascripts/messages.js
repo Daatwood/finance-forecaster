@@ -12,6 +12,16 @@ ready = function() {
       $button.toggleClass("btn-danger");
     }
   });
+  $('#hide-canvas').click(function(){
+    $button = $('#hide-canvas')
+    $target = $('#canvas');
+    $target.toggle();
+    if ($target.is(":visible") ){
+      $button.html("Hide Chart")
+    } else {
+      $button.html("Show Chart")
+    }
+  });
   $('td.hide_on_click').click( function(){
     $(this).parent('tr').hide();
   });

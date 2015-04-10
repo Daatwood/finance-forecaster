@@ -25,8 +25,9 @@
       %hr.colored
     .row
       .col-md-12
+        .pull-right
+          %button.btn.btn-warning.btn-xs#hide-canvas Hide Chart
         %canvas#canvas{:height => "450", :width => "1200"}
-        = hidden_field_tag :selected_date, value: @banks.first.name
         - @banks.each do |bank|
           .col-lg-6
             .panel.panel-focus.filterable
@@ -92,4 +93,5 @@
   window.chart_labels = #{(@labels.collect!{|x| x[5..9]}).to_s.gsub('"',"'")};
   // A balance of each bank throughout the forecast. Double-Nested Array
   window.chart_data = #{@balances[@banks.first.name].to_json}
+  window.chart_colors = #{[lighten_color(@banks.first.color,0.2),border_color(@banks.first.color),@banks.first.color].to_json.gsub('"',"'")}
   //window.balances = #{@balances.to_json};
