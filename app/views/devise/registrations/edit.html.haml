@@ -35,6 +35,14 @@
           -#   %label.control-label{:for => "user_email"} Pushover Token
           -#   = f.text_field :pushover_token, class: 'form-control'
           .form-group
+            %label.control-label Authentication Token
+            .btn-toolbar{"aria-label" => "...", :role => "toolbar"}
+              .btn-group{"aria-label" => "...", :role => "group"}
+                = f.text_field :authentication_token, class: 'form-control', value: @user.authentication_token, :disabled => true
+              .btn-group{"aria-label" => "...", :role => "group"}
+                %button.btn.btn-default{:type => "button"}
+                  %span.glyphicon.glyphicon-refresh{"aria-hidden" => "true"}
+          .form-group
             %label.control-label{:for => "user_password"} Password
             = f.password_field :password, autocomplete: "off", class: 'form-control'
             %p.help-block (leave blank if you don't want to change it)
