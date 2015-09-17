@@ -19,6 +19,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # Authentication
 gem 'devise'
 gem 'devise_invitable', '~> 1.3.4'
+gem 'devise-token_authenticatable', '~> 0.3'
 gem 'griddler'
 gem 'postmark-rails'
 gem 'griddler-postmark'
@@ -37,6 +38,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'chart-js-rails'
+gem 'grape'
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :development, :test do
   gem 'byebug'

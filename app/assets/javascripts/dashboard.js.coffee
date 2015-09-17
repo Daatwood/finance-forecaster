@@ -4,13 +4,6 @@ ready = ->
       data = {
         labels : window.chart_labels,
         datasets : [
-          # {
-          #   fillColor : "rgba(220,220,220,0.5)",
-          #   strokeColor : "rgba(220,220,220,1)",
-          #   pointColor : "rgba(220,220,220,1)",
-          #   pointStrokeColor : "#fff",
-          #   data : window.chart_data[1]
-          # },
           {
             fillColor : window.chart_colors[0],
             strokeColor : window.chart_colors[1],
