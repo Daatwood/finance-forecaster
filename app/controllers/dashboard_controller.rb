@@ -6,13 +6,15 @@ class DashboardController < ApplicationController
     @exclusion = Exclusion.new
     @transactions = current_user.transactions
     @transaction = current_user.transactions.new
-
+    @timespan = params[:timespan].to_i if params[:timespan]
+    @timespan ||= 6
+    @end_date = Time.now.to_date + @timespan.months
     @results = {}
     @banks.each do |bank|
       @results[bank.name] = {}
       logicals = []
       bank.bills.each do |bill|
-        logicals += bill.create_logical_payments
+        logicals += bill.create_logical_payments(@end_date)
       end
       logicals.sort! { |a,b| a.date <=> b.date }
       @results[bank.name]["dates"] = group_by_date(logicals)

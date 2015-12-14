@@ -28,6 +28,12 @@
         .pull-right
           %button.btn.btn-warning.btn-xs#hide-canvas Hide Chart
         %canvas#canvas{:height => "450", :width => "1200"}
+        .col-md-6
+          = form_tag dashboard_path, :method => 'post', :class => 'form-inline' do
+            .form-group
+              = select_tag :timespan, options_for_select([['6 Months',6],['9 Months',9],['12 Months',12],['18 Months',18],['24 Months', 24]], selected: @timespan), class: 'form-control'
+            = submit_tag 'Set', class: 'btn btn-default'
+      .row
         - @banks.each do |bank|
           .col-lg-6
             .panel.panel-focus.filterable

@@ -17,11 +17,11 @@ class Bill < ActiveRecord::Base
 
   # Recurrences cannot happen more than once a day for a single bill
   # Exclusions are kept at bill level to prevent any recurrences from happening
-  def create_logical_payments
+  def create_logical_payments(end_date=Time.now.to_date + 6.months)
     # Loop each recurrence
     logical_payments = []
     recurrences.each do |recur|
-      logical_payments += recur.create_logical_payments.delete_if{|pay| invalid_date?(pay.date) }
+      logical_payments += recur.create_logical_payments(end_date).delete_if{|pay| invalid_date?(pay.date) }
     end
     #transactions.each do |payment|
     #  logical_payments << Logical::Payment.new(self,payment.amount,payment.date, true) unless payment.date.nil?

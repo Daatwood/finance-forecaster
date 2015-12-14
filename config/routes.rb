@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   mount_griddler
 
   get 'dashboard' => 'dashboard#index'
+  post 'dashboard' => 'dashboard#index'
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
