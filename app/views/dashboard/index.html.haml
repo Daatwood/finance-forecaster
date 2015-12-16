@@ -78,15 +78,13 @@
                               %span.glyphicon{class: 'glyphicon-link', "aria-hidden" => "true"}
                         %td{style: 'text-decoration:underline;'}
                           = payment.summary
-                        %td
-                          = payment.amount
                         %td{colspan:"2"}
                           = form_for @transaction, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
                             = f.hidden_field :bill_id, value: bill.id
                             = f.hidden_field :bank_id, value: bill.bank.id
                             = f.hidden_field :date, value: date
                             = f.hidden_field :summary, value: default_summary(bill)
-                            = f.hidden_field :amount, value: payment.amount, class: 'btn btn-xs'
+                            = f.text_field :amount, value: payment.amount, class: 'btn btn-xs'
                             .btn-group
                               %button.btn.btn-success.btn-xs{:type => "submit"} Mark Paid
                               / = form_for @exclusion, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
