@@ -37,10 +37,14 @@
         - @banks.each do |bank|
           .col-lg-6
             .panel.panel-focus.filterable
+              #readjustment-form{style:'display:none;'}
+                = render 'transactions/readjustment', bank: bank, bill: nil
               .panel-heading
                 %h3.panel-title= bank.name
                 .pull-right
-                  ="Starting Balance: #{bank.balance}"
+                  ="$#{bank.balance}"
+                  %button.btn.btn-success.btn-xs#readjustment-button{:type => "button"}
+                    ="Change Balance"
               %div.table-responsive
               %table.table-focus.table.table-condensed.table-hover
                 %thead
@@ -92,10 +96,21 @@
                               /   = f.hidden_field :bill_id, value: bill.id
                               /   %button.btn.btn-danger.btn-xs{:type => "submit"} Exclude
 
-= javascript_tag do
+:javascript
   // Date of the Forecast
   window.chart_labels = #{(@labels.collect!{|x| x[5..9]}).to_s.gsub('"',"'")};
   // A balance of each bank throughout the forecast. Double-Nested Array
   window.chart_data = #{@balances[@banks.first.name].to_json}
   window.chart_colors = #{[lighten_color(@banks.first.color,0.2),border_color(@banks.first.color),@banks.first.color].to_json.gsub('"',"'")}
-  //window.balances = #{@balances.to_json};
+  $(document).ready(function(){
+    $('#readjustment-button').click(function(){
+      $button = $(this)
+      $form = $('#readjustment-form')
+      $form.toggle();
+      if ($form.is(":visible") ){
+        $button.html("Cancel")
+      } else {
+        $button.html("Change Balance")
+      }
+    });
+  });

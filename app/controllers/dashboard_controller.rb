@@ -34,7 +34,6 @@ class DashboardController < ApplicationController
     #group_by_date
     # Set summary, change and balance
     #setup_balance
-    p @balances.inspect
   end
 
   private
