@@ -26,4 +26,9 @@ class WelcomeController < ApplicationController
     end
   end
 
+  def letsencrypt
+    # use your code here, not mine
+    render text: "B7sN1WAoCeo2qeykCwdIxGtCuniuvPheq0gJJslW39E.nPhrTeBrVN-i5yCXAM1x1zizoZI9Jh4LpV1AApNAKDc"
+  end
+
 end

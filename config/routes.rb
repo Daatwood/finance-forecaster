@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get '/.well-known/acme-challenge/:id' => 'welcome#letsencrypt'
+
   resources :transactions
 
   resources :exclusions
