@@ -71,10 +71,10 @@
                     - row[:payments].each do |payment|
                       %tr.collapse{class: "row-#{date}", style: "background-color: whitesmoke;"}
                         %td{colspan:"4"}
-                          - account = payment.source.account
+                          - account = payment.bill.account
                           - color = account.color
                           = link_to account.name, account, :class => "btn btn-success btn-xs", style: "width:40%;background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
-                          - bill = payment.source
+                          - bill = payment.bill
                           - color = bill.color
                           = link_to bill.summary, bill, :class => "btn btn-success btn-xs", style: "width:40%;background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
                           - unless bill.account.website.blank?
@@ -83,12 +83,20 @@
                         %td{style: 'text-decoration:underline;'}
                           = payment.summary
                         %td{colspan:"2"}
-                          = form_for @transaction, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
-                            = f.hidden_field :bill_id, value: bill.id
-                            = f.hidden_field :bank_id, value: bill.bank.id
-                            = f.hidden_field :date, value: date
-                            = f.hidden_field :summary, value: default_summary(bill)
-                            = f.text_field :amount, value: payment.amount, class: 'btn btn-xs'
+                          = form_tag '/transactions', :method => 'post', :id=>'glance-filter', :class => 'form-horizontal', remote: true, role: 'form' do
+                            = hidden_field_tag :bill_id, value: payment.bill.id
+                            = hidden_field_tag :bank_id, value: bill.bank.id
+                            = hidden_field_tag :date, value: date
+                            = hidden_field_tag :summary, value: default_summary(bill)
+                            = hidden_field_tag :payment_recurrence, payment.recurrence
+                            = text_field_tag :amount, value: payment.amount, class: 'btn btn-xs'
+                            -# = form_for @transaction, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
+                            -#   = f.hidden_field :bill_id, value: bill.id
+                            -#   = f.hidden_field :bank_id, value: bill.bank.id
+                            -#   = f.hidden_field :date, value: date
+                            -#   = f.hidden_field :summary, value: default_summary(bill)
+                            -#   = f.hidden_field :recurrence, payment.recurrence
+                            -#   = f.text_field :amount, value: payment.amount, class: 'btn btn-xs'
                             .btn-group
                               %button.btn.btn-success.btn-xs{:type => "submit"} Mark Paid
                               / = form_for @exclusion, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
