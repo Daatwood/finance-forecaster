@@ -57,6 +57,9 @@ group :development do
   gem 'letter_opener'
 end
 
+# Heroku Pinger
+gem 'newrelic_rpm'
+
 # Send pushover notifications
 #gem 'rushover'
 #gem 'netrc', git: 'https://github.com/geemus/netrc.git'
