@@ -58,7 +58,7 @@ group :development do
 end
 
 # Heroku Pinger
-gem 'newrelic_rpm'
+#gem 'newrelic_rpm'
 
 # Send pushover notifications
 #gem 'rushover'
