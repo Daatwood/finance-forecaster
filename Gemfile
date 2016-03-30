@@ -71,6 +71,7 @@ end
 group :development, :test do
   gem 'unicorn'
   gem 'unicorn-rails'
+  gem 'railroady'
 end
 
 group :production do

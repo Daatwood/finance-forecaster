@@ -1,6 +1,7 @@
 module ApplicationHelper
   # Amount should be a decimal between 0 and 1. Lower means darker
   def darken_color(hex_color, amount=0.4)
+    hex_color="#AAAAAA" if hex_color.nil?
     hex_color = hex_color.gsub('#','')
     rgb = hex_color.scan(/../).map {|color| color.hex}
     rgb[0] = (rgb[0].to_i * amount).round
@@ -11,6 +12,7 @@ module ApplicationHelper
 
   # Amount should be a decimal between 0 and 1. Higher means lighter
   def lighten_color(hex_color, amount=0.6)
+    hex_color="#AAAAAA" if hex_color.nil?
     hex_color = hex_color.gsub('#','')
     rgb = hex_color.scan(/../).map {|color| color.hex}
     rgb[0] = [(rgb[0].to_i + 255 * amount).round, 255].min

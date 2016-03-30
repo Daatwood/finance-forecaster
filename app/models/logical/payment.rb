@@ -3,27 +3,31 @@
 # Allow the table to just be a plug and play of Transactions
 module Logical
   class Payment
-    attr_accessor :amount, :date, :source, :summary
+    attr_accessor :amount, :date, :recurrence, :summary
 
-    def initialize(date, bank, balance, amount, summary, src)
+    def initialize(date, bank, balance, amount, summary, recurrence)
       @amount = amount
-      @source = src
+      @recurrence = recurrence
       @date = date
       @balance = balance
       @summary = summary
       @bank = bank
     end
 
+    def bill
+      @recurrence.bill
+    end
+
     def link_to_destroy
-      "_form_#{@source.class.to_s.downcase}_cancel"
+      "_form_#{bill.class.to_s.downcase}_cancel"
     end
 
     def link_to_primary
-      "_form_#{@source.class.to_s.downcase}"
+      "_form_#{bill.class.to_s.downcase}"
     end
 
     def paid?
-      @source.is_a? Transaction
+      bill.is_a? Transaction
     end
 
     def expense?
@@ -32,13 +36,7 @@ module Logical
 
     def label
       @label unless @label.nil?
-      if @source.is_a? Transaction
-        @label = @source.summary
-      elsif @source.is_a? Bill
-        @label = @source.summary #"#{@source.summary} - #{@source.account.name}"
-      else
-        @label = "Unknown"
-      end
+      @label = bill.summary #"#{@source.summary} - #{@source.account.name}"
     end
 
   end
