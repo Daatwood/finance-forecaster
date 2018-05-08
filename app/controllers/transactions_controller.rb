@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
 
   def index
-    @transactions = Transaction.all
+    @transactions = current_user.transactions
     respond_with(@transactions)
   end
 
@@ -13,7 +13,7 @@ class TransactionsController < ApplicationController
   end
 
   def new
-    @transaction = Transaction.new
+    @transaction = current_user.bank.transactions.new
     respond_with(@transaction)
   end
 
@@ -37,7 +37,7 @@ class TransactionsController < ApplicationController
     updated = @transaction.update(transaction_params)
     respond_to do |format|
       if updated
-        format.html { redirect_to(@transaction, notice: 'Transaction update.') }
+        format.html { redirect_to(dashboard_path, notice: 'Transaction update.') }
         format.json { respond_with_bip(@transaction) }
       else
         format.html { render action: "edit" }
@@ -48,7 +48,7 @@ class TransactionsController < ApplicationController
 
   def destroy
     @transaction.destroy
-    respond_with(@transaction)
+    redirect_to(dashboard_path, notice: 'Transaction deleted.')
   end
 
   private

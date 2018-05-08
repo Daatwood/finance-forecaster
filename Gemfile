@@ -18,8 +18,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 # Authentication
 gem 'devise'
-gem 'devise_invitable', '~> 1.3.4'
-gem 'devise-token_authenticatable', '~> 0.3'
+#gem 'devise_invitable', '~> 1.3.4'
+#gem 'devise-token_authenticatable', '~> 0.3'
 gem 'griddler'
 gem 'postmark-rails'
 gem 'griddler-postmark'

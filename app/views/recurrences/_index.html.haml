@@ -3,7 +3,6 @@
     %thead
       %tr
         %th Note
-        %th Frozen
         %th Amount
         %th Active At
         %th Expires On
@@ -13,7 +12,6 @@
       - recurrences.each do |recurrence|
         %tr
           %td= best_in_place recurrence, :note, as: :input, :display_with => lambda { |v| v.blank? ? 'Recurrence' : v }
-          %td= best_in_place recurrence, :static_amount, as: :checkbox
           %td= best_in_place recurrence, :amount, as: :input
           %td= best_in_place recurrence, :active_at, as: :input, :display_with => lambda { |v| v.to_date }
           %td= best_in_place recurrence, :expires_at, as: :input, :display_with => lambda { |v| v.to_date unless v.blank? }
@@ -34,7 +32,6 @@
               = f.hidden_field :expires_at, value: ""
               = f.hidden_field :frequency, value: "ONCE"
               = f.hidden_field :interval, value: 1
-              = f.hidden_field :static_amount, value: true
               = f.hidden_field :amount, value: recurrence.bill.amount/2
               .pull-right.btn-group
                 %button.btn.btn-success.btn-xs{:type => "submit"} Split

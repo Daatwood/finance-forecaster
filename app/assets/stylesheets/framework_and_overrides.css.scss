@@ -2,7 +2,8 @@
 @import "bootstrap";
 @import url('//fonts.googleapis.com/css?family=Roboto:200,400');
 @import url('//fonts.googleapis.com/css?family=Raleway:900');
-// import the CSS framework
+
+
 $black_50: rgba(0,0,0,.5);
 $primary: #5CB85C;
 $secondary: #f6f6f6;
@@ -15,6 +16,12 @@ $well-color: #F8F8FF;
 html,
 body {
   height: 100%;
+}
+
+
+.copyright {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 // apply styles to HTML elements

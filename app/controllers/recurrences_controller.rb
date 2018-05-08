@@ -29,7 +29,7 @@ class RecurrencesController < ApplicationController
   def update
     respond_to do |format|
       if @recurrence.update(recurrence_params)
-        format.html { redirect_to(@recurrence, notice: 'Recurrence update.') }
+        format.html { redirect_to(dashboard_path, notice: 'Recurrence update.') }
         format.json { respond_with_bip(@recurrence) }
       else
         format.html { render action: "edit" }
@@ -52,7 +52,7 @@ class RecurrencesController < ApplicationController
 
   def destroy
     @recurrence.destroy
-    respond_with(@recurrence)
+    redirect_to(dashboard_path, notice: 'Recurrence deleted.')
   end
 
   private
@@ -61,6 +61,6 @@ class RecurrencesController < ApplicationController
     end
 
     def recurrence_params
-      params.require(:recurrence).permit(:bill_id,:frequency,:interval,:active_at,:expires_at,:static_amount,:amount,:note)
+      params.require(:recurrence).permit(:bill_id,:frequency,:interval,:active_at,:expires_at,:amount,:note)
     end
 end

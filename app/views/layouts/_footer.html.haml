@@ -1,45 +1,5 @@
--# -##footerwrap
--# %nav.navbar.navbar-fixed-top.navbar-inverse{role: 'navigation'}
-
 .row
-  .col-md-2
-    .copyright
+  .col-sm-12
+    .copyright 
       %small.feather="Version #{Rails.configuration.version}"
-
-  .col-md-2.col-md-offset-3.text-left
-    %span.copyright Copyright &copy; 2015 Ryknzu
-
-  .col-md-3.col-md-offset-1
-    .collapse.navbar-collapse
-      %ul.nav.navbar-nav.navbar-right
-        - if user_signed_in?
-          %li
-            %a{:href => new_user_invitation_path}
-              Invite
-              %span.badge
-                = current_user.invitation_limit
-          %li
-            = link_to 'Settings', edit_user_registration_path
-          %li
-            = link_to 'Sign out', destroy_user_session_path, :method => :delete
-
--##footerwrap
--# .container
--#   .row
--#   %span.copyright
--#     Copyright &copy; 2015 Ryknzu
--#   .collapse.navbar-collapse
--#     %ul.nav.navbar-nav.navbar-right
--#       - if user_signed_in?
--#         %li
--#           %a{:href => new_user_invitation_path}
--#             Invite
--#             %span.badge
--#               = current_user.invitation_limit
--#         %li
--#           = link_to 'Settings', edit_user_registration_path
--#         %li
--#           = link_to 'Sign out', destroy_user_session_path, :method => :delete
--#       - else
--#         %li
--#           = link_to 'Sign in', new_user_session_path
+      .pull-right= link_to 'Copyright © 2018 Dustin Atwood', 'http://daatwood.com'

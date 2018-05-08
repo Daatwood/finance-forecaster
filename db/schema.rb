@@ -11,42 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917160245) do
+ActiveRecord::Schema.define(version: 20180508031543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "accounts", force: true do |t|
-    t.string   "name",           null: false
-    t.string   "phone"
-    t.string   "address"
-    t.string   "account_number"
-    t.string   "website"
-    t.string   "username"
-    t.string   "password"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "color"
-  end
-
   create_table "banks", force: true do |t|
-    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "color"
+    t.integer  "balance"
   end
 
   create_table "bills", force: true do |t|
-    t.string   "bill_type",              null: false
-    t.string   "summary",                null: false
-    t.integer  "amount",     default: 0
-    t.integer  "account_id"
+    t.string   "bill_type",  null: false
+    t.string   "summary",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "bank_id"
     t.string   "color"
+    t.string   "website"
   end
 
   create_table "exclusions", force: true do |t|
@@ -56,23 +40,13 @@ ActiveRecord::Schema.define(version: 20150917160245) do
     t.integer  "bill_id"
   end
 
-  create_table "messages", force: true do |t|
-    t.string   "to"
-    t.string   "from"
-    t.string   "subject"
-    t.string   "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "recurrences", force: true do |t|
     t.string   "frequency"
     t.datetime "expires_at"
     t.integer  "interval"
     t.integer  "bill_id"
     t.datetime "active_at"
-    t.integer  "amount",        default: 0
-    t.boolean  "static_amount"
+    t.integer  "amount",     default: 0
     t.string   "note"
   end
 
@@ -80,7 +54,6 @@ ActiveRecord::Schema.define(version: 20150917160245) do
     t.integer  "amount"
     t.datetime "date"
     t.string   "summary"
-    t.integer  "bill_id"
     t.integer  "bank_id"
   end
 
@@ -97,24 +70,10 @@ ActiveRecord::Schema.define(version: 20150917160245) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "pushover_token"
-    t.string   "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit"
-    t.integer  "invited_by_id"
-    t.string   "invited_by_type"
-    t.integer  "invitations_count",      default: 0
     t.boolean  "public",                 default: false
-    t.string   "authentication_token"
   end
 
-  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
-  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
-  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

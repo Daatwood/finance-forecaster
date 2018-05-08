@@ -2,28 +2,16 @@
   %table.table-focus.table.table-condensed.table-hover
     %thead
       %tr
-        %th Account
         %th Summary
         %th Amount
-        %th Bank
     %tbody
       - @bills.each do |bill|
         %tr
-          - if bill.account
-            - color = account_color(bill)
-            %td
-              = link_to bill.account.name, bill.account, :class => "btn btn-success btn-xs", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%;"
-              - unless bill.account.website.blank?
-                %a{:class => "btn btn-default btn-xs",:href => bill.account.website, "target" => "_blank"}
-                  %span.glyphicon{class: 'glyphicon-link', "aria-hidden" => "true"}
           - color = bill.color
           %td= link_to bill.summary, bill, :class => "btn btn-success btn-xs", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%;"
           %td
-            %span.label{class: "label-#{bill.bill_type.downcase}"}= bill.amount
+            %span.label{class: "label-#{bill.bill_type.downcase}"}= bill.recurrences.nil? ? bill.recurrences.first.amount : 0
             %span.badge= bill.recurrences.count
-          - if bill.bank
-            - color = bank_color(bill)
-            %td= link_to bill.bank.name, bill.bank, :class => "btn btn-success btn-xs btn-block", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
           %td
             .pull-right.btn-group
               = link_to 'Split', bill, :class => "btn btn-success btn-xs"

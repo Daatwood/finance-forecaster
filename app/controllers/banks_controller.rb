@@ -4,20 +4,16 @@ class BanksController < ApplicationController
   before_action :set_bank, only: [:show, :edit, :update, :destroy]
 
   def index
-    @banks = current_user.banks
-    @bank = Bank.new
-    respond_with(@banks)
+    @bank = current_user.bank || current_user.bank.new
+    respond_with(@bank)
   end
 
   def show
-    @transaction = Transaction.new
-    @transactions = @bank.transactions
-    @bills = current_user.bills
     respond_with(@bank)
   end
 
   def new
-    @bank = Bank.new
+    @bank = current_user.bank.new
     respond_with(@bank)
   end
 
@@ -26,11 +22,9 @@ class BanksController < ApplicationController
 
   def create
     params = new_bank_params
-    start_balance = params.delete(:balance)
-    @bank = current_user.banks.new(params)
+    @bank = current_user.bank.new(params)
     if @bank.save
-      transaction = Transaction.new(amount: start_balance, date: @bank.created_at, summary: "Initial Balance", bill_id: nil, bank_id: @bank.id)
-      p transaction.inspect
+      transaction = @bank.transactions.create(amount: params[:balance], date: DateTime.now, summary: "Initial Balance")
       transaction.save
     end
     respond_with(@bank)

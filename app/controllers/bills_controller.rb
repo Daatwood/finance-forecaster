@@ -4,22 +4,21 @@ class BillsController < ApplicationController
   before_action :set_bill, only: [:show, :edit, :update, :destroy]
 
   def index
+    @bank = current_user.bank
     @bills = current_user.bills.order(:summary)
-    @accounts = current_user.accounts
-    @bill = Bill.new
-    @banks = current_user.banks
+    @bill = @bank.bills.new
+    
     respond_with(@bills)
   end
 
   def show
-    @bills = current_user.bills.order(:summary)
     @transaction = Transaction.new
+    
     @recurrences = @bill.recurrences.order(:active_at)
     @recurrence = Recurrence.new
     @exclusions = @bill.exclusions
     @exclusion = Exclusion.new
-    @banks = current_user.banks
-    @transactions = current_user.transactions.where(bill_id: @bill.id)
+    @bank = current_user.bank
     respond_with(@bill)
   end
 
@@ -42,7 +41,6 @@ class BillsController < ApplicationController
 
   def update
     updated = @bill.update(bill_params)
-    @bill.recurrences.where(static_amount: false).update_all(amount: @bill.amount) if updated
     respond_to do |format|
       if updated
         format.html { redirect_to(@bill, notice: 'Bill update.') }
@@ -65,6 +63,16 @@ class BillsController < ApplicationController
     end
 
     def bill_params
-      params.require(:bill).permit(:summary,:amount,:bill_type,:account_id, :bank_id, :color)
+      params.require(:bill).permit( :summary, 
+                                    :bill_type, 
+                                    :bank_id, 
+                                    :color, 
+                                    :website, 
+                                    recurrences: [:frequency, 
+                                                  :expires_at, 
+                                                  :interval, 
+                                                  :active_at, 
+                                                  :amount, 
+                                                  :note])
     end
 end

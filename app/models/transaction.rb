@@ -6,6 +6,12 @@ class Transaction < ActiveRecord::Base
   validates_presence_of :amount
   validates_presence_of :summary
 
+  after_create :update_bank
+
+  def update_bank
+    bank.balance += amount
+  end
+
   def debit?
     amount < 0
   end
@@ -14,11 +20,4 @@ class Transaction < ActiveRecord::Base
     amount > 0
   end
 
-  def bill_summary
-    return "" if bill_id.blank?
-
-    bill = Bill.find(bill_id)
-    return bill.summary unless bill.nil?
-    "Unknown"
-  end
 end

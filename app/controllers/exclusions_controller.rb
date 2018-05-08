@@ -33,7 +33,7 @@ class ExclusionsController < ApplicationController
 
   def destroy
     @exclusion.destroy
-    respond_with(@exclusion)
+    redirect_to :back, notice: 'Exclusion deleted.'
   end
 
   private
