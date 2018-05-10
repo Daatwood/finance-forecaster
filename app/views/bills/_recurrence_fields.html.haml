@@ -1,0 +1,9 @@
+= r.hidden_field :interval, value: 1
+.form-group
+  = r.select :frequency, options_for_select(Recurrence::FREQUENCIES, 'Monthly'), {prompt: 'Select Frequency'}, required: true, class: 'form-control'
+.form-group
+  = r.text_field :amount, placeholder: 'Amount', class: 'form-control', required: true
+.form-group
+  = r.date_field :active_at, class: 'form-control', required: true, value: Date.current
+.form-group
+  = r.date_field :expires_at, class: 'form-control'

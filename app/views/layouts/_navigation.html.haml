@@ -11,9 +11,9 @@
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-tasks',:nav_text=> 'Dashboard',:nav_path=> dashboard_path}
-          = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-edit',:nav_text=> 'Bills',:nav_path=> bills_path}
-          = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-briefcase',:nav_text=> 'Accounts',:nav_path=> accounts_path}
-          = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-credit-card',:nav_text=> 'Banks',:nav_path=> banks_path}
+          = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-edit',:nav_text=> 'Income',:nav_path=> bills_path}
+          = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-briefcase',:nav_text=> 'Expenses',:nav_path=> bills_path}
+          = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-credit-card',:nav_text=> 'Transactions',:nav_path=> transactions_path}
           %li
             = link_to('Sign out', destroy_user_session_path, :method => :delete)
         - else
@@ -23,5 +23,6 @@
             = link_to 'Log in', new_user_session_path
           %li
             = link_to 'Contact', "mailto:dustin@atwood.email"
-          %li
-            = link_to 'View Demo', demo_path
+          - if @demo_user
+            %li
+              = link_to 'View Demo', demo_path

@@ -1,0 +1,31 @@
+%section
+  .container.visitor-section
+    .row.text-center
+      %h1 New Bill
+      %hr.colored
+    .row
+      .col-md-offset-4.col-md-4
+        - if @bill.errors.any?
+          %h2
+            = pluralize(@bill.errors.count, "error")
+            prohibited this bill from being saved:
+          %ul
+            - @bill.errors.full_messages.each do |message|
+              %li= message
+    .row
+      .col-md-offset-4.col-md-4
+        = form_for(@bill, :html => { :role => 'form'}) do |f|
+          = f.hidden_field :color, value: "##{"%06x" % (rand * 0xffffff)}"
+          = f.hidden_field :bank_id, value: current_user.bank.id
+          .form-group.float-label-control
+            = f.label :summary
+            = f.text_field :summary, autofocus: true, class:'form-control', placeholder: 'Bill Title'
+          .form-group.float-label-control
+            = f.label :bill_type
+            = f.select :bill_type, options_for_select([['Income', 'INCOME'],['Expense', 'EXPENSE']],"EXPENSE"), {prompt: 'Select Type'}, required: true, class: 'form-control'
+          .form-group.float-label-control
+            = f.label :website
+            = f.text_field :website, autofocus: true, class:'form-control', placeholder: 'Corresponding website for url shortcut'
+          = f.fields_for :recurrences_attributes do |r|
+            = render 'recurrence_fields', r: r
+          %button.btn.btn-primary.btn-block{:type => "submit"} Create

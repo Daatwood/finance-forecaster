@@ -23,7 +23,7 @@
           .form-group
             %label.col-md-3.control-label{:for => "bill_bill_type"} Type
             .col-md-9
-              = f.select :bill_type, options_for_select([['Credit', 'CREDIT'],['Debit', 'DEBIT'],['Adjustable', 'ADJUSTMENT']], @bill.bill_type), {prompt: 'Type'}, {required: 'true', class: 'form-control'}
+              = f.select :bill_type, options_for_select([['Income', 'INCOME'],['Expense', 'EXPENSE']], @bill.bill_type), {prompt: 'Type'}, {required: 'true', class: 'form-control'}
           .form-group
             %label.col-md-3.control-label{:for => "bill_color"} Color
             .col-md-9

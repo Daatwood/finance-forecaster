@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
   has_one :bank, inverse_of: :user, dependent: :destroy
   has_many :bills, through: :bank
   has_many :transactions, through: :bank
+  has_many :recurrences, through: :bank
+  has_many :exclusions, through: :bank
+
+  scope :public_user, -> { where(public: true).first }
 
   after_create :create_bank
 

@@ -1,16 +1,24 @@
 %div.table-responsive
-  %table.table.table-condensed.table-hover
+  %table.table.table-condensed.table-hover.table-focus
     %thead
       %tr
         %th Date
-        %th{:colspan => 5} Summary
+        %th Summary
         %th Amount
+        %th
+          #readjustment-form{style:'display:none;height:22px;'}
+            = render 'transactions/readjustment'
+        %th
+          %button.btn.btn-success.btn-xs.pull-right#readjustment-button Change Balance
+          .balance-text= "Current Balance: #{current_user.bank.balance}"
     %tbody
-      - transactions.each do |transaction|
+      - @transactions.each do |transaction|
+        - next if transaction.new_record?
         %tr
-          %td= best_in_place transaction, :date, as: :input, :display_with => lambda { |v| v.to_date }
-          %td{:colspan => 5}
+          %td= best_in_place transaction, :date, as: :input, :display_with => lambda { |d| d.to_date unless d.nil? }
+          %td
             = best_in_place transaction, :summary, as: :input
           %td
             = best_in_place transaction, :amount, as: :input
-            =link_to 'Destroy', transaction, :method => :delete, data: { confirm: "Deleting transaction '#{transaction.summary}', Are you sure?" }, remote: true, :class => "btn btn-danger btn-xs pull-right"
+          %td{colspan: '2'}
+            =link_to 'Destroy', transaction, :method => :delete, data: { confirm: "Deleting transaction '#{transaction.summary}', Are you sure?" }, remote: true, class: "btn btn-danger btn-xs pull-right"

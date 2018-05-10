@@ -4,18 +4,29 @@ class WelcomeController < ApplicationController
     if current_user
       redirect_to dashboard_path
     end
+    set_demo_user
   end
 
   def demo
-    demo = User.find_by_public(true)
+    set_demo_user
     sign_out(current_user) if current_user
-    sign_in(:user, demo, bypass: true)
-    redirect_to dashboard_path, notice: "You are viewing demo."
+    if (@demo_user)
+      sign_in(:user, @demo_user, bypass: true)
+      redirect_to dashboard_path, notice: "You are viewing demo."
+    else
+      redirect_to root_path, warning: "Unable to access demo account. Try again later." 
+    end
   end
   
   def end_demo
     sign_out(current_user)
     redirect_to root_url, notice: 'No longer viewing demo.'
+  end
+
+  private
+
+  def set_demo_user
+    @demo_user = User.find_by_public(true)
   end
 
   # # GET Let user resend invitation

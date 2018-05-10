@@ -29,6 +29,10 @@ module ApplicationHelper
     darken_color(color,0.6)
   end
 
+  def button_styling(color)
+    "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
+  end
+
   def nav_link_helper(nav_text, nav_path)
     content_tag(:li, nil, :class => ("active" if controller_name == nav_text.downcase)){
       link_to nav_text, nav_path
@@ -39,6 +43,10 @@ module ApplicationHelper
     unless @example_user
       link_to 'Destroy', resource, :method => :delete, data: { confirm: "Are you sure?" }, :class => "btn btn-danger btn-xs"
     end
+  end
+
+  def to_date(date)
+    date.to_date unless date.nil?
   end
 
 end

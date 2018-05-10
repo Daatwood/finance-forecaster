@@ -4,13 +4,11 @@ ready = function() {
     $button = $('.btn-form')
     $form = $('.form-btn');
     $form.toggle();
-    if ($form.is(":visible") ){
+    if ($form.is(":visible") )
       $button.html("Hide")
-      $button.toggleClass("btn-danger");
-    } else {
+    else
       $button.html("Add New")
-      $button.toggleClass("btn-danger");
-    }
+    $button.toggleClass("btn-danger");
   });
   $('#hide-canvas').click(function(){
     $button = $('#hide-canvas')

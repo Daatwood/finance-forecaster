@@ -1,12 +1,12 @@
 class BillsController < ApplicationController
   respond_to :html, :js
   before_action :authenticate_user!
+  before_action :new_bill, only: [:index]
   before_action :set_bill, only: [:show, :edit, :update, :destroy]
 
   def index
-    @bank = current_user.bank
     @bills = current_user.bills.order(:summary)
-    @bill = @bank.bills.new
+    @bill = new_bill
     
     respond_with(@bills)
   end
@@ -18,23 +18,21 @@ class BillsController < ApplicationController
     @recurrence = Recurrence.new
     @exclusions = @bill.exclusions
     @exclusion = Exclusion.new
-    @bank = current_user.bank
     respond_with(@bill)
   end
 
   def new
-    @bill = Bill.new
-    @accounts = current_user.accounts
-    @banks = current_user.banks
+    @bill = new_bill
+
     respond_with(@bill)
   end
 
   def edit
-    @banks = current_user.banks
   end
 
   def create
-    @bill = Bill.new(bill_params)
+    @bill = current_user.bank.bills.new(bill_params)
+    @bill.recurrences.new(recurrence_params)
     @bill.save
     respond_with(@bill)
   end
@@ -58,21 +56,42 @@ class BillsController < ApplicationController
   end
 
   private
+    def new_bill
+      @bill = current_user.bank.bills.new
+      @bill.recurrences.build
+      @bill
+    end
+
     def set_bill
-      @bill = Bill.find(params[:id])
+      @bill = current_user.bills.find(params[:id])
     end
 
     def bill_params
-      params.require(:bill).permit( :summary, 
-                                    :bill_type, 
-                                    :bank_id, 
-                                    :color, 
-                                    :website, 
-                                    recurrences: [:frequency, 
-                                                  :expires_at, 
-                                                  :interval, 
-                                                  :active_at, 
-                                                  :amount, 
-                                                  :note])
+      params.require(:bill).permit( 
+        :id,
+        :summary, 
+        :bill_type, 
+        :bank_id, 
+        :color, 
+        :website)
+        # recurrences_attributes: [
+        #   :id,
+        #   :frequency, 
+        #   :expires_at, 
+        #   :interval, 
+        #   :active_at, 
+        #   :amount, 
+        #   :note])
+    end
+
+    def recurrence_params
+      params["bill"].require(:recurrences_attributes).permit( 
+        :id,
+        :frequency, 
+        :expires_at, 
+        :interval, 
+        :active_at, 
+        :amount, 
+        :note)
     end
 end

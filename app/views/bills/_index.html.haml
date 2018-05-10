@@ -3,16 +3,18 @@
     %thead
       %tr
         %th Summary
+        %th Next Due Date
         %th Amount
+        %th
     %tbody
       - @bills.each do |bill|
         %tr
-          - color = bill.color
-          %td= link_to bill.summary, bill, :class => "btn btn-success btn-xs", style: "background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};width:70%;"
+          %td= link_to bill.summary, bill, :class => "btn btn-success btn-xs btn-block", style: button_styling(bill.color)
+          %td= to_date(bill.next_due.active_at)
           %td
-            %span.label{class: "label-#{bill.bill_type.downcase}"}= bill.recurrences.nil? ? bill.recurrences.first.amount : 0
-            %span.badge= bill.recurrences.count
+            - if bill.next_due
+              %span.label{class: "label-#{bill.bill_type.downcase}"}= bill.next_due.amount
           %td
             .pull-right.btn-group
-              = link_to 'Split', bill, :class => "btn btn-success btn-xs"
+              = link_to 'Edit', bill, :class => "btn btn-success btn-xs"
               = link_to_delete(bill)

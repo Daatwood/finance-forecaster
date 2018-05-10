@@ -1,38 +1,20 @@
-.row
-  .col-md-12.well{style:"margin-top:-12px;"}
-    = form_for @transaction, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
-      .form-group
-        .col-sm-offset-3.col-md-9
-          %h3 New Transaction
-      - if @transaction.errors.any?
-        #error_explanation
-          %h2
-            = pluralize(@transaction.errors.count, "error")
-            prohibited this bill from being saved:
-          %ul
-            - @transaction.errors.full_messages.each do |message|
-              %li= message
-      -if bill.nil?
-        = f.hidden_field :bank_id, value: bank.id
-        .form-group
-          %label.col-md-3.control-label{:for => "transaction_bill_id"} Bill Reference
-          .col-md-9
-            = f.select :bill_id, options_from_collection_for_select(@bills, 'id', 'summary'), {include_blank: true}, { class: 'form-control'}
-      -else
-        = f.hidden_field :bill_id, value: bill.id
-        = f.hidden_field :bank_id, value: bill.bank_id
-      .form-group
-        %label.col-md-3.control-label{:for => "transaction_date"} Date
-        .col-md-9
-          = f.date_field :date, value: Time.now.strftime("%F"), placeholder: '(YYYY-MM-DD)', class: 'form-control'
-      .form-group
-        %label.col-md-3.control-label{:for => "transaction_summary"} Summary
-        .col-md-9
-          = f.text_field :summary, value: default_summary(bill) ,class: 'form-control'
-      .form-group
-        %label.col-md-3.control-label{:for => "transaction_amount"} Amount
-        .col-md-9
-          = f.text_field :amount, value: 0, class: 'form-control'
-      .form-group
-        .col-md-offset-3.col-md-9
-          %button.btn.btn-success.btn-md.btn-group{:type => "submit"} Create
+.form-btn
+  = form_for @transaction, html: {role: 'form', class: 'form-inline', remote: true} do |f|
+    - if @transaction.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@transaction.errors.count, "error")
+          prohibited this bill from being saved:
+        %ul
+          - @transaction.errors.full_messages.each do |message|
+            %li= message
+    .form-group
+      = f.label :date, 'New Transaction'
+    .form-group
+      = f.date_field :date, value: Date.current, placeholder: '(YYYY-MM-DD)', class: 'form-control', required: true
+    .form-group
+      = f.text_field :summary, class: 'form-control', required: true, placeholder: 'Transaction title'
+    .form-group
+      = f.text_field :amount, class: 'form-control', required: true, placeholder: 'Transaction amount'
+    .form-group
+      %button.btn.btn-success.btn-md.btn-group{:type => "submit"} Create

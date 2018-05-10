@@ -1,6 +1,7 @@
 class TransactionsController < ApplicationController
   respond_to :html, :js, :json
   before_action :authenticate_user!
+  before_action :new_transaction, only: [:index, :new]
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -8,28 +9,21 @@ class TransactionsController < ApplicationController
     respond_with(@transactions)
   end
 
-  def show
-    respond_with(@transaction)
-  end
-
-  def new
-    @transaction = current_user.bank.transactions.new
-    respond_with(@transaction)
-  end
-
-  def edit
-  end
-
   def create
-    params = transaction_params
-    if params[:summary] == "Readjustment"
-      bank = Bank.find(params[:bank_id])
-      new_balance = params.delete(:amount).to_i
-      params[:amount] = new_balance - bank.balance
+    tparams = transaction_params
+    if tparams[:amount].to_i != 0
+      balance = current_user.bank.balance
+      if tparams[:summary] == "Readjustment"
+        new_balance = tparams.delete(:amount).to_i
+        tparams[:amount] = new_balance - balance
+      end
+      @transaction = current_user.bank.transactions.new(tparams)
+      @transaction.save
+      flash[:notice] = "Added transaction for $#{@transaction.amount}. Balance updated."
+    else
+      flash[:warning] = "Unable to create transaction with amount of '#{tparams[:amount]}'."
     end
 
-    @transaction = Transaction.new(params)
-    @transaction.save
     respond_with(@transaction)
   end
 
@@ -47,16 +41,24 @@ class TransactionsController < ApplicationController
   end
 
   def destroy
-    @transaction.destroy
-    redirect_to(dashboard_path, notice: 'Transaction deleted.')
+    if @transaction.destroy
+      flash[:notice] = 'Transaction deleted.'
+    end
+
+    respond_with(@transaction)
   end
 
   private
-    def set_transaction
-      @transaction = Transaction.find(params[:id])
-    end
 
-    def transaction_params
-      params.require(:transaction).permit(:bill_id, :date, :summary, :amount, :bank_id, {:exclusion => []} )
-    end
+  def new_transaction
+    @transaction = current_user.transactions.new
+  end
+
+  def set_transaction
+    @transaction = current_user.transactions.find(params[:id])
+  end
+
+  def transaction_params
+    params.require(:transaction).permit(:id, :date, :summary, :amount, :bank_id)
+  end
 end

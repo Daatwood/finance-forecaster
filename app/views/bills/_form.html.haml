@@ -9,15 +9,12 @@
           - @bill.errors.full_messages.each do |message|
             %li= message
     = f.hidden_field :color, value: "##{"%06x" % (rand * 0xffffff)}"
-    = f.hidden_field :bank_id, value: @bill.bank_id
+    = f.hidden_field :bank_id, value: current_user.bank.id
     .form-group
       = f.text_field :summary, placeholder: 'Add description', class: 'form-control', required: true
     .form-group
-      = f.select :bill_type, options_for_select([['Income', 'CREDIT'],['Expense', 'DEBIT']]), {prompt: 'Select Type'}, required: true, class: 'form-control'
-      = f.fields_for :recurrences do |r|
-        .form-group
-          = r.text_field :amount, placeholder: 'Amount', class: 'form-control'
-        .form-group
-          = r.date_field :active_at, class: 'form-control', required: true
+      = f.select :bill_type, options_for_select([['Income', 'INCOME'],['Expense', 'EXPENSE']],"EXPENSE"), {prompt: 'Select Type'}, required: true, class: 'form-control'
+      = f.fields_for :recurrences_attributes do |r|
+        = render 'bills/recurrence_fields', r: r
     .form-group
       %button.btn.btn-primary.btn-md.btn-group{:type => "submit"} Create

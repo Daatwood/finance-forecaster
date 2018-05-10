@@ -5,94 +5,43 @@
       %hr.colored
     .row
       .col-md-12
-        - unless @bills.empty?
-          .pull-right
-            %button.btn.btn-warning.btn-xs#hide-canvas Hide Chart
-          %canvas#canvas{:height => "450", :width => "1200"}
-          .col-md-6
-            = form_tag dashboard_path, :method => 'post', :class => 'form-inline' do
-              .form-group
-                = select_tag :timespan, options_for_select([['6 Months',6],['9 Months',9],['12 Months',12],['18 Months',18],['24 Months', 24]], selected: @timespan), class: 'form-control'
-              = submit_tag 'Set', class: 'btn btn-default'
-        - else
-          %p 
-            No data found, please add and some bills
-      .row
-        .col-lg-12
-          .panel.panel-focus.filterable
-            #readjustment-form{style:'display:none;'}
-              = render 'transactions/readjustment', bank: @bank, bill: nil
-            .panel-heading
-              %h3.panel-title 
-                Upcoming Transactions
-                %button.btn.btn-success.btn-form.btn-xs New Bill
-              = render "bills/form"
-              .pull-right
-                ="$#{@bank.balance}"
-                %button.btn.btn-success.btn-xs#readjustment-button Change Balance
-            %div.table-responsive
+        .jumbotron
+          %p Chart goes here.
+    .row
+      .col
+        .panel.panel-focus.filterable
+          .panel-heading
+            %h3.panel-title 
+              Forecasted Transactions
+              %button.btn.btn-success.btn-xs#new-bill New Bill
+            .pull-right
+              ="Starting Balance: $#{current_user.bank.balance}"
+              %button.btn.btn-info.btn-xs#readjustment-button Change
+          .table-responsive
             %table.table-focus.table.table-condensed.table-hover
               %thead
                 %tr
                   %th Date
-                  %th{colspan:"4"} Bills
+                  %th Summary
+                  %th 
                   %th Change
-                  %th Balance
+                  %th Forecast
+                  %th.pull-right Actions
               %tbody
-                - date = 0
-                - balance = @bank.balance
-                - @results["dates"].each do |date, row|
-                  %tr.clickable.accordion-toggle{class: "#{row[:alert]}", data: {toggle: "collapse", target: ".row-#{date}"}, id: "row-#{date}" }
-                    %td=date
-                    %td{colspan:"4"}
-                      %span.badge
-                        =row[:payments].count
-                      =row[:summary]
-                    %td
-                      %span{class: (row[:change] < 0 ? "label label-debit" : "label label-credit")}
-                        =row[:change]
-                    %td=row[:balance]
-                    /- %td=row[:balance]
-                  - row[:payments].each do |payment|
-                    %tr.collapse{class: "row-#{date}", style: "background-color: whitesmoke;"}
-                      %td{colspan:"4"}
-                        - bill = payment.bill
-                        - color = bill.color
-                        = link_to bill.summary, bill, :class => "btn btn-success btn-xs", style: "width:40%;background-color:#{color};border-color:#{border_color color};border-bottom-color:#{shadow_color color};"
-                        - unless bill.website.blank?
-                          %a{:class => "btn btn-default btn-xs",:href => bill.website, "target" => "_blank"}
-                            %span.glyphicon{class: 'glyphicon-link', "aria-hidden" => "true"}
-                      %td{style: 'text-decoration:underline;'}
-                        = payment.summary
-                      %td{colspan:"2"}
-                        = form_tag '/transactions', :method => 'post', :id=>'glance-filter', :class => 'form-horizontal', remote: true, role: 'form' do
-                          = hidden_field_tag :bank_id, value: @bank.id
-                          = hidden_field_tag :date, value: date
-                          = hidden_field_tag :summary, value: "#{bill.summary} #{payment.recurrence.note}"
-                          = hidden_field_tag :payment_recurrence, payment.recurrence
-                          = text_field_tag :amount, value: payment.amount, class: 'btn btn-xs'
-                          .btn-group
-                            %button.btn.btn-success.btn-xs{:type => "submit"} Mark Paid
-                            / = form_for @exclusion, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
-                            /   = f.hidden_field :date, value: date
-                            /   = f.hidden_field :bill_id, value: bill.id
-                            /   %button.btn.btn-danger.btn-xs{:type => "submit"} Exclude
+                - @forecast.each do |f|
+                  - f.each_pair do |date,transaction|
+                    %tr
+                      %th= date
+                      %th= transaction[:summary]
+                      %th= transaction[:note]
+                      %th= "$ #{transaction[:amount]}"
+                      %th= "$ #{transaction[:balance]}"
+                      %th
+                        .pull-right.btn-group
+                          %button.btn.btn-success.btn-xs Mark Paid
+                          %button.btn.btn-info.btn-xs Skip
 
-:javascript
-  // Date of the Forecast
-  window.chart_labels = #{@chart_labels};
-  // A balance of each bank throughout the forecast. Double-Nested Array
-  window.chart_data = #{@chart_data};
-  window.chart_colors = #{[lighten_color(@chart_color,0.2),border_color(@chart_color),@chart_color].to_json.gsub('"',"'")}
-  $(document).ready(function(){
-    $('#readjustment-button').click(function(){
-      $button = $(this)
-      $form = $('#readjustment-form')
-      $form.toggle();
-      if ($form.is(":visible") ){
-        $button.html("Cancel")
-      } else {
-        $button.html("Change Balance")
-      }
-    });
-  });
+                
+
+
+

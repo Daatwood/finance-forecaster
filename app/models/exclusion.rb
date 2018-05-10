@@ -3,4 +3,6 @@ class Exclusion < ActiveRecord::Base
 
   validates_presence_of :bill
 
+  default_scope {order('date ASC')}
+
 end
