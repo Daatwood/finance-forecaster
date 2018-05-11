@@ -11,5 +11,8 @@ class MigrateExistingValues < ActiveRecord::Migration
     Recurrence.joins(:bill).where("bills.bill_type = 'expense' AND amount > 0").find_each do |re|
       re.update(amount: re.amount * -1)
     end
+    Recurrence.find_each do |re|
+      re.update(frequency: re.frequency.downcase)
+    end
   end
 end
