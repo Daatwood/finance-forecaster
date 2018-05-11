@@ -13,7 +13,7 @@ transaction hash.
 class ForecastTransactions
   include Service
 
-  def initialize(user, end_date = Date.current + 3.month, limit=2000)
+  def initialize(user, end_date = Date.current + 3.month, limit=365)
     @user = user
     @until = end_date.to_date
     @limit = limit
@@ -23,7 +23,7 @@ class ForecastTransactions
     forecast = {}
     @user.recurrences.find_each do |re|
       @tdate = re.active_at.to_date
-      begin 
+      begin
         # Do not add if parent has a exlusion for the date
         if valid_date?(re.bill_id, @tdate)
           forecast[@tdate.to_s] ||= []
@@ -35,8 +35,7 @@ class ForecastTransactions
         break if (!re.expires_at.nil? && @tdate > re.expires_at.to_date)
         # Move date to next due date
         @tdate += re.frequency_time
-        # Prevent generating too many forecasts with a hard limit
-      end while (@tdate < @until && forecast.count < @limit)
+      end while (@tdate < @until)
     end
     simulate_balance(forecast)
   end

@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :recurrences, through: :bank
   has_many :exclusions, through: :bank
 
-  scope :public_user, -> { where(public: true).first }
+  scope :demo, -> { where(public: true).first }
 
   after_create :create_bank
 

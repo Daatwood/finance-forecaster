@@ -1,14 +1,13 @@
 class CalculateBalanceChart
   include Service
 
-  def initialize(bank, dashboard_data)
-    @bank = bank
-    @dashboard_data = dashboard_data
+  def initialize(forecast)
+    @forecast = forecast
   end
 
   def call
-    balances = []
-    @dashboard_data["dates"].each_value{|v| balances << v[:balance]}
-    balances
+    @forecast.reduce({}, :merge).each_with_object([]) do |(date,transactions),arr|
+      arr << [date, transactions.last[:balance]]
+    end
   end
 end

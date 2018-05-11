@@ -16,5 +16,6 @@
 //= require bootstrap-sprockets
 //= require best_in_place
 //= require jquery.minicolors
-//= require Chart
+//= require Chart.bundle
+//= require chartkick
 //= require_tree .

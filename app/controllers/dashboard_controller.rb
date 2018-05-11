@@ -6,6 +6,8 @@ class DashboardController < ApplicationController
 
     @forecast = ForecastTransactions.call(current_user)
 
+    @chart_data = CalculateBalanceChart.call(@forecast)
+
 
 
 
