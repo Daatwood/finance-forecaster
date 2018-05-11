@@ -1,42 +1,56 @@
-# Recurrence are due dates for bills. They allow themselves to represent a single date or multiple dates by repeating
-# Eg. First bill is always higher. Add exception to the first due date of recurrence then add a one-time recurrence with adjusted amount.
 class Recurrence < ActiveRecord::Base
-  FREQUENCIES = %w(Once Daily Weekly Monthly Yearly)
+  FREQUENCIES = { 
+    'once' => 0, 
+    'daily' => 1.day, 
+    'weekly' => 7.days, 
+    'monthly' => 1.month, 
+    'yearly' => 1.year
+  }
+
+  FREQUENCY_KINDS = Recurrence::FREQUENCIES.keys
 
   default_scope {order('active_at ASC')}
 
   belongs_to :bill
 
-  validates_presence_of :frequency, :active_at, :amount, :interval
+  before_validation :normalize_frequency
+  before_create :adjust_amount
 
-  validates :frequency, inclusion: { in: Recurrence::FREQUENCIES,
-    message: "%{value} is not a valid frequency." }
+  validates_presence_of :frequency, :active_at, :interval
 
-  before_validation do 
-    frequency = frequency.capitalize if frequency
+  validates :frequency, inclusion: { 
+    in: Recurrence::FREQUENCY_KINDS, 
+    message: "%{value} must be one of the following: 
+      #{Recurrence::FREQUENCY_KINDS.join(', ')}"
+  }
+
+  # Defines: once? daily? weekly? monthly? yearly?
+  FREQUENCY_KINDS.each do |freq|
+    define_method("#{freq}?") do 
+      freq == self.frequency
+    end
   end
 
   def next_date
-    active_at.to_date + advance_frequency
+    active_at.to_date + frequency_time unless once?
   end
 
   def forever?
     expires_at.blank?
   end
 
-  def advance_frequency(adv=interval)
-    case frequency.upcase
-    when "DAILY"
-      return (1 * adv).day
-    when "WEEKLY"
-      return (7 * adv).days
-    when "MONTHLY"
-      return (1 * adv).month
-    when "YEARLY"
-      return (1 * adv).year
-    else
-      return 0
-    end
+  def frequency_time
+    (Recurrence::FREQUENCIES[self.frequency].seconds * self.interval / 1.day).days
+  end
+
+  private
+
+  def normalize_frequency
+    self.frequency = frequency.downcase.strip if frequency
+  end
+
+  def adjust_amount
+    self.amount = amount * -1 if bill.expense? && amount > 0
   end
 
 end

@@ -5,16 +5,18 @@
         %th Summary
         %th Next Due Date
         %th Amount
-        %th
+        %th Actions
     %tbody
       - @bills.each do |bill|
         %tr
           %td= link_to bill.summary, bill, :class => "btn btn-success btn-xs btn-block", style: button_styling(bill.color)
-          %td= to_date(bill.next_due.active_at)
+          %td
+            - if bill.next_due
+              = to_date(bill.next_due.active_at)
           %td
             - if bill.next_due
               %span.label{class: "label-#{bill.bill_type.downcase}"}= bill.next_due.amount
           %td
-            .pull-right.btn-group
+            .btn-group
               = link_to 'Edit', bill, :class => "btn btn-success btn-xs"
               = link_to_delete(bill)

@@ -5,24 +5,30 @@ class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
 
   def index
+    @bank = current_user.bank
     @transactions = current_user.transactions
     respond_with(@transactions)
   end
 
   def create
     tparams = transaction_params
-    if tparams[:amount].to_i != 0
-      balance = current_user.bank.balance
-      if tparams[:summary] == "Readjustment"
-        new_balance = tparams.delete(:amount).to_i
-        tparams[:amount] = new_balance - balance
-      end
-      @transaction = current_user.bank.transactions.new(tparams)
-      @transaction.save
-      flash[:notice] = "Added transaction for $#{@transaction.amount}. Balance updated."
-    else
+    @bank = current_user.bank
+    if tparams[:summary] == "Readjustment"
+      new_balance = tparams.delete(:amount).to_i
+      tparams[:amount] = new_balance - @bank.balance
+    elsif tparams[:amount].to_i == 0
       flash[:warning] = "Unable to create transaction with amount of '#{tparams[:amount]}'."
+      redirect_to :back && return
     end
+    @transaction = @bank.transactions.new(tparams)
+
+    if (@transaction.save)
+      puts "TRANS:: #{@bank.balance + @transaction.amount}"
+      @bank.update(balance: @bank.balance + @transaction.amount)
+      puts "BAL:: #{@bank.balance}"
+    end
+    flash[:notice] = "Added transaction for $#{@transaction.amount}. Balance updated."
+
 
     respond_with(@transaction)
   end

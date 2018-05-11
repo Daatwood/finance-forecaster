@@ -13,7 +13,7 @@
     .form-group
       = f.text_field :summary, placeholder: 'Add description', class: 'form-control', required: true
     .form-group
-      = f.select :bill_type, options_for_select([['Income', 'INCOME'],['Expense', 'EXPENSE']],"EXPENSE"), {prompt: 'Select Type'}, required: true, class: 'form-control'
+      = f.select :bill_type, options_for_select(array_to_select_options(Bill::KINDS),@bill.bill_type), {prompt: 'Select Type'}, required: true, class: 'form-control'
       = f.fields_for :recurrences_attributes do |r|
         = render 'bills/recurrence_fields', r: r
     .form-group

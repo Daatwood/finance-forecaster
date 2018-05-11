@@ -42,7 +42,7 @@ gem 'grape'
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :development, :test do
   gem 'byebug'
-  gem 'web-console', '~> 2.0'
+  
   gem 'spring'
 end
 
@@ -50,6 +50,7 @@ gem 'bootstrap-addons-rails', group: :assets
 
 # Open email instantly in browser
 group :development do
+  gem 'web-console', '~> 2.0'
   gem 'better_errors'
   gem 'html2haml'
   gem 'quiet_assets'

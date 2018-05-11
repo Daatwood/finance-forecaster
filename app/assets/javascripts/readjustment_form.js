@@ -1,10 +1,11 @@
 $(document).ready(function(){
   $('#readjustment-button').click(function(){
+    console.log('what')
     $balance = $('.balance-text')
     $button = $('#readjustment-button')
     $form = $('#readjustment-form')
-    if ($form.length != 0){
-      $form.toggle();
+    if ($form.length === 1){
+      $form.toggleClass('hide');
       if ($form.is(":visible") ){
         $button.prop('original-text', $button.html())
         $button.html("Cancel")

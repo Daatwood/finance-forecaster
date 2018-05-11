@@ -1,6 +1,6 @@
 = r.hidden_field :interval, value: 1
 .form-group
-  = r.select :frequency, options_for_select(Recurrence::FREQUENCIES, 'Monthly'), {prompt: 'Select Frequency'}, required: true, class: 'form-control'
+  = r.select :frequency, options_for_select(array_to_select_options(Recurrence::FREQUENCY_KINDS), 'monthly'), {prompt: 'Select Frequency'}, required: true, class: 'form-control'
 .form-group
   = r.text_field :amount, placeholder: 'Amount', class: 'form-control', required: true
 .form-group

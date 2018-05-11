@@ -1,6 +1,7 @@
-# Interacts directly with bank
 class Bill < ActiveRecord::Base
-  KINDS = %w(INCOME EXPENSE)
+  KINDS = %w(income expense)
+
+  attr_reader :blackout_dates
 
   belongs_to :bank
 
@@ -9,33 +10,32 @@ class Bill < ActiveRecord::Base
 
   accepts_nested_attributes_for :recurrences
 
-  before_validation do
-    self.bill_type = bill_type.upcase 
-  end
+  before_validation :normalize_bill_type
 
   validates_presence_of :summary
   validates :bill_type, inclusion: { in: Bill::KINDS, 
-    message: '%{value} is not a valid bill type.' }
+    message: "%{value} must be one of the following: #{Bill::KINDS.join(", ")}"
+  }
 
-  def invalid_date?(date)
+  # Defines income? expense?
+  Bill::KINDS.each do |kind|
+    define_method("#{kind}?") do
+      kind == self.bill_type
+    end
+  end
+
+  def blackout_dates
     @blackouts ||= exclusions.pluck(:date).map(&:to_date)
-    @blackouts.include? date
   end
 
   def next_due
     recurrences.first unless recurrences.blank?
   end
 
-  def expense?
-    bill_type == "EXPENSE"
-  end
-
-  def income?
-    bill_type == "INCOME"
-  end
-
-  def forecast 
-
+  private
+  
+  def normalize_bill_type
+    self.bill_type = bill_type.downcase.strip if bill_type
   end
 
 end

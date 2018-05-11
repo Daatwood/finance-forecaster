@@ -6,6 +6,7 @@
     .row
       .col-md-12
         .jumbotron
+          %svg{:height => "100%", :width => "100%"}
           %p Chart goes here.
     .row
       .col
@@ -15,6 +16,8 @@
               Forecasted Transactions
               %button.btn.btn-success.btn-xs#new-bill New Bill
             .pull-right
+              #readjustment-form.hide{style:'height:22px;'}
+                = render 'transactions/readjustment'
               ="Starting Balance: $#{current_user.bank.balance}"
               %button.btn.btn-info.btn-xs#readjustment-button Change
           .table-responsive
@@ -29,17 +32,20 @@
                   %th.pull-right Actions
               %tbody
                 - @forecast.each do |f|
-                  - f.each_pair do |date,transaction|
+                  - f.each do |date,transactions|
                     %tr
-                      %th= date
-                      %th= transaction[:summary]
-                      %th= transaction[:note]
-                      %th= "$ #{transaction[:amount]}"
-                      %th= "$ #{transaction[:balance]}"
-                      %th
-                        .pull-right.btn-group
-                          %button.btn.btn-success.btn-xs Mark Paid
-                          %button.btn.btn-info.btn-xs Skip
+                      %th{colspan: 6}= date
+                    - transactions.each do |transaction|
+                      %tr
+                        %th
+                        %th= link_to transaction[:summary], bills_path+"/#{transaction[:bill_id]}", class: 'text-info'
+                        %th= transaction[:note]
+                        %th{class: text_color_by_value(transaction[:amount])}= "$ #{transaction[:amount]}"
+                        %th{class: text_color_by_value(transaction[:balance])}= "$ #{transaction[:balance]}"
+                        %th
+                          .pull-right.btn-group
+                            %button.btn.btn-success.btn-xs Mark Paid
+                            %button.btn.btn-info.btn-xs Skip
 
                 
 

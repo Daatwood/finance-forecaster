@@ -8,7 +8,7 @@
         #error_explanation
           %h2
             = pluralize(@recurrence.errors.count, "error")
-            prohibited this bill from being saved:
+            prohibited this recurrence from being saved:
           %ul
             - @recurrence.errors.full_messages.each do |message|
               %li= message
@@ -24,7 +24,7 @@
       .form-group
         %label.col-md-3.control-label{:for => "recurrence_frequency"} Frequency
         .col-md-9
-          = f.select :frequency, options_for_select(Recurrence::FREQUENCIES, 'Once'), {required: true, include_blank: "Select Frequency"}, {class: 'form-control'}
+          = f.select :frequency, options_for_select(array_to_select_options(Recurrence::FREQUENCY_KINDS), @recurrence.frequency), {required: true, include_blank: "Select Frequency"}, {class: 'form-control'}
       .form-group
         %label.col-md-3.control-label{:for => "recurrence_interval"} Interval
         .col-md-9

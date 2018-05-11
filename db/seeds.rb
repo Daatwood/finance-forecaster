@@ -7,4 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 demo = User.create(email: 'demo@finance-forecaster.com', password: ENV["DEMO_PASSWORD"] || 'Password', public: true)
+
 # demo.bank.bills.create([bill_type: ''])

@@ -16,7 +16,7 @@
           %td= best_in_place recurrence, :amount, as: :input
           %td= best_in_place recurrence, :active_at, as: :input, :display_with => lambda { |v| v.to_date }
           %td= best_in_place recurrence, :expires_at, as: :input, :display_with => lambda { |v| v.to_date unless v.blank? }
-          %td= best_in_place recurrence, :frequency, as: :select, collection: Recurrence::FREQUENCIES.collect{|f| [f.to_s, f.to_s]}
+          %td= best_in_place recurrence, :frequency, as: :select, collection: array_to_bip_options(Recurrence::FREQUENCY_KINDS)
           %td= best_in_place recurrence, :interval, as: :input
           %td
             .pull-right.btn-group

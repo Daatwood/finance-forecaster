@@ -34,6 +34,7 @@ class BillsController < ApplicationController
     @bill = current_user.bank.bills.new(bill_params)
     @bill.recurrences.new(recurrence_params)
     @bill.save
+    puts @bill.errors.inspect
     respond_with(@bill)
   end
 

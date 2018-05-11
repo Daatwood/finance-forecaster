@@ -22,7 +22,7 @@
             = f.text_field :summary, autofocus: true, class:'form-control', placeholder: 'Bill Title'
           .form-group.float-label-control
             = f.label :bill_type
-            = f.select :bill_type, options_for_select([['Income', 'INCOME'],['Expense', 'EXPENSE']],"EXPENSE"), {prompt: 'Select Type'}, required: true, class: 'form-control'
+            = f.select :bill_type, options_for_select(array_to_select_options(Bill::KINDS),'expense'), {prompt: 'Select Type'}, required: true, class: 'form-control'
           .form-group.float-label-control
             = f.label :website
             = f.text_field :website, autofocus: true, class:'form-control', placeholder: 'Corresponding website for url shortcut'

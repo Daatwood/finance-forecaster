@@ -6,11 +6,11 @@
         %th Summary
         %th Amount
         %th
-          #readjustment-form{style:'display:none;height:22px;'}
+          #readjustment-form.hide{style:'height:22px;'}
             = render 'transactions/readjustment'
         %th
           %button.btn.btn-success.btn-xs.pull-right#readjustment-button Change Balance
-          .balance-text= "Current Balance: #{current_user.bank.balance}"
+          .balance-text= "Current Balance: #{@bank.balance}"
     %tbody
       - @transactions.each do |transaction|
         - next if transaction.new_record?

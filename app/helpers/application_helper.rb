@@ -1,4 +1,17 @@
 module ApplicationHelper
+
+  def array_to_select_options(arr)
+    arr.collect{|f| [f.to_s.capitalize, f.to_s]}
+  end
+
+  def array_to_bip_options(arr)
+    arr.each_with_object({}){|f,h| h[f.to_s]= f.to_s.capitalize }
+  end
+
+  def text_color_by_value(val)
+    val < 0 ? 'text-danger' : 'text-success'
+  end
+
   # Amount should be a decimal between 0 and 1. Lower means darker
   def darken_color(hex_color, amount=0.4)
     hex_color="#AAAAAA" if hex_color.nil?
