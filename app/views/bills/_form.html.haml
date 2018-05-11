@@ -9,20 +9,12 @@
           - @bill.errors.full_messages.each do |message|
             %li= message
     = f.hidden_field :color, value: "##{"%06x" % (rand * 0xffffff)}"
+    = f.hidden_field :bank_id, value: current_user.bank.id
     .form-group
-      = f.label :summary, class: 'sr-only'
-      = f.text_field :summary, placeholder: 'Summary', class: 'form-control'
+      = f.text_field :summary, placeholder: 'Add description', class: 'form-control', required: true
     .form-group
-      = f.label :account_id, class: 'sr-only'
-      = f.select :account_id, options_from_collection_for_select(@accounts, 'id', 'name'), {prompt: 'Account'}, {required: 'true', class: 'form-control'}
-    .form-group
-      = f.label :bill_type, class: 'sr-only'
-      = f.select :bill_type, options_for_select([['Credit', 'CREDIT'],['Debit', 'DEBIT']]), {prompt: 'Type'}, {required: 'true', class: 'form-control'}
-    .form-group
-      = f.label :amount, class: 'sr-only'
-      = f.text_field :amount, placeholder: 'Amount', class: 'form-control'
-    .form-group
-      = f.label :bank_id, class: 'sr-only'
-      = f.select :bank_id, options_from_collection_for_select(@banks, 'id', 'name'), {prompt: 'Bank'}, {required: 'true', class: 'form-control'}
+      = f.select :bill_type, options_for_select(array_to_select_options(Bill::KINDS),@bill.bill_type), {prompt: 'Select Type'}, required: true, class: 'form-control'
+      = f.fields_for :recurrences_attributes do |r|
+        = render 'bills/recurrence_fields', r: r
     .form-group
       %button.btn.btn-primary.btn-md.btn-group{:type => "submit"} Create

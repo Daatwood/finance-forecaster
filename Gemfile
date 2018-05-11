@@ -18,11 +18,11 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 # Authentication
 gem 'devise'
-gem 'devise_invitable', '~> 1.3.4'
-gem 'devise-token_authenticatable', '~> 0.3'
-gem 'griddler'
+#gem 'devise_invitable', '~> 1.3.4'
+#gem 'devise-token_authenticatable', '~> 0.3'
+# gem 'griddler'
 gem 'postmark-rails'
-gem 'griddler-postmark'
+# gem 'griddler-postmark'
 # Edit in place
 gem "best_in_place"
 # Bootstrap 3 Colorpicker
@@ -42,7 +42,7 @@ gem 'grape'
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :development, :test do
   gem 'byebug'
-  gem 'web-console', '~> 2.0'
+  
   gem 'spring'
 end
 
@@ -50,6 +50,7 @@ gem 'bootstrap-addons-rails', group: :assets
 
 # Open email instantly in browser
 group :development do
+  gem 'web-console', '~> 2.0'
   gem 'better_errors'
   gem 'html2haml'
   gem 'quiet_assets'
@@ -59,13 +60,6 @@ end
 
 # Heroku Pinger
 #gem 'newrelic_rpm'
-
-# Send pushover notifications
-#gem 'rushover'
-#gem 'netrc', git: 'https://github.com/geemus/netrc.git'
-#gem 'pushover'
-# Required for pushover
-#gem 'sys-proctable', git: 'https://github.com/djberg96/sys-proctable.git'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

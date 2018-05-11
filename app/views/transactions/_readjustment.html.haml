@@ -1,19 +1,6 @@
-.row
-  .col-md-12.well{style:"margin-top:-12px;"}
-    = form_for @transaction, html: {role: 'form', class: 'form-inline', remote: true} do |f|
-      - if @transaction.errors.any?
-        #error_explanation
-          %h2
-            = pluralize(@transaction.errors.count, "error")
-            prohibited this bill from being saved:
-          %ul
-            - @transaction.errors.full_messages.each do |message|
-              %li= message
-      = f.hidden_field :bank_id, value: bank.id
-      = f.hidden_field :date, value: Time.now
-      = f.hidden_field :summary, value: "Readjustment"
-      .form-group
-        = f.label :amount, class: 'sr-only'
-        = f.text_field :amount, placeholder: 'New Balance', class: 'form-control'
-      .form-group
-        %button.btn.btn-primary.btn-md.btn-group{:type => "submit"} Create
+= form_for @transaction, html: {role: 'form', class: 'form-inline pull-right', remote: true} do |f|
+  = f.hidden_field :date, value: Date.current
+  = f.hidden_field :summary, value: "Readjustment"
+  = f.text_field :amount, value: current_user.bank.balance, placeholder: 'New Balance', class: 'form-control', style:'height:22px;'
+  .form-group
+    %button.btn.btn-primary.btn-xs.btn-group{:type => "submit"} Adjust

@@ -3,40 +3,22 @@
     %thead
       %tr
         %th Note
-        %th Frozen
         %th Amount
         %th Active At
         %th Expires On
         %th Frequency
         %th Interval
+        %th
     %tbody
       - recurrences.each do |recurrence|
         %tr
           %td= best_in_place recurrence, :note, as: :input, :display_with => lambda { |v| v.blank? ? 'Recurrence' : v }
-          %td= best_in_place recurrence, :static_amount, as: :checkbox
           %td= best_in_place recurrence, :amount, as: :input
           %td= best_in_place recurrence, :active_at, as: :input, :display_with => lambda { |v| v.to_date }
           %td= best_in_place recurrence, :expires_at, as: :input, :display_with => lambda { |v| v.to_date unless v.blank? }
-          %td= best_in_place recurrence, :frequency, as: :select, collection: {'ONCE' => 'Once','DAILY'=>'Daily','WEEKLY'=>'Weekly','MONTHLY'=>'Monthly','YEARLY'=>'Yearly'}
+          %td= best_in_place recurrence, :frequency, as: :select, collection: array_to_bip_options(Recurrence::FREQUENCY_KINDS)
+          %td= best_in_place recurrence, :interval, as: :input
           %td
-            = best_in_place recurrence, :interval, as: :input
-            = form_for @recurrence, html: {role: 'form', class: 'form-horizontal', remote: true} do |f|
-              - if @recurrence.errors.any?
-                #error_explanation
-                  %h2
-                    = pluralize(@recurrence.errors.count, "error")
-                    prohibited this bill from being saved:
-                  %ul
-                    - @recurrence.errors.full_messages.each do |message|
-                      %li= message
-              = f.hidden_field :bill_id, value: recurrence.bill.id
-              = f.hidden_field :active_at, value: Time.now
-              = f.hidden_field :expires_at, value: ""
-              = f.hidden_field :frequency, value: "ONCE"
-              = f.hidden_field :interval, value: 1
-              = f.hidden_field :static_amount, value: true
-              = f.hidden_field :amount, value: recurrence.bill.amount/2
-              .pull-right.btn-group
-                %button.btn.btn-success.btn-xs{:type => "submit"} Split
-                =link_to 'Advance', recurrence_advance_path(recurrence), remote: false, :class => "btn btn-success btn-xs"
-                = link_to_delete(recurrence)
+            .pull-right.btn-group
+              =link_to 'Advance', recurrence_advance_path(recurrence), remote: false, :class => "btn btn-success btn-xs"
+              = link_to_delete(recurrence)

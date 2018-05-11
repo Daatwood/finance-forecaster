@@ -7,19 +7,30 @@ $brand-charge: #f4ad49;
   //border-bottom:2px solid #af4451;
 }
 
+.label-expense {
+  background-color: $brand-debit;
+  //border-bottom:2px solid #af4451;
+}
+
 .label-credit {
   background-color: $brand-credit;
   //border-bottom:2px solid #41996c;
 }
+
+.label-income {
+  background-color: $brand-credit;
+  //border-bottom:2px solid #41996c;
+}
+
 .label-adjustment {
   background-color: $brand-charge;
 }
 
-.btn-success {
+.btn-info {
 border-bottom:2px solid #098aa9;
 }
 
-.btn-success:hover,.btn-success.active:focus, .btn-success:focus, .open>.dropdown-toggle.btn-success {
+.btn-info:hover,.btn-info.active:focus, .btn-info:focus, .open>.dropdown-toggle.btn-info {
 border-bottom:2px solid #2192ad;
 outline: none;
 }

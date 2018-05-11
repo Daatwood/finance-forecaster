@@ -25,23 +25,6 @@
                 Currently waiting confirmation for: #{resource.unconfirmed_email}
             %label.control-label{:for => "user_email"} Email Address
             = f.email_field :email, class: 'form-control'
-          -# .form-group
-          -#   .col-md-offset-3.col-md-9
-          -#     .checkbox
-          -#       %label
-          -#         %input{:type => "checkbox"}
-          -#         Enable Pushover
-          -# .form-group
-          -#   %label.control-label{:for => "user_email"} Pushover Token
-          -#   = f.text_field :pushover_token, class: 'form-control'
-          .form-group
-            %label.control-label Authentication Token
-            .btn-toolbar{"aria-label" => "...", :role => "toolbar"}
-              .btn-group{"aria-label" => "...", :role => "group"}
-                = f.text_field :authentication_token, class: 'form-control', value: @user.authentication_token, :disabled => true
-              .btn-group{"aria-label" => "...", :role => "group"}
-                %button.btn.btn-default{:type => "button"}
-                  %span.glyphicon.glyphicon-refresh{"aria-hidden" => "true"}
           .form-group
             %label.control-label{:for => "user_password"} Password
             = f.password_field :password, autocomplete: "off", class: 'form-control'

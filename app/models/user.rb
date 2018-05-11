@@ -1,28 +1,23 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :token_authenticatable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+  
+  has_one :bank, inverse_of: :user, dependent: :destroy
+  has_many :bills, through: :bank
+  has_many :transactions, through: :bank
+  has_many :recurrences, through: :bank
+  has_many :exclusions, through: :bank
 
-  has_many :accounts
-  has_many :banks
-  has_many :bills, :through => :accounts
-  has_many :transactions, :through => :banks
+  scope :public_user, -> { where(public: true).first }
 
+  after_create :create_bank
 
-    before_save :ensure_authentication_token
+  private
 
-    def ensure_authentication_token
-      self.authentication_token ||= generate_authentication_token
-    end
+  def create_bank
+    Bank.create(user_id: self.id, balance: 0) if bank.nil?
+  end
 
-    private
-
-    def generate_authentication_token
-      loop do
-        token = Devise.friendly_token
-        break token unless User.where(authentication_token: token).first
-      end
-    end
 end

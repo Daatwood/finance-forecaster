@@ -17,3 +17,5 @@
 
 deploy
 production_logs
+
+.DS_Store

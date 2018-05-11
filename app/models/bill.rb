@@ -1,45 +1,41 @@
-# Interacts directly with bank
 class Bill < ActiveRecord::Base
-  belongs_to :account
+  KINDS = %w(income expense)
+
+  attr_reader :blackout_dates
+
   belongs_to :bank
-  has_many :recurrences
-  has_many :exclusions
+
+  has_many :recurrences, dependent: :destroy
+  has_many :exclusions, dependent: :destroy
+
+  accepts_nested_attributes_for :recurrences
+
+  before_validation :normalize_bill_type
 
   validates_presence_of :summary
-  validates_presence_of :amount
+  validates :bill_type, inclusion: { in: Bill::KINDS, 
+    message: "%{value} must be one of the following: #{Bill::KINDS.join(", ")}"
+  }
 
-  def invalid_date?(date)
-    invalid = exclusions.map(&:date).include? date
-    invalid = transactions.map(&:date).include? date unless invalid
-    invalid
+  # Defines income? expense?
+  Bill::KINDS.each do |kind|
+    define_method("#{kind}?") do
+      kind == self.bill_type
+    end
   end
 
-  def transactions
-    bank.transactions.where(bill_id: self.id)
+  def blackout_dates
+    @blackouts ||= exclusions.pluck(:date).map(&:to_date)
   end
 
-  def expense?
-    bill_type == "DEBIT"
+  def next_due
+    recurrences.first unless recurrences.blank?
   end
 
-  def income?
-    bill_type == "CREDIT"
+  private
+  
+  def normalize_bill_type
+    self.bill_type = bill_type.downcase.strip if bill_type
   end
-
-  def account_name
-    account.name
-  end
-
-  # def create_logical_payments(end_date=Time.now.to_date + 6.months)
-  #   # Loop each recurrence
-  #   logical_payments = []
-  #   recurrences.each do |recur|
-  #     logical_payments += recur.create_logical_payments(end_date).delete_if{|pay| invalid_date?(pay.date) }
-  #   end
-  #   #transactions.each do |payment|
-  #   #  logical_payments << Logical::Payment.new(self,payment.amount,payment.date, true) unless payment.date.nil?
-  #   #end
-  #   logical_payments.uniq.sort! { |a,b| a.date <=> b.date }
-  # end
 
 end

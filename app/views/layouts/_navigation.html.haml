@@ -12,17 +12,16 @@
         - if user_signed_in?
           = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-tasks',:nav_text=> 'Dashboard',:nav_path=> dashboard_path}
           = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-edit',:nav_text=> 'Bills',:nav_path=> bills_path}
-          = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-briefcase',:nav_text=> 'Accounts',:nav_path=> accounts_path}
-          = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-credit-card',:nav_text=> 'Banks',:nav_path=> banks_path}
-          = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-info-sign',:nav_text=> 'Help',:nav_path=> help_path}
-          - unless @example_user
-            -# %li.stop-view
-            -#   %a{:href => view_user_path(@example_user.id), :method=> :delete}
-            -#     %span.glyphicon{class: 'glyphicon-warning-sign', "aria-hidden" => "true"}
-            -#     = 'Stop'
-            = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-comment',:nav_text=> 'Contact',:nav_path=> messages_path }
+          = render partial: 'layouts/nav_link', locals: {:nav_icon => 'glyphicon-credit-card',:nav_text=> 'Transactions',:nav_path=> transactions_path}
+          %li
+            = link_to('Sign out', destroy_user_session_path, :method => :delete)
         - else
           %li
-            = link_to 'Sign In', new_user_session_path
+            = link_to 'Sign up', new_user_registration_path
           %li
-            = link_to 'Contact', "mailto:contact@ryknzu.com"
+            = link_to 'Log in', new_user_session_path
+          %li
+            = link_to 'Contact', "mailto:dustin@atwood.email"
+          - if @demo_user
+            %li
+              = link_to 'View Demo', demo_path

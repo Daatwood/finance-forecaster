@@ -1,24 +1,23 @@
 class Transaction < ActiveRecord::Base
-  default_scope {order('date DESC')}
+  default_scope {order('date ASC')}
   belongs_to :bank
 
   validates_presence_of :date
   validates_presence_of :amount
   validates_presence_of :summary
 
-  def debit?
+  before_create :add_time_to_date
+
+  def add_time_to_date
+    self.date = date.to_datetime + Time.now.seconds_since_midnight.seconds
+  end
+
+  def expense?
     amount < 0
   end
 
-  def credit?
+  def income?
     amount > 0
   end
 
-  def bill_summary
-    return "" if bill_id.blank?
-
-    bill = Bill.find(bill_id)
-    return bill.summary unless bill.nil?
-    "Unknown"
-  end
 end

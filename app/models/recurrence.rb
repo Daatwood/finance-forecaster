@@ -1,74 +1,56 @@
-# Recurrence are due dates for bills. They allow themselves to represent a single date or multiple dates by repeating
-# Eg. First bill is always higher. Add exception to the first due date of recurrence then add a one-time recurrence with adjusted amount.
 class Recurrence < ActiveRecord::Base
-  belongs_to :bill
-  has_many :exclusions
+  FREQUENCIES = { 
+    'once' => 0, 
+    'daily' => 1.day, 
+    'weekly' => 7.days, 
+    'monthly' => 1.month, 
+    'yearly' => 1.year
+  }
 
-  validates_presence_of :frequency
+  FREQUENCY_KINDS = Recurrence::FREQUENCIES.keys
+
+  default_scope {order('active_at ASC')}
+
+  belongs_to :bill
+
+  before_validation :normalize_frequency
+  before_create :adjust_amount
+
+  validates_presence_of :frequency, :active_at, :interval
+
+  validates :frequency, inclusion: { 
+    in: Recurrence::FREQUENCY_KINDS, 
+    message: "%{value} must be one of the following: 
+      #{Recurrence::FREQUENCY_KINDS.join(', ')}"
+  }
+
+  # Defines: once? daily? weekly? monthly? yearly?
+  FREQUENCY_KINDS.each do |freq|
+    define_method("#{freq}?") do 
+      freq == self.frequency
+    end
+  end
 
   def next_date
-    active_at.to_date + advance_frequency
+    active_at.to_date + frequency_time unless once?
   end
 
   def forever?
-    expires_at.blank? || active_at.to_date == expires_at.to_date
+    expires_at.blank?
   end
 
-  def basic_frequency
-    case frequency
-    when "DAILY"
-      return (1).day
-    when "WEEKLY"
-      return (7).days
-    when "MONTHLY"
-      return (1).month
-    when "YEARLY"
-      return (1).year
-    else
-      return 0
-    end
+  def frequency_time
+    (Recurrence::FREQUENCIES[self.frequency].seconds * self.interval / 1.day).days
   end
 
-  def advance_frequency
-    case frequency
-    when "DAILY"
-      return (1 * interval).day
-    when "WEEKLY"
-      return (7 * interval).days
-    when "MONTHLY"
-      return (1 * interval).month
-    when "YEARLY"
-      return (1 * interval).year
-    else
-      return 0
-    end
+  private
+
+  def normalize_frequency
+    self.frequency = frequency.downcase.strip if frequency
   end
 
-  # def create_logical_payments(end_date=Time.now.to_date + 6.months)
-  #   # Loop each recurrence
-  #   logical_payments = []
-  #   current_increment = interval
-  #   current_date = active_at.to_date
-  #   # Create 10 instances of recurrence
-  #   until current_date > end_date do
-  #     if current_increment % interval == 0
-  #       # create logical payment
-  #       #puts "Logical::Payment, #{current_date} $#{amount}"
-  #       amt = bill.expense? ? -amount : amount
-  #       logical_payments << Logical::Payment.new(current_date,bill.bank,bill.bank.balance,amt,note,bill)
-  #     end
-  #
-  #     advancement = basic_frequency
-  #     if advancement == 0
-  #       return logical_payments
-  #     end
-  #     current_date += advancement
-  #     current_increment += 1
-  #     unless forever?
-  #       return logical_payments if current_date > expires_at.to_date
-  #     end
-  #   end
-  #   logical_payments
-  # end
+  def adjust_amount
+    self.amount = amount * -1 if bill.expense? && amount > 0
+  end
 
 end

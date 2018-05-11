@@ -36,7 +36,7 @@ module Logical
 
     def label
       @label unless @label.nil?
-      @label = bill.summary #"#{@source.summary} - #{@source.account.name}"
+      @label = bill.summary
     end
 
   end
