@@ -1,6 +1,5 @@
 $(document).ready(function(){
   $('#readjustment-button').click(function(){
-    console.log('what')
     $balance = $('.balance-text')
     $button = $('#readjustment-button')
     $form = $('#readjustment-form')
