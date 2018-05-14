@@ -4,52 +4,62 @@
     .row.text-center
       %h1 Dashboard
       %hr.colored
-    .row
-      .col-md-12
-        .jumbotron
-          = line_chart @chart_data
-    .row
-      .col
-        .panel.panel-focus.filterable
-          .panel-heading
-            %h3.panel-title
-              Forecasted Transactions
-              %button.btn.btn-success.btn-xs#new-bill New Bill
-            .pull-right
-              #readjustment-form.hide{style:'height:22px;'}
-                = render 'transactions/readjustment'
-              ="Starting Balance: $#{current_user.bank.balance}"
-              %button.btn.btn-info.btn-xs#readjustment-button Change
-          .table-responsive
-            %table.table-focus.table.table-condensed.table-hover
-              %thead
-                %tr
-                  %th Date
-                  %th Summary
-                  %th
-                  %th Change
-                  %th Forecast
-                  %th.pull-right Actions
-              %tbody
-                - @forecast.each do |f|
-                  - f.each do |date,transactions|
-                    %tr
-                      %th{colspan: 6}= date
-                    - transactions.each do |transaction|
+    - if @bills.blank?
+      .row
+        .col
+          .jumbotron
+            No bills found,
+            = link_to 'click to add.', bills_path, class: 'text-info'
+    - else
+      .row
+        .col-md-12
+          .jumbotron
+            = line_chart @chart_data
+      .row
+        .col
+          .panel.panel-focus.filterable
+            .panel-heading
+              .row
+                .col-md-3
+                  %h3.panel-title
+                    Forecasted Transactions
+                .col-md-6
+                  .balance-text="Starting Balance: $#{current_user.bank.balance}"
+                  #readjustment-form.hide{style:'height:22px;'}
+                    = render 'transactions/readjustment'
+                .col-md-3{style: 'text-align: right;'}
+                  %button.btn.btn-info.btn-xs#readjustment-button Change
+            
+            .table-responsive
+              %table.table-focus.table.table-condensed.table-hover
+                %thead
+                  %tr
+                    %th Date
+                    %th Summary
+                    %th
+                    %th Change
+                    %th Forecast
+                    %th.pull-right Actions
+                %tbody
+                  - @forecast.each do |f|
+                    - f.each do |date,transactions|
                       %tr
-                        %th
-                        %th= link_to transaction[:summary], bills_path+"/#{transaction[:bill_id]}", class: 'text-info'
-                        %th= transaction[:note]
-                        %th{class: text_color_by_value(transaction[:amount])}= "$ #{transaction[:amount]}"
-                        %th{class: text_color_by_value(transaction[:balance])}= "$ #{transaction[:balance]}"
-                        %th
-                          .btn-group.pull-right
-                            = form_tag mark_paid_path, remote: true do
-                              = hidden_field_tag 'amount', transaction[:amount]
-                              = hidden_field_tag 'recurrence_id', transaction[:recurrence_id]
-                              = hidden_field_tag 'date', date
-                              = button_tag 'Mark Paid', class: 'btn btn-success btn-xs'
-                            = form_tag skip_payment_path, remote: true do
-                              = hidden_field_tag 'recurrence_id', transaction[:recurrence_id]
-                              = hidden_field_tag 'date', date
-                              = button_tag 'Skip', class: 'btn btn-info btn-xs'
+                        %th{colspan: 6}= date
+                      - transactions.each do |transaction|
+                        %tr{id: "#{date}_#{transaction[:recurrence_id]}"}
+                          %th
+                          %th= link_to transaction[:summary], bills_path+"/#{transaction[:bill_id]}", class: 'text-info'
+                          %th= transaction[:note]
+                          %th{class: text_color_by_value(transaction[:amount])}= "$ #{transaction[:amount]}"
+                          %th{class: text_color_by_value(transaction[:balance])}= "$ #{transaction[:balance]}"
+                          %th
+                            .btn-group.pull-right
+                              = form_tag mark_paid_path, remote: true do
+                                = hidden_field_tag 'amount', transaction[:amount]
+                                = hidden_field_tag 'recurrence_id', transaction[:recurrence_id]
+                                = hidden_field_tag 'date', date
+                                = button_tag 'Mark Paid', class: 'btn btn-success btn-xs', data: { disable_with: "submitting"}
+                              = form_tag skip_payment_path, remote: true do
+                                = hidden_field_tag 'recurrence_id', transaction[:recurrence_id]
+                                = hidden_field_tag 'date', date
+                                = button_tag 'Skip', class: 'btn btn-info btn-xs', data: { disable_with: "submitting"}

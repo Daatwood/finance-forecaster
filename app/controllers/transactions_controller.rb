@@ -23,13 +23,9 @@ class TransactionsController < ApplicationController
     @transaction = @bank.transactions.new(tparams)
 
     if (@transaction.save)
-      puts "TRANS:: #{@bank.balance + @transaction.amount}"
       @bank.update(balance: @bank.balance + @transaction.amount)
-      puts "BAL:: #{@bank.balance}"
     end
     flash[:notice] = "Added transaction for $#{@transaction.amount}. Balance updated."
-
-
     respond_with(@transaction)
   end
 
