@@ -128,7 +128,7 @@ GEM
     passenger (5.3.0)
       rack
       rake (>= 0.8.1)
-    pg (1.0.0)
+    pg (0.21.0)
     postmark (1.11.0)
       json
       rake
@@ -246,7 +246,7 @@ DEPENDENCIES
   jquery-rails
   letter_opener
   passenger
-  pg
+  pg (~> 0.19)
   postmark-rails
   quiet_assets
   railroady

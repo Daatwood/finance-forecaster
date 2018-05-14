@@ -34,7 +34,7 @@ class Recurrence < ActiveRecord::Base
   def next_date
     active_at.to_date + frequency_time unless once?
   end
-
+  
   def forever?
     expires_at.blank?
   end

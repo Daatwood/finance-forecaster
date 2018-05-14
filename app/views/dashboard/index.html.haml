@@ -12,7 +12,7 @@
       .col
         .panel.panel-focus.filterable
           .panel-heading
-            %h3.panel-title 
+            %h3.panel-title
               Forecasted Transactions
               %button.btn.btn-success.btn-xs#new-bill New Bill
             .pull-right
@@ -26,7 +26,7 @@
                 %tr
                   %th Date
                   %th Summary
-                  %th 
+                  %th
                   %th Change
                   %th Forecast
                   %th.pull-right Actions
@@ -43,6 +43,13 @@
                         %th{class: text_color_by_value(transaction[:amount])}= "$ #{transaction[:amount]}"
                         %th{class: text_color_by_value(transaction[:balance])}= "$ #{transaction[:balance]}"
                         %th
-                          .pull-right.btn-group
-                            %button.btn.btn-success.btn-xs Mark Paid
-                            %button.btn.btn-info.btn-xs Skip
+                          .btn-group.pull-right
+                            = form_tag mark_paid_path, remote: true do
+                              = hidden_field_tag 'amount', transaction[:amount]
+                              = hidden_field_tag 'recurrence_id', transaction[:recurrence_id]
+                              = hidden_field_tag 'date', date
+                              = button_tag 'Mark Paid', class: 'btn btn-success btn-xs'
+                            = form_tag skip_payment_path, remote: true do
+                              = hidden_field_tag 'recurrence_id', transaction[:recurrence_id]
+                              = hidden_field_tag 'date', date
+                              = button_tag 'Skip', class: 'btn btn-info btn-xs'
