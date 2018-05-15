@@ -4,7 +4,7 @@
     .row.text-center
       %h1 Dashboard
       %hr.colored
-    - if @bills.blank?
+    - unless @forecast
       .row
         .col
           .jumbotron
