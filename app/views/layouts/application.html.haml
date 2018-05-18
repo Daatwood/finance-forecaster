@@ -15,6 +15,7 @@
     %script{:src => "https://www.google.com/recaptcha/api.js"}
     %link{:crossorigin => "anonymous", :href => "https://use.fontawesome.com/releases/v5.0.13/css/all.css", :integrity => "sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp", :rel => "stylesheet"}
     = csrf_meta_tags
+    = render 'layouts/favicon'
   %body
     %header#navbar-main
       = render 'navigation/bar'
