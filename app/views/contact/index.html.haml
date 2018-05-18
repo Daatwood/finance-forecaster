@@ -1,0 +1,24 @@
+%section
+  .container.visitor-section
+    .row.text-center
+      %h1 Contact
+      %hr.colored
+    .row
+      .col-md-offset-3.col-md-6
+        = form_for(@message, url: contact_path ,:html => { :role => 'form'}) do |f|
+          = devise_error_messages!(@message)
+          .form-group.float-label-control
+            = f.label :name
+            = f.text_field :name, autofocus: true, autocomplete: "off", class:'form-control', placeholder: "What's your name?", required: true
+          .form-group.float-label-control
+            = f.label :email
+            = f.email_field :email, autocomplete: "off", class:'form-control', placeholder: "Email to reply to?", required: true
+          .form-group.float-label-control
+            = f.label :subject
+            = f.text_field :subject, autocomplete: "off", class:'form-control', placeholder: 'Reason for contact', required: true
+          .form-group.float-label-control
+            = f.label :content
+            = f.text_field :content, autocomplete: "off", class:'form-control', placeholder: 'Please explain', required: true
+          .row
+            .col
+              %button.btn.btn-success.btn-block{:type => "submit"} Send Message

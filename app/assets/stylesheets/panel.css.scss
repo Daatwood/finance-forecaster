@@ -1,31 +1,29 @@
-$primary: #5CB85C;
+$primary: #5cb85c;
 $secondary: #f6f6f6;
-$tertiary: #e8e8e8;
-$nav-color: #222;
 $nav-text: #9d9d9d;
 $nav-text-hover: #fff;
-$well-color: #F8F8FF;
+$well-color: #f8f8ff;
 
 .filterable {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .filterable .filters input[disabled] {
-    background-color: transparent;
-    border: none;
-    cursor: auto;
-    box-shadow: none;
-    padding: 0;
-    height: auto;
+  background-color: transparent;
+  border: none;
+  cursor: auto;
+  box-shadow: none;
+  padding: 0;
+  height: auto;
 }
 .filterable .filters input[disabled]::-webkit-input-placeholder {
-    color: #333;
+  color: #333;
 }
 .filterable .filters input[disabled]::-moz-placeholder {
-    color: #333;
+  color: #333;
 }
 .filterable .filters input[disabled]:-ms-input-placeholder {
-    color: #333;
+  color: #333;
 }
 
 .panel-focus {
@@ -50,6 +48,6 @@ $well-color: #F8F8FF;
   width: 100%;
   max-width: 100%;
   margin-bottom: 20px;
-  border: .3em solid black;
+  border: 0.3em solid black;
   border-top: 0;
 }

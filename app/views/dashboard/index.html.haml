@@ -8,13 +8,18 @@
       .row
         .col
           .jumbotron
-            No bills found,
-            = link_to 'click to add.', bills_path, class: 'text-info'
+            %h1.text-center No Bills Found
+            %p.lead
+              Get started by adding some, 
+              = link_to 'click to add.', bills_path, class: 'text-info'
+            %hr
+            %h3.lead.text-black Need help getting started?
+            = link_to 'Generate some examples', generate_examples_path, method: :post, class: 'btn-primary btn'
     - else
       .row
         .col-md-12
-          .jumbotron
-            = line_chart @chart_data
+          .jumbotron.well
+            = line_chart dashboard_chart_path
       .row
         .col
           .panel.panel-focus.filterable

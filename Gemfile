@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.4'
+ruby '~> 2.4.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
@@ -18,11 +18,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 # Authentication
 gem 'devise'
-#gem 'devise_invitable', '~> 1.3.4'
-#gem 'devise-token_authenticatable', '~> 0.3'
 # gem 'griddler'
 gem 'postmark-rails'
-# gem 'griddler-postmark'
 # Edit in place
 gem "best_in_place"
 # Bootstrap 3 Colorpicker
@@ -37,7 +34,10 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
+# Kickass javascript charts
 gem "chartkick"
+# Handle err routes
+gem 'exception_handler'
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :development, :test do
   gem 'byebug'
@@ -64,6 +64,7 @@ end
 
 # Use unicorn as the app server
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'unicorn'
   gem 'unicorn-rails'
   gem 'railroady'

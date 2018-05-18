@@ -1,8 +1,6 @@
 class Bill < ActiveRecord::Base
   KINDS = %w(income expense)
 
-  attr_reader :blackout_dates
-
   belongs_to :bank
 
   has_many :recurrences, dependent: :destroy
@@ -22,10 +20,6 @@ class Bill < ActiveRecord::Base
     define_method("#{kind}?") do
       kind == self.bill_type
     end
-  end
-
-  def blackout_dates
-    @blackouts ||= exclusions.pluck(:date).map(&:to_date)
   end
 
   def next_due

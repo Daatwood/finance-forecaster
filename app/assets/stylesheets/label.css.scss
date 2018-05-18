@@ -4,22 +4,18 @@ $brand-charge: #f4ad49;
 
 .label-debit {
   background-color: $brand-debit;
-  //border-bottom:2px solid #af4451;
 }
 
 .label-expense {
   background-color: $brand-debit;
-  //border-bottom:2px solid #af4451;
 }
 
 .label-credit {
   background-color: $brand-credit;
-  //border-bottom:2px solid #41996c;
 }
 
 .label-income {
   background-color: $brand-credit;
-  //border-bottom:2px solid #41996c;
 }
 
 .label-adjustment {
@@ -27,32 +23,53 @@ $brand-charge: #f4ad49;
 }
 
 .btn-info {
-border-bottom:2px solid #098aa9;
+  border-bottom: 2px solid #098aa9;
 }
 
-.btn-info:hover,.btn-info.active:focus, .btn-info:focus, .open>.dropdown-toggle.btn-info {
-border-bottom:2px solid #2192ad;
-outline: none;
+.btn-info:hover,
+.btn-info.active:focus,
+.btn-info:focus,
+.open > .dropdown-toggle.btn-info {
+  border-bottom: 2px solid #2192ad;
+  outline: none;
 }
 
 .btn-success {
-border-bottom:2px solid #41996c;
+  border-bottom: 2px solid #41996c;
 }
 
-.btn-success:hover,.btn-success.active:focus, .btn-success:focus, .open>.dropdown-toggle.btn-success {
-border-bottom:2px solid #529f78;
-outline: none;
+.btn-success:hover,
+.btn-success.active:focus,
+.btn-success:focus,
+.open > .dropdown-toggle.btn-success {
+  border-bottom: 2px solid #529f78;
+  outline: none;
 }
 
 .btn-danger {
-border-bottom:2px solid #af4451;
+  border-bottom: 2px solid #af4451;
 }
 
-.btn-danger:hover,.btn-danger.active:focus, .btn-danger:focus, .open>.dropdown-toggle.btn-danger {
-border-bottom:2px solid #b25560;
-outline: none;
+.btn-danger:hover,
+.btn-danger.active:focus,
+.btn-danger:focus,
+.open > .dropdown-toggle.btn-danger {
+  border-bottom: 2px solid #b25560;
+  outline: none;
 }
 
-.feather{
+.btn-warning {
+  border-bottom: 2px solid #e5931e;
+}
+
+.btn-warning:hover,
+.btn-warning.active:focus,
+.btn-warning:focus,
+.open > .dropdown-toggle.btn-warning {
+  border-bottom: 2px solid #f4ad49;
+  outline: none;
+}
+
+.feather {
   font-weight: 100;
 }

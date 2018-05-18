@@ -38,6 +38,18 @@ class RecurrencesController < ApplicationController
     end
   end
 
+  def advance
+    respond_to do |format|
+      if @recurrence.update(active_at: @recurrence.next_date)
+        format.html { redirect_to(:back, notice: 'Recurrence update.') }
+        format.json { respond_with_bip(@recurrence) }
+      else
+        format.html { render action: "edit" }
+        format.json { respond_with_bip(@recurrence) }
+      end
+    end
+  end
+
   def destroy
     @recurrence.destroy
     redirect_to(dashboard_path, notice: 'Recurrence deleted.')

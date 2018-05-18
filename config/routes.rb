@@ -6,26 +6,23 @@ Rails.application.routes.draw do
 
   resources :banks
 
-  put '/recurrence/:id/advance' => 'recurrences#update', :as => 'advance_recurrence'
+  put '/recurrence/:id/advance' => 'recurrences#advance', :as => 'advance_recurrence'
   resources :recurrences
 
   resources :bills
 
   resources :accounts
-
-  get 'demo' => 'welcome#demo'
-
-  get 'help' => 'help#index'
-  post 'help/:id' => 'help#show', as: 'view_user'
-  delete "help/:id" => "help#revert_show", as: 'revert_view_user'
   
   devise_for :users
   
   get 'dashboard' => 'dashboard#index'
+  get 'dashboard_chart' => 'dashboard#chart'
   post 'skip_payment' => 'dashboard#skip_payment'
   post 'mark_paid' => 'dashboard#mark_paid'
+  post 'generate_examples' => 'dashboard#generate_examples'
 
-  # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  get 'contact' => 'contact#index'
+  post 'contact'=> 'contact#create'
 
+  root 'welcome#landing'
 end

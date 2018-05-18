@@ -20,5 +20,5 @@
           %td= best_in_place recurrence, :interval, as: :input
           %td
             .pull-right.btn-group
-              =link_to 'Advance', advance_recurrence_path(recurrence, recurrence: {active_at: recurrence.next_date}), method: :put, remote: false, :class => "btn btn-success btn-xs"
+              =link_to 'Advance', advance_recurrence_path(recurrence), method: :put, remote: false, :class => "btn btn-success btn-xs"
               = link_to_delete(recurrence)
