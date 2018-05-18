@@ -1,7 +1,7 @@
 class MessageMailer < ActionMailer::Base
 
-  default :to => "Finance Forecaster <contact@finance-forecaster.com>"
-  default :from => "Finance Forecaster <notifications@finance-forecaster.com>"
+  default :to => "Finance Forecaster <#{ENV['INBOUND_EMAIL_ADDRESS']}>"
+  default :from => "Finance Forecaster <#{ENV['OUTBOUND_EMAIL_ADDRESS']}>"
 
   def contact(message)
     @message = message

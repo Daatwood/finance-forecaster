@@ -70,7 +70,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method   = :postmark
   config.action_mailer.postmark_settings = { :api_key => ENV['POSTMARK_API_KEY'] }
-  config.action_mailer.default_url_options = { :host => 'finance-forecaster.com' }
+  config.action_mailer.default_url_options = { :host => ENV['PUBLIC_DOMAIN'] }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -90,6 +90,6 @@ Rails.application.configure do
 
   # Send off errors to an internal email
   config.exception_handler = { 
-    email: "errors@finance-forecaster.com" 
+    email: ENV["INBOUND_EMAIL_ADDRESS"]
   }
 end

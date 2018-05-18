@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
   include Devise::Mailers::Helpers
 
-  default from: "Finance Forecaster <notifications@finance-forecaster.com>"
+  default from: "Finance Forecaster <#{ENV['OUTBOUND_EMAIL_ADDRESS']}>"
 
   def confirmation_instructions(record)
     devise_mail(record, :confirmation_instructions)

@@ -15,5 +15,5 @@ test:
 production:
   <<: *default
   database: finance-forecaster_production
-  username: finance-forecaster
+  username: <%= ENV['FINANCE-FORECASTER_DATABASE_USER'] %>
   password: <%= ENV['FINANCE-FORECASTER_DATABASE_PASSWORD'] %>
