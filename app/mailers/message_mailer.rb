@@ -5,7 +5,7 @@ class MessageMailer < ActionMailer::Base
 
   def contact(message)
     @message = message
-    mail(from: @message.email, subject: 'New Finance Forecaster Message')
+    mail(subject: 'New Finance Forecaster Message')
   end
 
 end
