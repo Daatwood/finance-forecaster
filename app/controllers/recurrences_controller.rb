@@ -52,7 +52,7 @@ class RecurrencesController < ApplicationController
 
   def destroy
     @recurrence.destroy
-    redirect_to(dashboard_path, notice: 'Recurrence deleted.')
+    redirect_to(:back, notice: 'Recurrence deleted.')
   end
 
   private
