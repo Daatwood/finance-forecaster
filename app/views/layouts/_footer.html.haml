@@ -1,4 +1,7 @@
-.row
-  .col-sm-12
-    .copyright 
-      .pull-right= link_to 'Copyright © 2018 Dustin Atwood', 'http://daatwood.com'
+%p.center-text
+  = link_to 'Contact', contact_path
+  - if user_signed_in?
+    |
+    = link_to 'Settings', edit_user_registration_path
+%p.copyright
+  = link_to 'Copyright © 2018 Dustin Atwood', 'http://daatwood.com'

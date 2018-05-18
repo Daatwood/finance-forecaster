@@ -1,0 +1,5 @@
+%li{class: "#{'active' if (controller_name == nav_text.downcase || current_page?(nav_path) )}"}
+  %a{:href => nav_path}
+    - if nav_icon
+      %i.fas{class: nav_icon} 
+    = nav_text

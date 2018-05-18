@@ -1,0 +1,28 @@
+!!!
+%html
+  / Head
+  %head
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+    / Info
+    = content_tag :title, "Error - #{@exception.status} (#{@exception.response.to_s.gsub("_", " ").titleize}) | #{Rails.application.class.parent_name.titleize}"
+    / Styling
+    = favicon_link_tag "exception_handler/favicon.ico"
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    %link{:crossorigin => "anonymous", :href => "https://use.fontawesome.com/releases/v5.0.13/css/all.css", :integrity => "sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp", :rel => "stylesheet"}
+    / Auth
+    = csrf_meta_tags
+  / Body
+  %body
+    %header#navbar-main
+      = render 'navigation/bar'
+    %main{:role => "main"}
+      .row{style: "margin-top:6em;"}
+        .col-md-12
+          .container
+            = render 'layouts/messages'
+        .col-md-offset-1.col-md-10
+          %section
+            = yield
+    #footer
+      = render 'layouts/footer'

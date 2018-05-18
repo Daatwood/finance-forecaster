@@ -3,21 +3,19 @@
 //@import url('//fonts.googleapis.com/css?family=Roboto:200,400');
 //@import url('//fonts.googleapis.com/css?family=Raleway:900');
 
-$primary: #5CB85C;
+$primary: #5cb85c;
 $secondary: #f6f6f6;
-$tertiary: #e8e8e8;
-$nav-color: #222;
+$nav-color: #272727;
 $nav-text: #9d9d9d;
 $nav-text-hover: #fff;
-$well-color: #F8F8FF;
+$well-color: #f8f8ff;
 
 .navbar-fixed-top {
   margin-bottom: 0;
 }
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:focus,
-.navbar-inverse .navbar-nav > .active > a:hover,
-{
+.navbar-inverse .navbar-nav > .active > a:hover {
   color: white !important;
   background-color: $primary !important;
 }
@@ -37,11 +35,11 @@ $well-color: #F8F8FF;
 .navbar-default,
 .navbar-inverse,
 .navbar-visitor {
-  border-bottom: .4em solid $primary !important;
+  border-bottom: 0.4em solid $primary !important;
 }
 .navbar-default .navbar-brand,
 .navbar-inverse .navbar-brand {
-  padding: 0 15px;
+  padding: 5px 15px;
   color: white !important;
   opacity: 1;
   text-decoration: none;
@@ -51,13 +49,14 @@ $well-color: #F8F8FF;
 }
 
 .dropdown-menu {
-	background-color: $nav-color !important;
-	border-bottom: .4em solid $primary !important;
+  background-color: $nav-color !important;
+  border-bottom: 0.4em solid $primary !important;
 }
 
 a.navbar-brand {
-	font-size: 2.75em;
-	font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding-top: 10px;
+  font-size: 1.75em;
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .navbar-default .navbar-brand:hover,
@@ -103,21 +102,17 @@ a.navbar-brand {
     background: transparent;
     border: none;
   }
-  // .navbar-default .navbar-nav li a,
-  // .navbar-inverse .navbar-nav li a {
-  //   color: $nav-color;
-  //   font-family: "Roboto","Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  // }
+
   .navbar-inverse .navbar-nav li.dropdown-link a {
-		background: transparent;
-		color: #9d9d9d;
-	}
-	.navbar-inverse .navbar-nav li.dropdown-link a:hover {
-		color: #fff;
-	}
-	li.dropdown.open a{
-		background: $nav-color !important;
-	}
+    background: transparent;
+    color: #9d9d9d;
+  }
+  .navbar-inverse .navbar-nav li.dropdown-link a:hover {
+    color: #fff;
+  }
+  li.dropdown.open a {
+    background: $nav-color !important;
+  }
 }
 .navbar a:focus {
   outline: none;
@@ -242,53 +237,29 @@ header.video .scroll-down {
   }
 }
 
-
-#footerwrap {
-	background: $nav-color;
-	padding: 25px 0 15px 0;
-	border-top: .4em solid $primary;
-	text-align: center;
-}
-#footer {
-	line-height: 40px;
-	color: #9d9d9d;
-	font-weight: 400;
-}
 #footer a {
-	border-bottom: none;
+  width: 100%;
+  border-bottom: none;
   background: transparent;
   color: #9d9d9d;
 }
 #footer a:hover {
-	color: #fff;
-	text-decoration: 1px dotted;
+  color: #fff;
 }
 #footer h4 {
-	color: white;
-}
-
-/* Wrapper for page content to push down footer */
-#wrap {
-  min-height: 100%;
-  height: auto;
-  /* Negative indent footer by its height */
-  margin: 0 auto -60px;
-  /* Pad bottom by footer height */
-  padding: 0 0 60px;
+  color: white;
 }
 
 /* Set the fixed height of the footer here */
 #footer {
-  position: relative;
-  bottom: -60px;
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
+  height: 80px;
   background-color: $nav-color;
-  padding: 0;
-  border-top: .4em solid $primary;
+  border-top: 0.4em solid $primary;
+  text-align: center;
 }
-
 
 .btn,
 .input-group-btn {
@@ -311,14 +282,8 @@ header.video .scroll-down {
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
   color: #ffffff;
-  background-color: #3A7C3A !important;
-  border-color: #3A7C3A !important;
-}
-
-.stop-view a{
-  color: #ffffff !important;
-  background-color: #d9534f;
-  border-color: #d43f3a;
+  background-color: #3a7c3a !important;
+  border-color: #3a7c3a !important;
 }
 
 .btn-primary:active,

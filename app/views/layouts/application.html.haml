@@ -2,24 +2,20 @@
 %html
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= content_for?(:title) ? yield(:title) : 'Finance Forecaster'
-    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Finance Forecaster'}"}
+    %title= content_for?(:title) ? yield(:title) : Rails.application.class.parent_name.titleize
+    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : Rails.application.class.parent_name.titleize}"}
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     %script{:src => "https://www.google.com/recaptcha/api.js"}
     %link{:crossorigin => "anonymous", :href => "https://use.fontawesome.com/releases/v5.0.13/css/all.css", :integrity => "sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp", :rel => "stylesheet"}
     = csrf_meta_tags
   %body
-    %header#navbar-main{style: "background-color:#000;"}
-      = render 'layouts/navigation'
-      - if @example_user
-        %nav.navbar.navbar-fixed-top{style: "top:70px;"}
-          = render 'layouts/viewing_as'
-    %main#wrap{:role => "main"}
+    %header#navbar-main
+      = render 'navigation/bar'
+    %main{:role => "main"}
       .row{style: "margin-top:6em;"}
         .col-md-12
           .container
-
             = render 'layouts/messages'
         .col-md-offset-1.col-md-10
           %section

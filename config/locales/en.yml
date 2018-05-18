@@ -20,4 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  exception_handler:
+    not_found: "Page not Found."
+    unauthorized: "You need to login to continue."
+    internal_server_error: "Sorry, We had a Server Error."

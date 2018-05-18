@@ -1,24 +1,14 @@
 %section
   .container.visitor-section
     .row.text-center
-      %h1 Account Settings
+      %h1 User Settings
+      %hr.colored
       %div{:style => "float:right; font-size: 85%; position: relative; top:-20px"}
         = link_to 'Delete Account', registration_path(resource_name), method: :delete, :data => { :confirm => "Deleting account, Are you sure?" }, :class => "btn btn-danger btn-xs"
-      %hr.colored
     .row
       .col-md-offset-4.col-md-4
         = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {role: 'form', class: 'form-horizontal', method: :put})do |f|
-          - if resource.errors.any?
-            .panel.panel-danger
-              .panel-heading
-                %h3.panel-title
-                  = pluralize(resource.errors.count, "error")
-                  prohibited this from being saved:
-              .panel-body
-                %ul
-                  - resource.errors.full_messages.each do |message|
-                    %li= message
-            -#= devise_error_messages!
+          = devise_error_messages!
           .form-group
             - if devise_mapping.confirmable? && resource.pending_reconfirmation?
               .alert.alert-warning{:role => "alert"}

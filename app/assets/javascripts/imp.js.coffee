@@ -7,7 +7,7 @@ class @GoogleAnalytics
 
     # Create a script element and insert it in the DOM
     ga = document.createElement("script")
-    ga.type = "text/javascript"
+    ga.type = "text/javascript" 
     ga.async = true
     ga.src = ((if "https:" is document.location.protocol then "https://ssl" else "http://www")) + ".google-analytics.com/ga.js"
     firstScript = document.getElementsByTagName("script")[0]

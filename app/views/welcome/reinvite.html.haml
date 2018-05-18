@@ -10,5 +10,5 @@
             = label_tag :email, "Email"
             = email_field_tag :email, nil, class: 'form-control',placeholder: 'Email Address'
           %button.btn.btn-primary.btn-block{:type => "submit"} Resend me invitation instructions
-          = link_to "Log in", new_session_path(:user)
+          = link_to "Login", new_session_path(:user)
           .right= link_to "Forgot your password?", new_password_path(:user)

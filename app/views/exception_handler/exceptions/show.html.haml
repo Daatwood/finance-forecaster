@@ -1,0 +1,8 @@
+- content_for :title, "#{@exception.status.to_s} - #{Rails.application.class.parent_name.titleize}"
+%section
+  .jumbotron.text-center
+    %h1="#{@exception.status == 404 ? 'Hmmmm' : '!!!'}"
+    %br
+    %p.lead=@exception.description.html_safe
+    %br
+    = link_to 'Return Home', root_path, class: 'btn btn-lg btn-info'

@@ -9,8 +9,16 @@ class DashboardController < ApplicationController
     @transaction = current_user.bank.transactions.new
     unless @bills.blank?
       @forecast = ForecastTransactions.call(current_user)
+    end
+  end
+
+  def chart
+    @bills = current_user.bills
+    unless @bills.blank?
+      @forecast = ForecastTransactions.call(current_user)
       @chart_data = CalculateBalanceChart.call(@forecast)
     end
+    render json: @chart_data
   end
 
   # POST skip_payment?[:recurrence_id,:date]
@@ -39,6 +47,16 @@ class DashboardController < ApplicationController
     end
     respond_to do |format|
       format.js {render action: 'success'}
+    end
+  end
+
+  def generate_examples
+    begin
+      AddExampleData.call(current_user)
+    rescue
+      redirect_to dashboard_path, notice: 'Examples added.'
+    else
+      redirect_to dashboard_path, warning: 'An error occurred adding examples.'
     end
   end
 

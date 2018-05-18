@@ -75,8 +75,16 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    dotenv (2.4.0)
+    dotenv-rails (2.4.0)
+      dotenv (= 2.4.0)
+      railties (>= 3.2, < 6.0)
     erubi (1.7.1)
     erubis (2.7.0)
+    exception_handler (0.7.7.0)
+      bundler
+      rails (>= 4.2.0)
+      responders
     execjs (2.7.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -239,6 +247,8 @@ DEPENDENCIES
   chartkick
   coffee-rails (~> 4.0.0)
   devise
+  dotenv-rails
+  exception_handler
   haml-rails
   html2haml
   jbuilder (~> 2.0)
@@ -263,7 +273,7 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 RUBY VERSION
-   ruby 2.2.4p230
+   ruby 2.4.4p296
 
 BUNDLED WITH
    1.16.1

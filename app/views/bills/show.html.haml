@@ -56,36 +56,3 @@
         = render 'exclusions/form', bill: @bill
       .panel-body
         = render 'exclusions/index', exclusions: @exclusions
-:javascript
-  $(document).ready(function(){
-    $('#new-transaction-button').click(function(){
-      $button = $('#new-transaction-button')
-      $form = $('#new-transaction-form')
-      $form.toggle();
-      if ($form.is(":visible") ){
-        $button.html("Cancel")
-      } else {
-        $button.html("Add Transaction")
-      }
-    });
-    $('#new-recurrence-button').click(function(){
-      $button = $('#new-recurrence-button')
-      $form = $('#new-recurrence-form')
-      $form.toggle();
-      if ($form.is(":visible") ){
-        $button.html("Cancel")
-      } else {
-        $button.html("Add Recurrence")
-      }
-    });
-    $('#new-exception-button').click(function(){
-      $button = $('#new-exception-button')
-      $form = $('#new-exception-form')
-      $form.toggle();
-      if ($form.is(":visible") ){
-        $button.html("Cancel")
-      } else {
-        $button.html("Add Exception")
-      }
-    });
-  });
