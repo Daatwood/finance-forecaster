@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TieBillsToBanks < ActiveRecord::Migration
   def self.up
     add_column :bills, :bank_id, :integer

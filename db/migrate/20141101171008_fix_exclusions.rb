@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixExclusions < ActiveRecord::Migration
   def self.up
     add_column :exclusions, :bill_id, :integer

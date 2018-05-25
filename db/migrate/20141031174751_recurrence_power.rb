@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecurrencePower < ActiveRecord::Migration
   def self.up
     add_column :recurrences, :active_at, :datetime

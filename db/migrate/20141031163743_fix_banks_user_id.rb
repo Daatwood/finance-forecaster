@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixBanksUserId < ActiveRecord::Migration
   def self.up
     add_column :banks, :user_id, :integer

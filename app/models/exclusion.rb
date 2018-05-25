@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class Exclusion < ActiveRecord::Base
   belongs_to :bill
 
   validates_presence_of :bill
 
-  default_scope {order('date ASC')}
-
+  default_scope { order('date ASC') }
 end

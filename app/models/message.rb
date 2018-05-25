@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Message
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -7,7 +9,7 @@ class Message
 
   validates_presence_of :name, :email, :subject, :content
 
-  validates_format_of :email, :with => %r{.+@.+\..+}
+  validates_format_of :email, with: /.+@.+\..+/
 
   def initialize(attributes = {})
     return super() unless attributes
@@ -20,5 +22,4 @@ class Message
   def persisted?
     false
   end
-
 end

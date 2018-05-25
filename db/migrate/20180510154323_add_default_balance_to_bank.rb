@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDefaultBalanceToBank < ActiveRecord::Migration
   def up
     change_column :banks, :balance, :integer, default: 0
@@ -6,5 +8,4 @@ class AddDefaultBalanceToBank < ActiveRecord::Migration
   def down
     change_column :banks, :balance, :integer, default: nil
   end
-
 end

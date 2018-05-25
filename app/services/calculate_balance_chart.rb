@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CalculateBalanceChart
   include Service
 
@@ -6,7 +8,7 @@ class CalculateBalanceChart
   end
 
   def call
-    @forecast.reduce({}, :merge).each_with_object([]) do |(date,transactions),arr|
+    @forecast.reduce({}, :merge).each_with_object([]) do |(date, transactions), arr|
       arr << [date, transactions.last[:balance]]
     end
   end

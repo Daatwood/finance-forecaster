@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RefactorModels < ActiveRecord::Migration
   # trimming the fat
   def up

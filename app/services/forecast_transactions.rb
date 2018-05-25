@@ -1,19 +1,19 @@
-=begin
+# frozen_string_literal: true
 
-Forecast Transactions
-
-Transverse all user's recurrences and create a transaction hash for each 
-occurance until end_date is reached for that recurrence. Will not include 
-transactions that the same parent bill and share a matching exclusion date. 
-Once list of transaction hashes is gather, its sorted by date and user's current
-balance is ran through each transaction saving the resulting balance in the
-transaction hash.
-
-=end
+#
+# Forecast Transactions
+#
+# Transverse all user's recurrences and create a transaction hash for each
+# occurance until end_date is reached for that recurrence. Will not include
+# transactions that the same parent bill and share a matching exclusion date.
+# Once list of transaction hashes is gather, its sorted by date and user's current
+# balance is ran through each transaction saving the resulting balance in the
+# transaction hash.
+#
 class ForecastTransactions
   include Service
 
-  def initialize(user, timespan = 6.months, limit=365)
+  def initialize(user, timespan = 6.months, limit = 365)
     @user = user
     @timespan = timespan
     @limit = limit
@@ -25,12 +25,12 @@ class ForecastTransactions
     simulate_balance(@forecast.sort)
   end
 
-  #private
+  # private
 
   def forecast_recurrences
     @forecast = {}
     @until = @user.recurrences.order(active_at: :asc).first.active_at + @timespan
-    @user.recurrences.where("active_at <= ?", @until).find_each do |re|
+    @user.recurrences.where('active_at <= ?', @until).find_each do |re|
       @tdate = re.active_at.to_date
       begin
         # Do not add if parent has a exlusion for the date
@@ -41,7 +41,7 @@ class ForecastTransactions
         # Recurrence stop here if frequency is 'once'
         break if re.once?
         # Recurrence stops once it exceeded the expiration date
-        break if (!re.expires_at.nil? && @tdate > re.expires_at.to_date)
+        break if !re.expires_at.nil? && @tdate > re.expires_at.to_date
         # Move date to next due date
         @tdate += re.frequency_time
       end while (@tdate <= @until)
@@ -49,7 +49,7 @@ class ForecastTransactions
   end
 
   def build_transaction(recurrence)
-    { 
+    {
       summary: summary_and_blackouts[recurrence.bill_id][:summary],
       note: recurrence.note,
       amount: recurrence.amount,
@@ -66,24 +66,23 @@ class ForecastTransactions
 
   def summary_and_blackouts
     @summary_and_blackouts ||= @user.bills.includes(:exclusions)
-      .pluck('exclusions.date', 'bills.id', 'bills.summary')
-      .each_with_object({}) do |(date,bill_id, summary),hsh| 
-        hsh[bill_id] ||= {}
-        hsh[bill_id][:blackouts] ||= []
-        hsh[bill_id][:blackouts] << date.to_date.to_s unless date.nil?
-        hsh[bill_id][:summary] ||= summary
-      end
+                                    .pluck('exclusions.date', 'bills.id', 'bills.summary')
+                                    .each_with_object({}) do |(date, bill_id, summary), hsh|
+      hsh[bill_id] ||= {}
+      hsh[bill_id][:blackouts] ||= []
+      hsh[bill_id][:blackouts] << date.to_date.to_s unless date.nil?
+      hsh[bill_id][:summary] ||= summary
+    end
   end
 
   # Sort the forecast and step through each transaction, saving every step
   def simulate_balance(forecast)
     balance = @user.bank.balance
     forecast.map do |date, transactions|
-      transactions = transactions.each do |transaction| 
+      transactions = transactions.each do |transaction|
         transaction[:balance] = balance += transaction[:amount]
       end
       { date => transactions }
     end
   end
-
 end

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class TransactionsController < ApplicationController
   respond_to :html, :js, :json
   before_action :authenticate_user!
-  before_action :new_transaction, only: [:index, :new]
-  before_action :set_transaction, only: [:show, :edit, :update, :destroy]
+  before_action :new_transaction, only: %i[index new]
+  before_action :set_transaction, only: %i[show edit update destroy]
 
   def index
     @bank = current_user.bank
@@ -13,7 +15,7 @@ class TransactionsController < ApplicationController
   def create
     tparams = transaction_params
     @bank = current_user.bank
-    if tparams[:summary] == "Readjustment"
+    if tparams[:summary] == 'Readjustment'
       new_balance = tparams.delete(:amount).to_i
       tparams[:amount] = new_balance - @bank.balance
     elsif tparams[:amount].to_i == 0
@@ -22,7 +24,7 @@ class TransactionsController < ApplicationController
     end
     @transaction = @bank.transactions.new(tparams)
 
-    if (@transaction.save)
+    if @transaction.save
       @bank.update(balance: @bank.balance + @transaction.amount)
     end
     flash[:notice] = "Added transaction for $#{@transaction.amount}. Balance updated."
@@ -36,16 +38,14 @@ class TransactionsController < ApplicationController
         format.html { redirect_to(dashboard_path, notice: 'Transaction update.') }
         format.json { respond_with_bip(@transaction) }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
         format.json { respond_with_bip(@transaction) }
       end
     end
   end
 
   def destroy
-    if @transaction.destroy
-      flash[:notice] = 'Transaction deleted.'
-    end
+    flash[:notice] = 'Transaction deleted.' if @transaction.destroy
 
     respond_with(@transaction)
   end

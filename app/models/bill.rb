@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Bill < ActiveRecord::Base
-  KINDS = %w(income expense)
+  KINDS = %w[income expense].freeze
 
   belongs_to :bank
 
@@ -9,16 +11,16 @@ class Bill < ActiveRecord::Base
   accepts_nested_attributes_for :recurrences
 
   before_validation :normalize_bill_type
+  before_save :color_check
 
-  validates_presence_of :summary
-  validates :bill_type, inclusion: { in: Bill::KINDS, 
-    message: "%{value} must be one of the following: #{Bill::KINDS.join(", ")}"
-  }
+  validates_presence_of :summary, :color
+  validates :bill_type, inclusion: { in: Bill::KINDS,
+                                     message: "%{value} must be one of the following: #{Bill::KINDS.join(', ')}" }
 
   # Defines income? expense?
   Bill::KINDS.each do |kind|
     define_method("#{kind}?") do
-      kind == self.bill_type
+      kind == bill_type
     end
   end
 
@@ -27,9 +29,12 @@ class Bill < ActiveRecord::Base
   end
 
   private
-  
+
   def normalize_bill_type
     self.bill_type = bill_type.downcase.strip if bill_type
   end
 
+  def color_check
+    self.color = "##{"%06x" % (rand * 0xffffff)}" unless color
+  end
 end

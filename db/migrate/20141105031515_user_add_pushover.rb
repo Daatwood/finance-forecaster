@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserAddPushover < ActiveRecord::Migration
   def self.up
     add_column :users, :pushover_token, :string

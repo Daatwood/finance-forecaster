@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserMailer < ActionMailer::Base
   include Devise::Mailers::Helpers
 
@@ -7,7 +9,7 @@ class UserMailer < ActionMailer::Base
     devise_mail(record, :confirmation_instructions)
   end
 
-  def reset_password_instructions(record,token,options)
+  def reset_password_instructions(record, token, _options)
     @token = token
     devise_mail(record, :reset_password_instructions)
   end
@@ -16,7 +18,7 @@ class UserMailer < ActionMailer::Base
     devise_mail(record, :unlock_instructions)
   end
 
-  def invitation_instructions(record, token, opts={})
+  def invitation_instructions(record, token, opts = {})
     @token = token
     devise_mail(record, :invitation_instructions, opts)
   end

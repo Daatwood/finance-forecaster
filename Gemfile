@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 ruby '~> 2.4.4'
 
@@ -8,8 +10,8 @@ gem 'pg', '~> 0.19'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Bootstrap for CSS
-gem 'bootstrap-sass', '~> 3.3.0'
 gem 'autoprefixer-rails'
+gem 'bootstrap-sass', '~> 3.3.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
@@ -21,7 +23,7 @@ gem 'devise'
 # gem 'griddler'
 gem 'postmark-rails'
 # Edit in place
-gem "best_in_place"
+gem 'best_in_place'
 # Bootstrap 3 Colorpicker
 gem 'jquery-minicolors-rails'
 # Use haml as the templating engine
@@ -33,9 +35,9 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'sdoc', '~> 0.4.0', group: :doc
 # Kickass javascript charts
-gem "chartkick"
+gem 'chartkick'
 # Handle err routes
 gem 'exception_handler'
 # Sitemap Generator
@@ -50,16 +52,17 @@ gem 'bootstrap-addons-rails', group: :assets
 
 # Open email instantly in browser
 group :development do
-  gem 'web-console', '~> 2.0'
   gem 'better_errors'
   gem 'html2haml'
+  gem 'letter_opener'
   gem 'quiet_assets'
   gem 'rails_layout'
-  gem 'letter_opener'
+  gem 'rubocop'
+  gem 'web-console', '~> 2.0'
 end
 
 # Heroku Pinger
-#gem 'newrelic_rpm'
+# gem 'newrelic_rpm'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -67,13 +70,13 @@ end
 # Use unicorn as the app server
 group :development, :test do
   gem 'dotenv-rails'
+  gem 'railroady'
   gem 'unicorn'
   gem 'unicorn-rails'
-  gem 'railroady'
 end
 
 group :production do
-  gem "passenger"
+  gem 'passenger'
   gem 'rails_12factor'
 end
 

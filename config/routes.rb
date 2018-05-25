@@ -1,5 +1,6 @@
-Rails.application.routes.draw do
+# frozen_string_literal: true
 
+Rails.application.routes.draw do
   resources :transactions
 
   resources :exclusions
@@ -12,9 +13,9 @@ Rails.application.routes.draw do
   resources :bills
 
   resources :accounts
-  
+
   devise_for :users
-  
+
   get 'dashboard' => 'dashboard#index'
   get 'dashboard_chart' => 'dashboard#chart'
   post 'skip_payment' => 'dashboard#skip_payment'
@@ -22,7 +23,7 @@ Rails.application.routes.draw do
   post 'generate_examples' => 'dashboard#generate_examples'
 
   get 'contact' => 'contact#index'
-  post 'contact'=> 'contact#create'
+  post 'contact' => 'contact#create'
 
   root 'welcome#landing'
 end

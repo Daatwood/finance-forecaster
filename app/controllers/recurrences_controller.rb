@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class RecurrencesController < ApplicationController
   respond_to :html, :js, :json
   before_action :authenticate_user!
-  before_action :set_recurrence, only: [:show, :edit, :update, :destroy, :advance]
+  before_action :set_recurrence, only: %i[show edit update destroy advance]
 
   def index
     @recurrences = Recurrence.all
@@ -17,8 +19,7 @@ class RecurrencesController < ApplicationController
     respond_with(@recurrence)
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @recurrence = Recurrence.new(recurrence_params)
@@ -32,7 +33,7 @@ class RecurrencesController < ApplicationController
         format.html { redirect_to(:back, notice: 'Recurrence update.') }
         format.json { respond_with_bip(@recurrence) }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
         format.json { respond_with_bip(@recurrence) }
       end
     end
@@ -44,7 +45,7 @@ class RecurrencesController < ApplicationController
         format.html { redirect_to(:back, notice: 'Recurrence update.') }
         format.json { respond_with_bip(@recurrence) }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
         format.json { respond_with_bip(@recurrence) }
       end
     end
@@ -56,11 +57,12 @@ class RecurrencesController < ApplicationController
   end
 
   private
-    def set_recurrence
-      @recurrence = Recurrence.find(params[:id])
-    end
 
-    def recurrence_params
-      params.require(:recurrence).permit(:bill_id,:frequency,:interval,:active_at,:expires_at,:amount,:note)
-    end
+  def set_recurrence
+    @recurrence = Recurrence.find(params[:id])
+  end
+
+  def recurrence_params
+    params.require(:recurrence).permit(:bill_id, :frequency, :interval, :active_at, :expires_at, :amount, :note)
+  end
 end

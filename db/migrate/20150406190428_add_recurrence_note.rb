@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddRecurrenceNote < ActiveRecord::Migration
   def self.up
     add_column :recurrences, :note, :string

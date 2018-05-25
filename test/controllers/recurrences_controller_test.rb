@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class RecurrencesControllerTest < ActionController::TestCase
@@ -5,41 +7,41 @@ class RecurrencesControllerTest < ActionController::TestCase
     @recurrence = recurrences(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:recurrences)
   end
 
-  test "should get new" do
+  test 'should get new' do
     get :new
     assert_response :success
   end
 
-  test "should create recurrence" do
+  test 'should create recurrence' do
     assert_difference('Recurrence.count') do
-      post :create, recurrence: {  }
+      post :create, recurrence: {}
     end
 
     assert_redirected_to recurrence_path(assigns(:recurrence))
   end
 
-  test "should show recurrence" do
+  test 'should show recurrence' do
     get :show, id: @recurrence
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get :edit, id: @recurrence
     assert_response :success
   end
 
-  test "should update recurrence" do
-    patch :update, id: @recurrence, recurrence: {  }
+  test 'should update recurrence' do
+    patch :update, id: @recurrence, recurrence: {}
     assert_redirected_to recurrence_path(assigns(:recurrence))
   end
 
-  test "should destroy recurrence" do
+  test 'should destroy recurrence' do
     assert_difference('Recurrence.count', -1) do
       delete :destroy, id: @recurrence
     end

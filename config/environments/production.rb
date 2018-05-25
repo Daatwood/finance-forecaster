@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -69,8 +71,8 @@ Rails.application.configure do
   # config.action_mailer.default :charset => "utf-8"
 
   config.action_mailer.delivery_method   = :postmark
-  config.action_mailer.postmark_settings = { :api_key => ENV['POSTMARK_API_KEY'] }
-  config.action_mailer.default_url_options = { :host => ENV['PUBLIC_DOMAIN'] }
+  config.action_mailer.postmark_settings = { api_key: ENV['POSTMARK_API_KEY'] }
+  config.action_mailer.default_url_options = { host: ENV['PUBLIC_DOMAIN'] }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -89,7 +91,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Send off errors to an internal email
-  config.exception_handler = { 
-    email: ENV["INBOUND_EMAIL_ADDRESS"]
+  config.exception_handler = {
+    email: ENV['INBOUND_EMAIL_ADDRESS']
   }
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecurrenceStaticPrice < ActiveRecord::Migration
   def self.up
     add_column :recurrences, :static_amount, :boolean

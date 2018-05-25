@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Transaction < ActiveRecord::Base
-  default_scope {order('date ASC')}
+  default_scope { order('date ASC') }
   belongs_to :bank
 
   validates_presence_of :date
@@ -19,5 +21,4 @@ class Transaction < ActiveRecord::Base
   def income?
     amount > 0
   end
-
 end

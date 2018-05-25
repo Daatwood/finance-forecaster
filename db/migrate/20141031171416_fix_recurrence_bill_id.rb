@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixRecurrenceBillId < ActiveRecord::Migration
   def self.up
     add_column :recurrences, :bill_id, :integer

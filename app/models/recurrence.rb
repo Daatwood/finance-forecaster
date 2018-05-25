@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 class Recurrence < ActiveRecord::Base
-  FREQUENCIES = { 
-    'once' => 0, 
-    'daily' => 1.day, 
-    'weekly' => 7.days, 
-    'monthly' => 1.month, 
+  FREQUENCIES = {
+    'once' => 0,
+    'daily' => 1.day,
+    'weekly' => 7.days,
+    'monthly' => 1.month,
     'yearly' => 1.year
-  }
+  }.freeze
 
   FREQUENCY_KINDS = Recurrence::FREQUENCIES.keys
 
-  default_scope {order('active_at ASC')}
+  default_scope { order('active_at ASC') }
 
   belongs_to :bill
 
@@ -18,29 +20,29 @@ class Recurrence < ActiveRecord::Base
 
   validates_presence_of :frequency, :active_at, :interval
 
-  validates :frequency, inclusion: { 
-    in: Recurrence::FREQUENCY_KINDS, 
-    message: "%{value} must be one of the following: 
+  validates :frequency, inclusion: {
+    in: Recurrence::FREQUENCY_KINDS,
+    message: "%{value} must be one of the following:
       #{Recurrence::FREQUENCY_KINDS.join(', ')}"
   }
 
   # Defines: once? daily? weekly? monthly? yearly?
   FREQUENCY_KINDS.each do |freq|
-    define_method("#{freq}?") do 
-      freq == self.frequency
+    define_method("#{freq}?") do
+      freq == frequency
     end
   end
 
   def next_date
     active_at.to_date + frequency_time unless once?
   end
-  
+
   def forever?
     expires_at.blank?
   end
 
   def frequency_time
-    (Recurrence::FREQUENCIES[self.frequency].seconds * self.interval / 1.day).days
+    (Recurrence::FREQUENCIES[frequency].seconds * interval / 1.day).days
   end
 
   private
@@ -52,5 +54,4 @@ class Recurrence < ActiveRecord::Base
   def adjust_amount
     self.amount = amount * -1 if bill.expense? && amount > 0
   end
-
 end
