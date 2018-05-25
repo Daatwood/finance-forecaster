@@ -1,0 +1,31 @@
+.jumbotron-bg {
+	height: 400px;
+	border: 1px black solid;
+	padding: 15px 5px 50px 5px;
+	overflow: auto;
+	background-size: cover;
+	border-radius: 16px;
+	background: url(asset-path('splash.jpg')) no-repeat center center fixed;
+	h1,
+	p {
+		color: #ddd;
+		text-shadow: #444 0 1px 1px;
+	}
+}
+.landing-splash {
+	.jumbotron {
+		background-color: #e3e3e3;
+		color: #4d4d4d;
+		padding-bottom: 50px;
+	}
+}
+
+.navbar-brand {
+	img.brand-img {
+		float: left;
+	}
+	span.brand-header {
+		padding-left: 10px;
+		line-height: 32px;
+	}
+}

@@ -6,7 +6,10 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to 'Finance Forecaster', root_url, class: 'navbar-brand'
+      
+      = link_to root_url, class: 'navbar-brand' do
+        = image_tag("apple-touch-icon.png", size: '32', class:"brand-img",alt:'')
+        %span.brand-header Finance Forecaster
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?

@@ -4,7 +4,7 @@
 @import url("//fonts.googleapis.com/css?family=Raleway:900");
 
 $black_50: rgba(0, 0, 0, 0.5);
-$primary: #5cb85c;
+$primary: #51bf87;
 $secondary: #f6f6f6;
 $tertiary: #e8e8e8;
 $nav-color: #222;
@@ -13,177 +13,159 @@ $nav-text-hover: #fff;
 $well-color: #f8f8ff;
 
 html {
-  position: relative;
-  min-height: 100%;
-  background-color: whitesmoke;
+	position: relative;
+	min-height: 100%;
 }
 body {
-  margin-bottom: 60px;
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 300;
+	margin-bottom: 60px;
+	font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	font-weight: 300;
 }
 
 .copyright {
-  padding-left: 20px;
-  padding-right: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 // apply styles to HTML elements
 // to make views framework-neutral
 main {
-  @extend .container;
-  background-color: whitesmoke;
-  width: 100%;
-  padding-bottom: 0px !important;
-  margin-top: 0px !important;
-  min-height: 91%;
+	@extend .container;
+	width: 100%;
+	padding-bottom: 0px !important;
+	margin-top: 0px !important;
+	min-height: 91%;
 }
 
 main {
-  @extend .container;
-  padding-bottom: 80px;
-  width: 100%;
-  margin-top: 51px; // accommodate the navbar
+	@extend .container;
+	padding-bottom: 80px;
+	width: 100%;
+	margin-top: 51px; // accommodate the navbar 5cb85c
+	background-color: #808080;
+	background-image: linear-gradient(to bottom, #5cb85c, #333);
 }
 section {
-  @extend .row;
-  margin-top: 20px;
+	@extend .row;
+	margin-top: 20px;
 }
 
 .form-btn {
-  @extend .container;
-  margin: 10px;
-  display: none;
+	@extend .container;
+	margin: 10px;
+	display: none;
 }
 
 .img-centered {
-  margin: 0 auto;
+	margin: 0 auto;
 }
 .content-row {
-  margin-top: 30px;
+	margin-top: 30px;
 }
 visitor-section {
-  min-height: 355px;
+	min-height: 355px;
 }
 @media (max-width: 767px) {
-  section {
-    padding: 75px 0;
-  }
+	section {
+		padding: 75px 0;
+	}
 }
 
 a {
-  color: $primary;
-  -webkit-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  transition: all 0.5s;
+	color: $primary;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	transition: all 0.5s;
 }
 a:hover,
 a:focus {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 p {
-  font-size: 18px;
-  line-height: 1.5;
+	font-size: 18px;
+	line-height: 1.5;
 }
 h1,
 h2 {
-  font-weight: 900;
-  //text-transform: uppercase;
+	font-weight: 900;
+	//text-transform: uppercase;
 }
 @media (min-width: 481px) {
-  h1 {
-    font-size: 3em !important;
-  }
-  h2 {
-    font-size: 2.75em !important;
-  }
+	h1 {
+		font-size: 3em !important;
+	}
+	h2 {
+		font-size: 2.75em !important;
+	}
 }
 
 h1 small {
-  font-size: 50% !important;
+	font-size: 50% !important;
 }
 
 hr {
-  max-width: 100px;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  height: 2px;
-  margin: 15px auto;
+	max-width: 100px;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	height: 2px;
+	margin: 15px auto;
 }
 hr.left {
-  margin: 15px auto 15px 0;
+	margin: 15px auto 15px 0;
 }
 hr.right {
-  margin: 15px 0 15px auto;
+	margin: 15px 0 15px auto;
 }
 hr.colored {
-  border-color: $primary;
-  border-width: medium;
+	border-color: $primary;
+	border-width: medium;
 }
 @media (min-width: 768px) {
-  hr {
-    max-width: 320px;
-    margin: 20px auto;
-  }
-  hr.left {
-    margin: 20px auto 20px 0;
-  }
-  hr.right {
-    margin: 20px 0 20px auto;
-  }
+	hr {
+		max-width: 320px;
+		margin: 20px auto;
+	}
+	hr.left {
+		margin: 20px auto 20px 0;
+	}
+	hr.right {
+		margin: 20px 0 20px auto;
+	}
 }
 .text-primary {
-  color: $primary;
+	color: $primary;
 }
 
 // make all images responsive by default
 img {
-  @extend .img-responsive;
-  margin: 0 auto;
-}
-
-#updates,
-#mods {
-  background: $secondary;
-  margin-top: 0;
-  padding: 100px 0;
-}
-#apps,
-#contacts {
-  background: $tertiary;
-  margin-top: 0;
-  padding: 100px 0;
+	@extend .img-responsive;
+	margin: 0 auto;
 }
 
 div.well {
-  background-color: $well-color;
+	background-color: $well-color;
 }
 
-// make all images responsive by default
-img {
-  @extend .img-responsive;
-  margin: 0 auto;
-}
 // override for the 'Home' navigation link
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
 // to make views framework-neutral
 .column {
-  @extend .col-md-6;
-  @extend .text-center;
+	@extend .col-md-6;
+	@extend .text-center;
 }
 .form {
-  @extend .col-md-6;
+	@extend .col-md-6;
 }
 .form-centered {
-  @extend .col-md-6;
-  @extend .text-center;
+	@extend .col-md-6;
+	@extend .text-center;
 }
 .submit {
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .btn-lg;
+	@extend .btn;
+	@extend .btn-primary;
+	@extend .btn-lg;
 }

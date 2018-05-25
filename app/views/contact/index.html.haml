@@ -17,8 +17,8 @@
             = f.label :subject
             = f.text_field :subject, autocomplete: "off", class:'form-control', placeholder: 'Reason for contact', required: true
           .form-group.float-label-control
-            = f.label :content
-            = f.text_field :content, autocomplete: "off", class:'form-control', placeholder: 'Please explain', required: true
+            = f.label :content, 'Message'
+            = f.text_field :content, autocomplete: "off", class:'form-control', placeholder: 'How can I help you?', required: true
           .row
             .col
               %button.btn.btn-success.btn-block{:type => "submit"} Send Message
