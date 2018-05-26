@@ -35,17 +35,13 @@ body {
 main {
 	@extend .container;
 	width: 100%;
-	padding-bottom: 0px !important;
 	margin-top: 0px !important;
 	min-height: 91%;
+	margin-top: 51px; // accommodate the navbar
+	padding-bottom: 10px;
+	width: 100%;
 }
 
-main {
-	@extend .container;
-	padding-bottom: 80px;
-	width: 100%;
-	margin-top: 51px; // accommodate the navbar
-}
 section {
 	@extend .row;
 	margin-top: 20px;
@@ -168,4 +164,8 @@ div.well {
 	@extend .btn;
 	@extend .btn-primary;
 	@extend .btn-lg;
+}
+
+.text-info {
+	color: white;
 }

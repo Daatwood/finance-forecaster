@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   resources :accounts
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations" }
 
   get 'dashboard' => 'dashboard#index'
   get 'dashboard_chart' => 'dashboard#chart'

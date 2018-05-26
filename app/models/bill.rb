@@ -10,8 +10,7 @@ class Bill < ActiveRecord::Base
 
   accepts_nested_attributes_for :recurrences
 
-  before_validation :normalize_bill_type
-  before_save :color_check
+  before_validation :normalize_bill_type, :color_check
 
   validates_presence_of :summary, :color
   validates :bill_type, inclusion: { in: Bill::KINDS,

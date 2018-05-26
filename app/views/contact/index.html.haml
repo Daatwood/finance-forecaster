@@ -21,4 +21,5 @@
             = f.text_field :content, autocomplete: "off", class:'form-control', placeholder: 'How can I help you?', required: true
           .row
             .col
+              = recaptcha_tags
               %button.btn.btn-success.btn-block{:type => "submit"} Send Message

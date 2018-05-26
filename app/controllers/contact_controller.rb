@@ -7,10 +7,11 @@ class ContactController < ApplicationController
 
   def create
     @message = Message.new(message_params)
-    MessageMailer.contact(@message).deliver_now if @message.valid?
+    
 
     respond_to do |format|
-      if @message.valid?
+      if verify_recaptcha(model: @message) && @message.valid?
+        MessageMailer.contact(@message).deliver_now
         format.html { redirect_to(root_path, notice: 'Message was sent.') }
       else
         format.html { render action: 'index' }

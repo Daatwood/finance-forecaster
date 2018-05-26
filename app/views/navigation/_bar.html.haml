@@ -7,7 +7,7 @@
         %span.icon-bar
         %span.icon-bar
       
-      = link_to root_url, class: 'navbar-brand' do
+      = link_to user_signed_in? ? dashboard_path : root_url, class: 'navbar-brand' do
         = image_tag("apple-touch-icon.png", size: '32', class:"brand-img",alt:'')
         %span.brand-header Finance Forecaster
     .collapse.navbar-collapse

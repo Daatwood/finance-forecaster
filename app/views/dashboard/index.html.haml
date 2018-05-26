@@ -11,7 +11,7 @@
             %h1.text-center No Bills Found
             %p.lead
               Get started by adding some, 
-              = link_to 'click to add.', bills_path, class: 'text-info'
+              = link_to 'click to add.', bills_path
             %hr
             %h3.lead.text-black Need help getting started?
             = link_to 'Generate some examples', generate_examples_path, method: :post, class: 'btn-primary btn'
@@ -53,7 +53,7 @@
                       - transactions.each do |transaction|
                         %tr{id: "#{date}_#{transaction[:recurrence_id]}"}
                           %th
-                          %th= link_to transaction[:summary], bills_path+"/#{transaction[:bill_id]}", class: 'text-info'
+                          %th= link_to transaction[:summary], bills_path+"/#{transaction[:bill_id]}"
                           %th= transaction[:note]
                           %th{class: text_color_by_value(transaction[:amount])}= "$ #{transaction[:amount]}"
                           %th{class: text_color_by_value(transaction[:balance])}= "$ #{transaction[:balance]}"

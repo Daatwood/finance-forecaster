@@ -6,7 +6,7 @@
     .row
       .col-md-offset-4.col-md-4
         = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f|
-          = devise_error_messages!
+          = devise_error_messages!(resource)
           .form-group.float-label-control
             = f.label :email
             = f.email_field :email, autofocus: true, class:'form-control', placeholder: 'Email Address', required: true

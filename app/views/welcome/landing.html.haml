@@ -9,9 +9,10 @@
       Devise a plan to divide, conquer and predict your finances through 
       Intelligent bill forecasting. Keep track of purchases and income and
       forecast your future balance.
-      .pull-right
-        Already have an account?
-        = link_to 'Sign in', new_user_session_path
-      = link_to 'Sign up!', new_user_registration_path, class: 'btn btn-lg btn-primary'
-      
-  
+      - if !user_signed_in?
+        .pull-right
+          Already have an account?
+          = link_to 'Sign in', new_user_session_path
+        = link_to 'Sign up!', new_user_registration_path, class: 'btn btn-lg btn-primary'
+        
+    
