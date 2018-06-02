@@ -8,7 +8,7 @@ class TransactionsController < ApplicationController
 
   def index
     @bank = current_user.bank
-    @transactions = current_user.transactions
+    @transactions = current_user.transactions.order(date: :desc)
     respond_with(@transactions)
   end
 

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Transaction < ActiveRecord::Base
-  default_scope { order('date ASC') }
   belongs_to :bank
 
   validates_presence_of :date
