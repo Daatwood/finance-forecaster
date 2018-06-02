@@ -32,9 +32,8 @@ class TransactionsController < ApplicationController
   end
 
   def update
-    updated = @transaction.update(transaction_params)
     respond_to do |format|
-      if updated
+      if @transaction.update(transaction_params)
         format.html { redirect_to(dashboard_path, notice: 'Transaction update.') }
         format.json { respond_with_bip(@transaction) }
       else

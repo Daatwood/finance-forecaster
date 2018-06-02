@@ -52,7 +52,7 @@
                         %th{colspan: 6}= date
                       - transactions.each do |transaction|
                         %tr{id: "#{date}_#{transaction[:recurrence_id]}"}
-                          %th
+                          %th= build_website_link(@websites[transaction[:bill_id]])
                           %th= link_to transaction[:summary], bills_path+"/#{transaction[:bill_id]}"
                           %th= transaction[:note]
                           %th{class: text_color_by_value(transaction[:amount])}= "$ #{transaction[:amount]}"

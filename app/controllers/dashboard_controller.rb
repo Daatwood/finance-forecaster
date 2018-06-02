@@ -10,6 +10,7 @@ class DashboardController < ApplicationController
     @bills = current_user.bills
     @transaction = current_user.bank.transactions.new
     @forecast = ForecastTransactions.call(current_user) unless @bills.blank?
+    @websites = current_user.bills.where.not(website: nil).pluck(:id, :website).to_h
   end
 
   def chart
@@ -29,7 +30,7 @@ class DashboardController < ApplicationController
       @exclusion = @recurrence.bill.exclusions.create(date: params[:date])
     end
     respond_to do |format|
-      format.js { render action: 'success' }
+      format.js { render action: "success" }
     end
   end
 
@@ -46,16 +47,18 @@ class DashboardController < ApplicationController
       @bank.update(balance: @bank.balance + @transaction.amount)
     end
     respond_to do |format|
-      format.js { render action: 'success' }
+      format.js { render action: "success" }
     end
   end
 
   def generate_examples
-    AddExampleData.call(current_user)
-  rescue StandardError
-    redirect_to dashboard_path, notice: 'Examples added.'
-  else
-    redirect_to dashboard_path, warning: 'An error occurred adding examples.'
+    begin
+      AddExampleData.call(current_user)
+    rescue StandardError
+      redirect_to dashboard_path, notice: "Examples added."
+    else
+      redirect_to dashboard_path, warning: "An error occurred adding examples."
+    end
   end
 
   private

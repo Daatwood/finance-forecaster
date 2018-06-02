@@ -29,6 +29,10 @@
             .col-md-9
               = f.text_field :color, class: 'minicolors form-control', :style => "height:34px;"
           .form-group
+            %label.col-md-3.control-label{:for => "bill_website"} Link
+            .col-md-9
+              = f.text_field :website, class: 'form-control'
+          .form-group
             .col-md-offset-3.col-md-9
               %button.btn.btn-success.btn-md.btn-group{:type => "submit"} Update
 
@@ -41,7 +45,7 @@
       #new-recurrence-form{style:'display:none;'}
         = render 'recurrences/form', bill: @bill
       .panel-body
-        = render 'recurrences/index', recurrences: @recurrences
+        = render 'recurrences/index', recurrences: @recurrences || @bill.recurrences
 
 
 
@@ -55,4 +59,4 @@
       #new-exception-form{style:'display:none;'}
         = render 'exclusions/form', bill: @bill
       .panel-body
-        = render 'exclusions/index', exclusions: @exclusions
+        = render 'exclusions/index', exclusions: @exclusions || @bill.exclusions

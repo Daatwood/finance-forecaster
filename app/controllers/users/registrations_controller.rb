@@ -11,7 +11,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    puts "BOOMER"
     build_resource(sign_up_params)
 
     if verify_recaptcha(model: resource) 

@@ -35,18 +35,18 @@ class BillsController < ApplicationController
     @bill = current_user.bank.bills.new(bill_params)
     @bill.recurrences.new(recurrence_params)
     @bill.save
-    puts @bill.errors.inspect
     respond_with(@bill)
   end
 
   def update
-    updated = @bill.update(bill_params)
+    @recurrence = Recurrence.new
+    @exclusion = Exclusion.new
     respond_to do |format|
-      if updated
+      if @bill.update(bill_params)
         format.html { redirect_to(@bill, notice: 'Bill update.') }
         format.json { respond_with_bip(@bill) }
       else
-        format.html { render action: 'edit' }
+        format.html { render action: 'show' }
         format.json { respond_with_bip(@bill) }
       end
     end
@@ -78,14 +78,6 @@ class BillsController < ApplicationController
       :color,
       :website
     )
-    # recurrences_attributes: [
-    #   :id,
-    #   :frequency,
-    #   :expires_at,
-    #   :interval,
-    #   :active_at,
-    #   :amount,
-    #   :note])
   end
 
   def recurrence_params
