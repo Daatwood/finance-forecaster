@@ -12,7 +12,7 @@ class Bill < ActiveRecord::Base
 
   before_validation :normalize_bill_type, :color_check
 
-  validates_format_of :website, with: /\A(http(s)?:\/\/)/, message: 'must contain http'
+  validates_format_of :website, with: /\A(http(s)?:\/\/)/, message: 'must contain http', allow_blank: true
 
   validates_presence_of :summary, :color
   validates :bill_type, inclusion: { in: Bill::KINDS,
