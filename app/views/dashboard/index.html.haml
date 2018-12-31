@@ -39,23 +39,23 @@
               %table.table-focus.table.table-condensed.table-hover
                 %thead
                   %tr
-                    %th{colspan: 2} Date
-                    %th Summary
-                    %th
+                    %th Date
+                    %th Forcast
                     %th Change
-                    %th Forecast
+                    %th{colspan: 2} Transaction
+                    %th{colspan: 2} Link
                     %th.pull-right Actions
                 %tbody
                   - @forecast.each do |f|
                     - f.each do |date,transactions|
                       %tr
                         - if transactions.count > 1
-                          %th{colspan: 4}= date
-                          - sum = transactions.map{|t| t[:amount]}.inject(:+)
-                          %th.lead{class: text_color_by_value(sum)}= "$ #{sum}"
+                          %th= date
                           - ending = transactions.last[:balance]
                           %th.lead{class: text_color_by_value(ending)}= "$ #{ending}"
-                          %th
+                          - sum = transactions.map{|t| t[:amount]}.inject(:+)
+                          %th.lead{class: text_color_by_value(sum)}= "$ #{sum}"
+                          %th{colspan: 5}
                       - transactions.each do |transaction|
                         %tr{id: "#{date}_#{transaction[:recurrence_id]}"}
                           - class_size = 'small'
@@ -64,11 +64,11 @@
                             - class_size = 'lead'
                           - else
                             %th
-                          %th= build_website_link(@websites[transaction[:bill_id]])
+                          %th{class: "#{text_color_by_value(transaction[:balance])} #{class_size}"}= "$ #{transaction[:balance]}"
+                          %th{class: "#{text_color_by_value(transaction[:amount])} #{class_size}"}= "$ #{transaction[:amount]}"
                           %th= link_to transaction[:summary], bills_path+"/#{transaction[:bill_id]}"
                           %th= transaction[:note]
-                          %th{class: "#{text_color_by_value(transaction[:amount])} #{class_size}"}= "$ #{transaction[:amount]}"
-                          %th{class: "#{text_color_by_value(transaction[:balance])} #{class_size}"}= "$ #{transaction[:balance]}"
+                          %th= build_website_link(@websites[transaction[:bill_id]])
                           %th
                             .btn-group.pull-right
                               = form_tag mark_paid_path, remote: true do
@@ -76,6 +76,8 @@
                                 = hidden_field_tag 'recurrence_id', transaction[:recurrence_id]
                                 = hidden_field_tag 'date', date
                                 = button_tag 'Mark Paid', class: 'btn btn-success btn-xs', data: { disable_with: "submitting"}
+                          %th
+                            .btn-group.pull-right
                               = form_tag skip_payment_path, remote: true do
                                 = hidden_field_tag 'recurrence_id', transaction[:recurrence_id]
                                 = hidden_field_tag 'date', date
