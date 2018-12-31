@@ -39,7 +39,7 @@
               %table.table-focus.table.table-condensed.table-hover
                 %thead
                   %tr
-                    %th Date
+                    %th{colspan: 2} Date
                     %th Summary
                     %th
                     %th Change
@@ -49,22 +49,26 @@
                   - @forecast.each do |f|
                     - f.each do |date,transactions|
                       %tr
-                        %th{colspan: 3}= date
                         - if transactions.count > 1
+                          %th{colspan: 4}= date
                           - sum = transactions.map{|t| t[:amount]}.inject(:+)
                           %th.lead{class: text_color_by_value(sum)}= "$ #{sum}"
                           - ending = transactions.last[:balance]
                           %th.lead{class: text_color_by_value(ending)}= "$ #{ending}"
                           %th
-                        - else
-                          %th{colspan: 3}
                       - transactions.each do |transaction|
                         %tr{id: "#{date}_#{transaction[:recurrence_id]}"}
+                          - class_size = 'small'
+                          - if transactions.count == 1
+                            %th= date
+                            - class_size = 'lead'
+                          - else
+                            %th
                           %th= build_website_link(@websites[transaction[:bill_id]])
                           %th= link_to transaction[:summary], bills_path+"/#{transaction[:bill_id]}"
                           %th= transaction[:note]
-                          %th{class: text_color_by_value(transaction[:amount])}= "$ #{transaction[:amount]}"
-                          %th{class: text_color_by_value(transaction[:balance])}= "$ #{transaction[:balance]}"
+                          %th{class: "#{text_color_by_value(transaction[:amount])} #{class_size}"}= "$ #{transaction[:amount]}"
+                          %th{class: "#{text_color_by_value(transaction[:balance])} #{class_size}"}= "$ #{transaction[:balance]}"
                           %th
                             .btn-group.pull-right
                               = form_tag mark_paid_path, remote: true do
