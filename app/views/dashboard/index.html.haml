@@ -49,7 +49,15 @@
                   - @forecast.each do |f|
                     - f.each do |date,transactions|
                       %tr
-                        %th{colspan: 6}= date
+                        %th{colspan: 3}= date
+                        - if transactions.count > 1
+                          - sum = transactions.map{|t| t[:amount]}.inject(:+)
+                          %th.lead{class: text_color_by_value(sum)}= "$ #{sum}"
+                          - ending = transactions.last[:balance]
+                          %th.lead{class: text_color_by_value(ending)}= "$ #{ending}"
+                          %th
+                        - else
+                          %th{colspan: 3}
                       - transactions.each do |transaction|
                         %tr{id: "#{date}_#{transaction[:recurrence_id]}"}
                           %th= build_website_link(@websites[transaction[:bill_id]])
