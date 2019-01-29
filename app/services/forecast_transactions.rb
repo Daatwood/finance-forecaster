@@ -13,7 +13,7 @@
 class ForecastTransactions
   include Service
 
-  def initialize(user, timespan = 6.months, limit = 365)
+  def initialize(user, timespan = 24.months, limit = 365)
     @user = user
     @timespan = timespan
     @limit = limit
